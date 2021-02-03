@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+		<title>Gravity</title>
+		<link rel="shortcut icon" type="image/png" href="favicon.png">
+		<style>
+			body {
+				background-color : #202020;
+			}
+			#BackgroundBox {
+				overflow: hidden;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				width: 800px;
+				height: 600px;
+				background-color: #000000;
+				border-width: 0px;
+			}
+			.stackedcanvas {
+				background : none;
+				background-color : transparent;
+				overflow : hidden;
+				position : absolute;
+				/*width : 100%;
+				height : 100%;*/
+				left: 0;
+				top: 0;
+			}
+			#MainCanvas {
+				z-index : 1;
+			}
+			#ForeCanvas {
+				z-index : 2;
+			}
+			#Emergency {
+				z-index : 3;
+				position : absolute;
+				left: 0;
+				top: 0;
+			}
+			#WorldCanvas {
+				
+			}
+		</style>
+		<script type="text/javascript" src="src/Main.js"></script>
+		<script type="text/javascript" src="src/Settings.js"></script>
+		<script type="text/javascript" src="src/Engine.js"></script>
+		<script type="text/javascript" src="src/Control/Info.js"></script>
+		<script type="text/javascript" src="src/Control/Controller.js"></script>
+		<script type="text/javascript" src="src/Control/Settings.js"></script>
+		
+		<script type="text/javascript" src="src/Lang/Lang.js"></script>
+		<script type="text/javascript" src="src/Lang/en.js"></script>
+		
+		<script type="text/javascript" src="src/GravityEngine/MathVector.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Sprites.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Stage.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Single.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Camera.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Registry.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Editor.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/StaticGrid.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Planet.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Object.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Body/Body.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Body/Circle.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Body/Ellipse.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Body/Ray.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/Actor.js"></script>
+		<script type="text/javascript" src="src/GravityEngine/HUD.js"></script>
+		
+		<script type="text/javascript" src="src/MenuEngine/Text.js"></script>
+		<script type="text/javascript" src="src/MenuEngine/MenuBase.js"></script>
+		
+		<script type="text/javascript" src="src/Menus/MainMenu.js"></script>
+		<script type="text/javascript" src="src/Menus/NewGame.js"></script>
+		
+		<script type="text/javascript" src="src/Objects/Player.js"></script>
+		<script type="text/javascript" src="src/Objects/Meteor.js"></script>
+		
+		<script type="text/javascript" src="src/Sprites/Data.js"></script>
+		
+		<script type="text/javascript" src="src/Stages/Tutorial.js"></script>
+		
+		<script type="text/javascript" src="src/Stages/Demo.js"></script>
+		<script type="text/javascript" src="src/Stages/ClockPlanet.js"></script>
+		<script type="text/javascript" src="src/Stages/ClockRace1.js"></script>
+		<script type="text/javascript" src="src/Stages/Transition.js"></script>
+		<script type="text/javascript" src="src/Stages/HUD60.js"></script>
+		
+		<script type="text/javascript" src="src/Audio/SFX.js"></script>
+	</head>
+	<body>
+		<div id="BackgroundBox">
+			<canvas class="stackedcanvas" id="MainCanvas" width="800" height="600">Your browser requires Canvas support to play this game.</canvas>
+			<!--<canvas class="stackedcanvas" id="ForeCanvas" width="800px" height="600px"></canvas>-->
+			<!-- <div id="EventCatcher" style="overflow:scroll; position: absolute; left: -100px; top: -100px; width: 1000px; height: 800px;">
+				<div style="height: 4000px; width: 10px;"></div>
+			</div> -->
+			<div id="Emergency" hidden>
+				<button onclick="resetControls()">Emergency Reset Controls</button>
+			</div>
+		</div>
+		<div id="Worlds">
+			<div id="WorldsSpace" style="height:600px"></div>
+			<canvas id="WorldCanvas">You should not be able to see this</canvas>
+			<canvas id="StaticWorldCanvas">You should not be able to see this</canvas>
+		</div>
+		<script>
+			begin();
+		</script>
+	</body>
+</html>
