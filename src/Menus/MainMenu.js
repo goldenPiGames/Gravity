@@ -1,14 +1,3 @@
-function doMainMenu() {
-	emergencyStuff.hidden = false;
-	runnee = mainMenu;
-	mainMenu.flowY = 0;
-	mainMenu.flowFirst = true;
-}
-const MAIN_BUTTON_START = 450;
-const MAIN_BUTTON_SPACING = 50;
-const MAIN_FLOW_HEIGHT = 300;
-const MAIN_FLOW_SPEED = 15;
-
 class MainMenu extends SingleMenuScreen {
 	constructor() {
 		super({
@@ -22,15 +11,13 @@ class MainMenu extends SingleMenuScreen {
 				{
 					lText : "MainMenu-Play",
 					func : function() {
-						selectNewGame();
-						//switchScreen(NewGameMenu);
+						switchScreen(StageSelectMenu)
 					}
 				},
 				{
 					lText : "MainMenu-Editor",
 					func : function() {
 						startLevelEditor();
-						//switchScreen(NewGameMenu);
 					}
 				},
 				/*{

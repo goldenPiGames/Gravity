@@ -8,19 +8,24 @@ class RayBody extends Body {
 		this.rotation = args.rotation || 0;
 	}
 	intersects(other) {
+		if (!(other instanceof Body)) {
+			return this.intersects(other.body);
+		}
 		var vect = new VectorPolar(this.r, this.rotation);
 		//console.log(other.midX, this.x, vect.x, other.midY, this.y, vect.y, this.r**2);
 		var t = ((other.midX - this.x) * vect.x + (other.midY - this.y) * vect.y) / this.r**2;
 		//console.log(t);
-		if (t < 0 || t > 1)
-			return false;
-		return (this.x + t*vect.x - other.midX)**2 + (this.y + t*vect.y - other.midY)**2 <= (this.width + other.radius)**2;
+		var tc = Math.max(0, Math.min(1, t));
+		var closeX = this.x + vect.x * tc;
+		var closeY = this.y + vect.y * tc;
+		var dist = (this.x + tc*vect.x - other.midX)**2 + (this.y + tc*vect.y - other.midY)**2;
+		return dist <= (this.width + other.getRadiusTowardsXY(closeX, closeY))**2;
 	}
 	drawTest(args = {}) {
 		
 		var vect = new VectorPolar(this.r, this.rotation);
 		//console.log(vect)
-		worldCtx.lineWidth = Math.max(this.width, 1);
+		worldCtx.lineWidth = Math.max(this.width, 2);
 		worldCtx.strokeStyle = "#FF0000";
 		worldCtx.beginPath();
 		worldCtx.moveTo(this.x, this.y);
@@ -28,3 +33,4 @@ class RayBody extends Body {
 		worldCtx.stroke();
 	}
 }
+registerBody(RayBody, "Ray");

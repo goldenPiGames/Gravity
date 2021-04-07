@@ -2,9 +2,15 @@ const OBRET_REMOVE = "REMOVE";
 
 class Stage {
 	constructor(args) {
+		if (typeof args == "string")
+			args = JSON.parse(args);
+		//this.texture = getSpriteSheet(args.texture || "StoneBrick");
 		this.width = args.width;
 		this.height = args.height;
-		this.objects = args.objects || [];
+		this.objects = args.objects.map(o=>objectFromRegistry(o));
+		this.background = backgroundFromRegistry(args.background || {"background":"Solid"}, this);
+		this.music = args.music;
+		playMusic(this.music);
 		this.gravX = typeof args.gravX == "number" ? args.gravX : args.gravity ? args.gravity.x : 0;
 		this.gravY = typeof args.gravT == "number" ? args.gravT : args.gravity ? args.gravity.y : .5;
 		this.time = 0;
@@ -20,14 +26,13 @@ class Stage {
 		this.time ++;
 	}
 	drawWorld() {
-		clearCanvas();
+		disableImageSmoothing(worldCtx);
 		//console.log("blah");
-		worldCtx.drawImage(staticWorldCanvas, 0, 0)
+		worldCtx.drawImage(staticWorldCanvas, 0, 0);
 		this.objects.forEach(oj=>oj.draw(this));
 		this.objectsNext.forEach(oj=>oj.draw(this));
 	}
 	drawStatic() {
-		console.log("bluh")
 		this.objects.forEach(oj=>oj.drawStatic(this));
 	}
 	isPixelSolid(x, y) {
@@ -61,6 +66,15 @@ class Stage {
 			}
 		});
 		return toret;
+	}
+	getAllPlayers() {
+		return this.objects.filter(p=>p.controller); //TODO change this
+	}
+	startDialog(...stuff) {
+		this.engine.startDialog(...stuff);
+	}
+	touchGoal(to) {
+		this.engine.touchGoal(to);
 	}
 }
 

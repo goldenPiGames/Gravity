@@ -14,8 +14,8 @@
 				position: absolute;
 				left: 0px;
 				top: 0px;
-				width: 800px;
-				height: 600px;
+				width: 100%;
+				height: 100%;
 				background-color: #000000;
 				border-width: 0px;
 			}
@@ -50,10 +50,12 @@
 		<script type="text/javascript" src="src/Engine.js"></script>
 		<script type="text/javascript" src="src/Control/Info.js"></script>
 		<script type="text/javascript" src="src/Control/Controller.js"></script>
-		<script type="text/javascript" src="src/Control/Settings.js"></script>
+		<script type="text/javascript" src="src/Control/Mouse.js"></script>
 		
 		<script type="text/javascript" src="src/Lang/Lang.js"></script>
 		<script type="text/javascript" src="src/Lang/en.js"></script>
+		
+		<script type="text/javascript" src="src/MathArray.js"></script>
 		
 		<script type="text/javascript" src="src/GravityEngine/MathVector.js"></script>
 		<script type="text/javascript" src="src/GravityEngine/Sprites.js"></script>
@@ -61,10 +63,12 @@
 		<script type="text/javascript" src="src/GravityEngine/Single.js"></script>
 		<script type="text/javascript" src="src/GravityEngine/Camera.js"></script>
 		<script type="text/javascript" src="src/GravityEngine/Registry.js"></script>
-		<script type="text/javascript" src="src/GravityEngine/Editor.js"></script>
+		
+		<script type="text/javascript" src="src/EditorEngine/Object.js"></script>
+		
+		<script type="text/javascript" src="src/GravityEngine/Object.js"></script>
 		<script type="text/javascript" src="src/GravityEngine/StaticGrid.js"></script>
 		<script type="text/javascript" src="src/GravityEngine/Planet.js"></script>
-		<script type="text/javascript" src="src/GravityEngine/Object.js"></script>
 		<script type="text/javascript" src="src/GravityEngine/Body/Body.js"></script>
 		<script type="text/javascript" src="src/GravityEngine/Body/Circle.js"></script>
 		<script type="text/javascript" src="src/GravityEngine/Body/Ellipse.js"></script>
@@ -72,26 +76,43 @@
 		<script type="text/javascript" src="src/GravityEngine/Actor.js"></script>
 		<script type="text/javascript" src="src/GravityEngine/HUD.js"></script>
 		
+		
 		<script type="text/javascript" src="src/MenuEngine/Text.js"></script>
 		<script type="text/javascript" src="src/MenuEngine/MenuBase.js"></script>
+		<script type="text/javascript" src="src/MenuEngine/Scroll.js"></script>
+		<script type="text/javascript" src="src/MenuEngine/Loading.js"></script>
+		
 		
 		<script type="text/javascript" src="src/Menus/MainMenu.js"></script>
-		<script type="text/javascript" src="src/Menus/NewGame.js"></script>
+		<script type="text/javascript" src="src/Menus/Pause.js"></script>
+		<script type="text/javascript" src="src/Menus/StageSelect.js"></script>
+		
+		<script type="text/javascript" src="src/EditorEngine/Engine.js"></script>
+		<script type="text/javascript" src="src/EditorEngine/Sidebar.js"></script>
+		<script type="text/javascript" src="src/EditorEngine/Move.js"></script>
+		<script type="text/javascript" src="src/EditorEngine/Grid.js"></script>
+		
+		<script type="text/javascript" src="src/HUD/HUD.js"></script>
+		
+		<script type="text/javascript" src="src/Audio/Music.js"></script>
+		<script type="text/javascript" src="src/Audio/SongData.js"></script>
+		<script type="text/javascript" src="src/Audio/SFX.js"></script>
+		<script type="text/javascript" src="src/Audio/Dialog.js"></script>
+		
+		<script type="text/javascript" src="src/Backgrounds/Background.js"></script>
 		
 		<script type="text/javascript" src="src/Objects/Player.js"></script>
+		<script type="text/javascript" src="src/Objects/CueArea.js"></script>
+		<script type="text/javascript" src="src/Objects/Goal.js"></script>
 		<script type="text/javascript" src="src/Objects/Meteor.js"></script>
 		
 		<script type="text/javascript" src="src/Sprites/Data.js"></script>
 		
 		<script type="text/javascript" src="src/Stages/Tutorial.js"></script>
+		<script type="text/javascript" src="src/Stages/Twoside.js"></script>
+		<script type="text/javascript" src="src/Stages/Stormesa.js"></script>
+		<script type="text/javascript" src="src/Stages/Stairbelt.js"></script>
 		
-		<script type="text/javascript" src="src/Stages/Demo.js"></script>
-		<script type="text/javascript" src="src/Stages/ClockPlanet.js"></script>
-		<script type="text/javascript" src="src/Stages/ClockRace1.js"></script>
-		<script type="text/javascript" src="src/Stages/Transition.js"></script>
-		<script type="text/javascript" src="src/Stages/HUD60.js"></script>
-		
-		<script type="text/javascript" src="src/Audio/SFX.js"></script>
 	</head>
 	<body>
 		<div id="BackgroundBox">
@@ -104,11 +125,12 @@
 				<button onclick="resetControls()">Emergency Reset Controls</button>
 			</div>
 		</div>
-		<div id="Worlds">
+		<div id="Worlds" hidden>
 			<div id="WorldsSpace" style="height:600px"></div>
 			<canvas id="WorldCanvas">You should not be able to see this</canvas>
 			<canvas id="StaticWorldCanvas">You should not be able to see this</canvas>
 		</div>
+		<audio id="Music" preload="auto" controls="none" style="display:none"></audio>
 		<script>
 			begin();
 		</script>

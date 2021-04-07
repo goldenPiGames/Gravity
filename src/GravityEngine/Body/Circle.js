@@ -135,7 +135,6 @@ class CircleBody extends Body {
 		return this.midY;
 	}
 	getRTowards(x, y) {
-		//TODO actually account for being elliptical
 		return this.radius;
 	}
 	//is pixel solid relative inner from bottom
@@ -198,10 +197,16 @@ class CircleBody extends Body {
 		this.allowJumpNext = true;
 	}
 	intersects(other) {
+		if (!(other instanceof Body)) {
+			return this.intersects(other.body);
+		}
 		//TODO if I have kinds of body other than ellipse, I'll need to add some switch statements or something
 		var dist2 = (this.midX-other.midX)**2+(this.midY-other.midY)**2;
 		var reach2 = (this.getRTowards(other.midX, other.midY) + other.getRTowards(this.midX, this.midY))**2;
 		return dist2 <= reach2;
+	}
+	getRadiusTowardsXY(x, y) {
+		return this.radius;
 	}
 	drawTest(args = {}) {
 		worldCtx.fillStyle = args.color || "#FF0000";
@@ -219,6 +224,7 @@ class CircleBody extends Body {
 		}
 	}
 }
+registerBody(CircleBody, "Circle");
 
 class HypotheticalCircleBody extends CircleBody {
 	

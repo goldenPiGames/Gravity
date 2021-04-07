@@ -1,5 +1,6 @@
 var settings = {
 	lang : "en",
+	voice : "en",
 	music : .8,
 	sfx : .8,
 	sfxTick : false,
@@ -14,7 +15,7 @@ var settings = {
 }
 
 function loadSettings() {
-	var loaded = localStorage.getItem("60SSSSSettings");
+	var loaded = localStorage.getItem("GravitySettings");
 	if (loaded) {
 		loaded = JSON.parse(loaded);
 		for (sett in loaded) {
@@ -28,7 +29,7 @@ function loadSettings() {
 }
 
 function saveSettings() {
-	localStorage.setItem("60SSSSSettings", JSON.stringify(settings));
+	localStorage.setItem("GravitySettings", JSON.stringify(settings));
 }
 
 function profane() {

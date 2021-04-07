@@ -1,4 +1,5 @@
 var player;
+const GRAVITY_CHANGE_SFX_THRESHOLD = .6
 
 class BasePlayer extends Mob {
 	constructor(args) {
@@ -11,35 +12,28 @@ class BasePlayer extends Mob {
 			footX : args.footX,
 			footY : args.footY,
 			width : 16,
-			//width : 14,
-			//height : 35,
-			//compressible : 17,
 			slideGround : .6,
 			slideAir : .95,
 		});
 		this.hittable = this.body;
-		this.facing = args.facing;
+		this.facing = args.facing || true;
 		this.spriteSheet = getSpriteSheet("Player");
 		this.drawCount = 0;
+		requireSFX("HDMI", 2);
+		requireSFX("Sprocket", 2);
+		//requireSFX("DrawerThump", 2);
 		this.drawState = "jumping";
 		player = this;
 	}
 	update(stage) {
-		//this.controller.setRelative(this.body); //TODO later: camera-relative controls
-		/*if (!this.body.grounded) {
-			this.height = PLAYER_NORMAL_HEIGHT;
-		} else {
-			this.crouching = (this.controller.crouc || isPixelSolid(this.x - this.width/2, this.y - PIXELS_PER_BLOCK - 1) || isPixelSolid(this.x + this.width/2, this.y - PIXELS_PER_BLOCK - 1) || isPixelSolid(this.x - this.width/2 + 4, this.y - 37) || isPixelSolid(this.x + this.width/2 - 4, this.y - 37)) /*&& (isPixelSolid(this.x-this.width/2, this.y + 1) || isPixelSolid(this.x+this.width/2, this.y + 1)) && !this.attacking;
-		}*/
-		//this.height = this.crouching ? PLAYER_CROUCH_HEIGHT : PLAYER_NORMAL_HEIGHT;
-		let horiz = 0 + (this.controller.right?1:0) - (this.controller.left?1:0);//this.controller.horiz; TODO put horiz in controller
+		let horiz = 0 + (this.controller.right?1:0) - (this.controller.left?1:0);//this.controller.getHoriz(); TODO put horiz in controller for camera and gamepad stuff
+		var lastRotation = this.body.rotation;
 		if (horiz) {
 			if (this.body.grounded) {
 				this.body.selfMoveLateral({
 					accel : 2 * horiz,
-					//max : this.body.isCompressed() ? 5 : 2,
 					max : 5,
-					face : true,
+					//face : true,
 				});
 			} else {
 				this.body.selfMoveLateral({
@@ -49,12 +43,18 @@ class BasePlayer extends Mob {
 			}
 		}
 		if (this.controller.jumpClicked && this.body.grounded) { //Jump
-			//playSFX("Swish4");
+			playSFX("HDMI");
 			this.body.jump(9);
 		}
+		var wasGrounded = this.body.grounded;
 		this.body.physics(stage);
-		//if (this.dy >= 0 && this.lastdy < -2)
-		//	playSFX("Bump");
+		if (this.body.grounded && !wasGrounded) { //Landing sound
+			//playSFX("DrawerThump");//TODO find another sound effect for landing
+		}
+		if (Math.abs(angleDifference(this.body.rotation, lastRotation)) >= GRAVITY_CHANGE_SFX_THRESHOLD) { //Turning sound
+			playSFX("Sprocket");
+		}
+		//States for drawing
 		if (this.body.grounded) {
 			if (horiz) {
 				this.facing = horiz > 0;
@@ -64,14 +64,6 @@ class BasePlayer extends Mob {
 			}
 		} else {
 			this.drawState = "jumping";
-			/*if (this.dy < 0) {
-				if (this.drawStateLast == "crouching" || this.drawStateLast == "crawling" || this.controller.down && this.drawStateLast != "jumping" && this.drawStateLast != "crouchJumping")
-					this.drawState = "crouchJumping";
-				else
-					this.drawState = "jumping";
-			} else {
-				this.drawState = "falling";
-			}*/
 		}
 		if (this.drawStateLast == this.drawState) {
 			this.drawCount++;
@@ -85,7 +77,6 @@ class BasePlayer extends Mob {
 	draw() {
 		if (this.dontDraw)
 			return;
-		//this.body.drawTest({rads:TEST_RADS});
 		this.spriteSheet.drawOnWorld(this.drawState+this.drawCount, {x:this.body.midX, y:this.body.midY, xadj:.5, yadj:.5, rotation:this.body.rotation, flipHoriz:!this.facing});
 	}
 	getHit(args) {
@@ -93,5 +84,35 @@ class BasePlayer extends Mob {
 		playSFX("Hurt");
 	}
 }
-registerObject(BasePlayer);
+registerObject(BasePlayer, "Player");
 BasePlayer.prototype.controller = globalController;
+
+class PlayerEditor extends EditorObject {
+	constructor(args) {
+		super(args);
+		this.midX = args.midX;
+		this.midY = args.midY;
+		this.spriteSheet = getSpriteSheet("Player");
+	}
+	update() {
+		super.update();
+	}
+	draw() {
+		//console.log("b");
+		this.spriteSheet.drawOnWorld("standing0", {x:this.midX, y:this.midY, xadj:.5, yadj:.5, rotation:0, flipHoriz:false});
+	}
+	getEditorPanels() {
+		return [
+			new EditorPanelMove(this, "midX", "midY"),
+		];
+	}
+	getJSON() {
+		return {
+			object : "Player",
+			midX : this.midX,
+			midY : this.midY,
+		};
+	}
+}
+PlayerEditor.prototype.deletable = false;
+registerEditor(PlayerEditor, "Player");

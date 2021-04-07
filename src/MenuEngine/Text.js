@@ -15,7 +15,7 @@ function drawTextInRect(text, x, y, width, height, opts = {}, ctx = mainCtx) {
 	ctx.fillText(text, x+width/2, y+height/2);
 }
 
-function drawParagraphInRect(text, x, y, width, height, size) {
+function drawParagraphInRect(text, x, y, width, height, size, opts = {}, ctx = mainCtx) {
 	if (!text)
 		return y;
 	ctx.textAlign = "left";
@@ -26,8 +26,8 @@ function drawParagraphInRect(text, x, y, width, height, size) {
 	var words = text.split(" ");
 	var cx = x;
 	var cy = y;
+	ctx.fillStyle = opts.fillStyle || opts.fill || "#FFFFFF";//palette.normal;
 	for (var i = 0; i < words.length; i++) {
-		ctx.fillStyle = palette.normal;
 		var word = words[i];
 		if (word.indexOf("<") >= 0) {
 			if (word == "<br>") {
@@ -38,6 +38,7 @@ function drawParagraphInRect(text, x, y, width, height, size) {
 		var wwid = ctx.measureText(word).width;
 		//console.log(word, cx, cy);
 		if (word != "<br>") {
+			//console.log(cx + wwid, x + width, cx + wwid > x + width);
 			if (cx + wwid > x + width) {
 				cy += size;
 				cx = x;

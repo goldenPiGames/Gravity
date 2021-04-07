@@ -1,8 +1,4 @@
 class CustomVector {
-	setPriority(p) {
-		this.priority = p;
-		return this;
-	}
 	copy() {
 		var newv = new CustomVector();
 		newv.x = this.x;
@@ -20,10 +16,16 @@ class CustomVector {
 		this.mirrorPolarToRect();
 		return this;
 	}
+	capR(to) {
+		if (this.r > to)
+			this.setR(to);
+		return this;
+	}
 	multiply(by) {
 		this.r *= by;
 		this.x *= by;
 		this.y *= by;
+		return this;
 	}
 	setX(to) {
 		this.x = to;
@@ -49,6 +51,10 @@ class CustomVector {
 		this.theta = Math.atan2(this.x, -this.y);
 		if (Math.abs(this.r - 1.0) < .00001)
 			this.r = 1;
+		return this;
+	}
+	setPriority(p) {
+		this.priority = p;
 		return this;
 	}
 }
@@ -103,4 +109,13 @@ function cancelVectorNormal(before, normal) {
 
 function dotproduct(a, b) {
 	return a.x * b.x + a.y * b.y
+}
+
+function angleDifference(a, b) {
+	let c = (b - a) % (2*Math.PI);
+	if (c < Math.PI)
+		c += 2*Math.PI
+	if (c > Math.PI)
+		c -= 2*Math.PI;
+	return c;
 }
