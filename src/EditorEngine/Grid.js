@@ -127,6 +127,8 @@ class EditorGridOver extends MenuObject {
 	update(yam) {
 		this.object.updateHoveredCamera(this.camera);
 		this.tiles.forEach2d(t=>t.update(yam));
+		if (!mouse.down && !globalController.select)
+			this.bankHolding = null;
 	}
 	draw() {
 		
@@ -179,9 +181,10 @@ class EditorGridOverTile extends MenuObject {
 		if (this.altClicked) {
 			yam.switchSub(new EditorSidebarObjectGridMenu(this));
 		} else if (this.clicked) {
-			this.setBank(this.parent.bankSelected);
+			this.parent.bankHolding = this.parent.bankSelected;
+			this.setBank(this.parent.bankHolding);
 		} else if (this.draggedOnto && this.parent.bankHolding) {
-			this.setBank(this.parent.bankSelected);
+			this.setBank(this.parent.bankHolding);
 		}
 	}
 	intersectsMouse() {

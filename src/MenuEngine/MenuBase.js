@@ -93,6 +93,7 @@ class MenuCursor extends MenuThing {
 		this.menu = menu;
 	}
 	update()  {
+		//console.log(mouse.changed)
 		if (globalController.isCommandPressedRepeating("menuUp")) {
 			this.menu.hover(this.menu.hovered.connectUp);
 		}

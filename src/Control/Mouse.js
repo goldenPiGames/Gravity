@@ -12,6 +12,7 @@ var mouse = {
 		this.wasPressed = this.pressed;
 		this.lastX = this.x;
 		this.lastY = this.y;
+		this.changed = false;
 		this.movedX = 0;
 		this.movedY = 0;
 		this.scrolled = 0;
