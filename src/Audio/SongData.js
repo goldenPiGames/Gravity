@@ -21,7 +21,7 @@ var SONG_HASH = {};
 SONG_LIST.forEach(function(sing, dex) {
 	if (!sing.iname)
 		sing.iname = ((sing.fname || sing.name) + "-" + sing.by).replace(/\s/g, "");
-	sing.src = "src/audio/songs/" + sing.iname + ".mp3";
+	sing.src = "src/Audio/Songs/" + sing.iname + ".mp3";
 	SONG_HASH[sing.iname] = sing;
 	SONG_HASH[sing.name + " - " + sing.by] = sing;
 	SONG_HASH[sing.name] = sing;
