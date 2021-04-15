@@ -26,9 +26,11 @@ class TouchController extends Controller {
 		this.resize();
 	}
 	resize() {
-		this.leftButton.resize(50, mainCanvas.height-50, 40);
-		this.rightButton.resize(130, mainCanvas.height-50, 40);
-		this.jumpButton.resize(mainCanvas.width-80, mainCanvas.height-50, 40);
+		var scald = 20 + Math.floor(Math.min(mainCanvas.width/2, mainCanvas.height/2, Math.max(mainCanvas.width, mainCanvas.height)) / 10);
+		console.log(mainCanvas.width +5, mainCanvas.height -5, scald);
+		this.leftButton.resize(scald +5, mainCanvas.height-scald -5, scald);
+		this.rightButton.resize(scald*3 +5, mainCanvas.height-scald -5, scald);
+		this.jumpButton.resize(mainCanvas.width-scald -5, mainCanvas.height-scald -5, scald);
 	}
 	updateBefore() {
 		if (justResized)
