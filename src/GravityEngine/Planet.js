@@ -88,11 +88,13 @@ class Planet extends GameObject {
 		return {r: rC, theta: tC};
 	}
 	radiansToGrid(theta) {
-		while (theta < 0)
-			theta += 2*Math.PI;
-		while (theta >= 2*Math.PI)
-			theta -= 2*Math.PI;
-		return Math.floor(theta / this.radGridThetaScale - this.radGridThetaOffset);
+		let a = Math.floor(theta / this.radGridThetaScale + this.radGridThetaOffset);
+		//console.log(a);
+		while (a < 0)
+			a += this.tiles.length;
+		while (a >= this.tiles.length)
+			a -= this.tiles.length;
+		return a;
 	}
 	pixToGridR(r) {
 		return Math.floor((r - this.radGridRStart) / this.radGridRScale);

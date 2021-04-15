@@ -55,3 +55,4 @@ class SingleStageEngine {
 		this.exitFunc();
 	}
 }
+SingleStageEngine.prototype.controlShow = CONTROL_SHOW_GAME;

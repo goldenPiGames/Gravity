@@ -149,7 +149,7 @@ class EditorSidebarFile extends EditorSidebarSub {
 class EditorSidebarLoadBaseStage extends EditorSidebarSub {
 	constructor() {
 		super([
-			...SELECTABLE_STAGES.map(sid=>new EditorPanelButton({
+			...EDITABLE_STAGES.map(sid=>new EditorPanelButton({
 				lText : "Stage-"+sid,
 				func : ()=>this.engine.loadStage(STAGE_REGISTRY[sid])
 			})),

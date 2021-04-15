@@ -97,7 +97,7 @@ const STAGE_DATA_STAIRBELT = {
 			"object":"Planet",
 			"x":1221,
 			"y":1428,
-			"radius":24,
+			"radius":18,
 			"gravRadius":500,
 			"gravPriority":3,
 			"tileset":"RadTilesetStoneBrick",
@@ -121,29 +121,29 @@ const STAGE_DATA_STAIRBELT = {
 				}
 			],
 			"radGridRScale":20,
-			"radGridThetaOffset":0
+			"radGridThetaOffset":0.2
 		},
 		{
 			"object":"Planet",
 			"x":622,
 			"y":1833,
 			"radius":50,
-			"gravRadius":444,
+			"gravRadius":350,
 			"gravPriority":2,
 			"tileset":"RadTilesetStoneBrick",
 			"radGrid":[
-				[0,0,0,0,1,0,0,0,0,0,0,0,0],
-				[0,0,0,0,1,0,0,0,0,0,0,0,0],
-				[0,0,0,0,1,0,0,0,0,0,0,0,0],
-				[0,0,0,0,1,1,1,1,1,1,1,1,1],
-				[0,0,0,0,0,0,0,0,0,0,0,0,0],
-				[1,1,1,1,1,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,1,0,0,0,0,0,0,0,0],
-				[0,0,0,0,1,0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0,0,0,0,0,0],
-				[1,1,1,1,1,0,0,0,0,0,0,0,0],
-				[0,0,0,0,1,0,0,0,0,0,0,0,0]
+				[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,1,1,1,1,1,1,1,1,1,1,1],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+				[1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0]
 			],
 			"radGridBank":[
 				{
@@ -155,8 +155,11 @@ const STAGE_DATA_STAIRBELT = {
 				}
 			],
 			"radGridRScale":20,
-			"radGridThetaOffset":0
+			"radGridThetaOffset":-0.5235987755982988
 		}
 	]
 }
-registerStage(STAGE_DATA_STAIRBELT, "Stairbelt");
+registerStage(STAGE_DATA_STAIRBELT, "Stairbelt", {
+	"selectable" : true,
+	"editable" : true,
+});

@@ -4,6 +4,7 @@ const EDITOR_REGISTRY_ADDABLE = [];
 const BACKGROUND_REGISTRY = {};
 const STAGE_REGISTRY = {};
 const SELECTABLE_STAGES = [];
+const EDITABLE_STAGES = [];
 
 function registerObject(cass, nom = undefined) {
 	OBJECT_REGISTRY[nom || cass.name] = cass;
@@ -46,9 +47,12 @@ function backgroundFromRegistry(b, ...rest) {
 }
 
 
-function registerStage(cons, id) {
+function registerStage(cons, id, args) {
 	STAGE_REGISTRY[id] = cons;
-	SELECTABLE_STAGES.push(id);
+	if (args.selectable)
+		SELECTABLE_STAGES.push(id);
+	if (args.editable)
+		EDITABLE_STAGES.push(id);
 }
 
 function stageFromRegistry(id) {

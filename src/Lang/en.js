@@ -8,8 +8,13 @@ LANG.en = {
 	
 	"Stage-Tutorial" : "Tutorial",
 	"Stage-Twoside" : "Twoside",
-	"Stage-Stormesa" : "Stormesa",
 	"Stage-Stairbelt" : "Stairbelt",
+	"Stage-Stormesa" : "Stormesa",
+	"Stage-Incorner" : "Incorner",
+	"Stage-Outcorner" : "Outcorner",
+	"Stage-Stormesa" : "Stormesa",
+	
+	"StageSelect-Back" : "Back",
 	
 	"Tutorial-Walk" : "You can walk left or right using the arrow or WASD keys.",
 	"Tutorial-Walk-Keyboard" : "You can walk left or right using the arrow or WASD keys.",

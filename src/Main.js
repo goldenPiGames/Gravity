@@ -54,7 +54,7 @@ function begin() {
 	});*/
 	//TODO make spritesheet for misc sprites
 	//miscSprites = makeSprites("src/MiscSprites.png")
-	addMouseEvents();
+	addControlEvents();
 	initMusic();
 	initSFX();
 	loadSettings();

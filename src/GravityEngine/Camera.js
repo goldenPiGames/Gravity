@@ -59,22 +59,24 @@ class Camera {
 	}
 	setFocus(ting) {
 		this.focusObject = ting;
+		this.centerX = this.focusObject.getCameraX();
+		this.centerY = this.focusObject.getCameraX();
 	}
 	moveMouse() {
 		this.mouseX = this.screenToWorldX(mouse.x);
 		this.mouseY = this.screenToWorldY(mouse.y);
 	}
 	screenToWorldX(x) {//TODO account for zoom
-		return x + this.centerX - this.screenCenterX;
+		return this.centerX + (x - this.screenCenterX) / this.zoom;
 	}
 	screenToWorldY(y) {
-		return y + this.centerY - this.screenCenterY;
+		return this.centerY + (y - this.screenCenterY) / this.zoom;
 	}
 	worldToScreenX(x) {
-		return x - this.centerX + this.screenCenterX;
+		return this.screenCenterX + (x - this.centerX) * this.zoom;
 	}
 	worldToScreenY(y) {
-		return y - this.centerY + this.screenCenterY;
+		return this.screenCenterY + (y - this.centerY) * this.zoom;
 	}
 }
 Camera.prototype.rotateWithFocus = true;

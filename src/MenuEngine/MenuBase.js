@@ -9,7 +9,18 @@ class MenuThing {
 }
 
 class Screen extends MenuThing {
-	
+
+	objectMousedOver(thing) {
+		this.hover(thing);
+	}
+	hover(thing) {
+		if (thing) {
+			this.hovered = thing;
+		}
+	}
+	isHovered(thing) {
+		return thing == this.hovered;
+	}
 }
 
 class MenuScreen extends Screen {
@@ -46,17 +57,6 @@ class MenuScreen extends Screen {
 		} else {
 			return new MenuButton(butt);
 		}
-	}
-	objectMousedOver(thing) {
-		this.hover(thing);
-	}
-	hover(thing) {
-		if (thing) {
-			this.hovered = thing;
-		}
-	}
-	isHovered(thing) {
-		return thing == this.hovered;
 	}
 	update() {
 		/*if (globalController.selectClicked) {
@@ -113,6 +113,7 @@ class MenuCursor extends MenuThing {
 		this.hovered = this.menu.hovered;
 		this.rect = this.hovered.getCursorRect();
 		if (this.hovered) {
+			mainCtx.lineWidth = 2;
 			mainCtx.strokeStyle = "#FFFFFF";
 			mainCtx.strokeRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
 		}
@@ -132,6 +133,8 @@ class MenuObject extends MenuThing {
 		if (this.lText) {
 			this.text = lg(this.lText);
 		}
+		if (args.bindCancel)
+			this.bindCancel = args.bindCancel;
 	}
 	resize(...bleh) {
 		this.resizeRect(...bleh);
@@ -163,7 +166,7 @@ class MenuObject extends MenuThing {
 		}
 		if (this.hoverable) {
 			this.hovered = menu.isHovered(this);
-			this.clicked = this.hovered && (globalController.selectClicked || this.mouseClicked);
+			this.clicked = (this.bindCancel && globalController.cancelClicked && !globalController.selectClicked && !mouse.clicked) || (this.hovered && (globalController.selectClicked || this.mouseClicked));
 			this.altClicked = this.hovered && (globalController.menuAltClicked || this.mouseRightClicked);
 			this.draggedOnto = !this.wasHovered && this.hovered && (globalController.select || mouse.down);
 		}

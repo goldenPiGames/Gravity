@@ -1,15 +1,5 @@
 var pControllers = [];
 
-var keysPressed = {};
-var keysHeld = {};
-
-function isKeyHeld(c) {
-	return keysHeld[c];
-}
-
-function isKeyPressed(c) {
-	return keysPressed[c]>=globalTimer;
-}
 
 const KEY_REPEAT_DELAY = 10;
 const KEY_REPEAT_RATE = 3;
@@ -59,85 +49,6 @@ class Controller {
 	}
 }
 
-class KeyboardController extends Controller {
-	constructor() {
-		super();
-		//this.setBinds(binds);
-	}
-	updateBefore() {
-		COMMAND_LIST.forEach(com => {
-			this[com] = CONTROLS_INFO[com].defaultKeyboardFull.find(k=>isKeyHeld(k)) ? this[com]+1 : 0;
-			this[com+"Clicked"] = !!CONTROLS_INFO[com].defaultKeyboardFull.find(k=>isKeyPressed(k));
-		});
-		//console.log(this.rightClicked);
-	}
-	updateAfter() {
-		
-	}
-	getBindText(command) {
-		return "[" + KEY_NAMES[this.binds[command]] + "]";
-	}
-}
-//KeyboardController.prototype.binds = DEFAULT_BINDS_KEYBOARD;
-
-class NormalKeyboardController extends KeyboardController {
-	
-}
-/*
-class GamepadController extends Controller {
-	constructor(gpindex, binds, stickbinds, stickbindNames) {
-		super();
-		this.gpindex = gpindex;
-		this.setBinds(binds, stickbinds, stickbindNames);
-	}
-	updateBefore() {
-		var gamepad = getGamepad(this.gpindex);
-		//console.log(gamepad)
-		//usingGamepad = !!gamepad;
-		if (!gamepad)
-			return;
-		COMMAND_LIST.forEach(com => {
-			//console.log(com);
-			this[com+"Last"] = this[com];
-			this[com] = (this.binds[com] >= 0 && gamepad.buttons[this.binds[com]].pressed) || (this.stickbinds[com] && this.stickbinds[com](gamepad));
-			this[com+"Clicked"] = this[com] && !this[com+"Last"];
-		});
-		//gamepad.buttons.forEach((p, d) => {
-		//	this.setButton(d, p.pressed)
-		//});
-	}
-	setBinds(binds, stickbinds, stickbindNames) {
-		super.setBinds(binds);
-		if (stickbinds) {
-			this.stickbinds = stickbinds;
-			this.stickbindNames = stickbindNames;
-		}
-	}
-	getBindText(command) {
-		var butt = GAMEPAD_BUTTON_NAMES[this.binds[command]]; 
-		var stick = this.stickbindNames[command];
-		if (butt && stick)
-			return "(" + butt + ")/(" + stick + ")";
-		else if (stick)
-			return "(" + stick + ")";
-		else
-			return "(" + butt + ")";
-	}
-}
-GamepadController.prototype.stickbinds = {};
-GamepadController.prototype.stickbindNames = {};
-COMMAND_LIST.forEach(com => {
-	if (CONTROLS_INFO[com].defaultStickFunc) {
-		GamepadController.prototype.stickbinds[com] = CONTROLS_INFO[com].defaultStickFunc;
-		GamepadController.prototype.stickbindNames[com] = CONTROLS_INFO[com].defaultStickText;
-	}
-});
-
-function getGamepad(gpindex) {
-	return navigator.getGamepads()[gpindex];
-}
-//GamepadController.prototype.binds = DEFAULT_BINDS_GAMEPAD;
-*/
 var globalController = {
 	updateBefore : function() {
 		COMMAND_LIST.forEach(comm => {
@@ -170,6 +81,17 @@ function updateControllersAfter() {
 	globalController.updateAfter();
 	mouse.unClick();
 }
+
+function drawControllers() {
+	pControllers.forEach(co=>co.draw&&co.draw());
+}
+
+function addControlEvents() {
+	addResizeEvents();
+	addMouseEvents();
+	addTouchEvents();
+}
+
 /*
 function getController(type) {
 	var found = pControllers.find(c => c instanceof type);
@@ -182,33 +104,7 @@ function getController(type) {
 	}
 }
 
-//COMMAND_LIST.forEach(function(nom) {
-//	controller[nom] = false;
-//});
 
 var extraKeyListener = null;
 
-window.addEventListener("gamepadconnected", function(e) {
-	gp = e.gamepad;
-	if (gp.buttons.length >= 4 && !pControllers.find(co => co.gpindex == gp.index))
-		pControllers.push(new GamepadController(gp.index, controlSettings.gamepad));
 });*/
-
-var fullKeyController = new NormalKeyboardController();
-
-pControllers = [
-	fullKeyController,
-]
-
-document.addEventListener("keydown", function(e) {
-	//console.log(e.code);
-	if (document.activeElement.type != "text" && e.code != "KeyI")
-		e.preventDefault();
-	if (!keysHeld[e.code])
-		keysPressed[e.code] = globalTimer;
-	keysHeld[e.code] = globalTimer;
-});
-
-document.addEventListener("keyup", function(e) {
-	keysHeld[e.code] = false;
-});

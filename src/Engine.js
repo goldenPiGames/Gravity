@@ -14,11 +14,13 @@ var globalTimer = 0;
 var engine = {
 	run : function() {
 		var desiredTime = Date.now() + 1000/FPS;
+		updateResize();
 		updateControllersBefore();
 		runnee.update();
 		globalTimer++;
 		updateControllersAfter();
 		runnee.draw();
+		drawControllers();
 		musicLoopCheck();
 		this.sch = setTimeout(()=>this.run(), Math.max(0, desiredTime-Date.now()));
 	},

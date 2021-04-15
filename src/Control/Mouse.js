@@ -102,86 +102,20 @@ function addMouseEvents() {
 		//e.preventDefault();
 	});
 	
-	mainCanvas.addEventListener("dblclick", function (e) {
-		e.preventDefault();
-	});
-	
-	mainCanvas.addEventListener("touchstart", function(e) {
-		//if (runnee.overrideTouch) because otherwise it'll sometimes click twice and i don't know how else to fix that
-			e.preventDefault();
-		mouse.clicked = true;
-		mouse.down = true;
-		setMousePosition(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-		mouse.lastUsed = "touch";
-	});
-	
 	backgroundBox.addEventListener("contextmenu", function(e) {
 		if (!rightClickDisabled)
 			e.preventDefault();
 	});
 	
-	mainCanvas.addEventListener("touchend", function(e) {
-		if (runnee.overrideTouch)
-			e.preventDefault();
-		mouse.down = false;
-		mouse.x = NaN;
-		mouse.y = NaN;
-	});
-	
-	mainCanvas.addEventListener("touchcancel", function(e) {
-		if (runnee.overrideTouch)
-			e.preventDefault();
-		mouse.down = false;
-		mouse.x = NaN;
-		mouse.y = NaN;
-	});
-	
-	mainCanvas.addEventListener("touchmove", function(e) {
-		if (runnee.overrideTouch)
-			e.preventDefault();
-		setMousePosition(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-		mouse.lastUsed = "touch";
-	});
-	
-	document.addEventListener("fullscreenchange", resize);
-	
-	document.addEventListener("fullscreenerror", function(e) {
-		qAlert(lg("Fullscreen-Reject"));
+	mainCanvas.addEventListener("dblclick", function (e) {
+		e.preventDefault();
 	});
 	
 	//window.addEventListener("focus", musicFocus);
 	
 	//window.addEventListener("blur", musicFocusOut);
-	
-	window.addEventListener("resize", resize);
-	
-	resize();
 }
 
 function disableRightClick() {
 	rightClickDisabled = true;
-}
-
-function attemptFullscreen() {
-	if (document.fullscreen) {
-		document.exitFullscreen();
-	} else {
-		try {
-			backgroundBox.requestFullscreen();
-		} catch (e) {
-			qAlert(lg("Fullscreen-Reject"));
-		}
-	}
-}
-
-function resize() {
-	var width = window.innerWidth;
-	var height = window.innerHeight;
-	//console.log(width, height);
-	//backgroundBox.style.width = width + "px";
-	//backgroundBox.style.height = height + "px";
-	mainCanvas.width = width;
-	mainCanvas.height = height;
-	if (runnee && runnee.resize)
-		runnee.resize();
 }

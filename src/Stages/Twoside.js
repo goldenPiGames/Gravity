@@ -155,4 +155,7 @@ const STAGE_DATA_TWOSIDE = {
 		}
 	]
 }
-registerStage(STAGE_DATA_TWOSIDE, "Twoside");
+registerStage(STAGE_DATA_TWOSIDE, "Twoside", {
+	"selectable" : true,
+	"editable" : true,
+});

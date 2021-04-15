@@ -1,4 +1,4 @@
-const STAGE_DATA_GREATCUBE = {
+const STAGE_DATA_INCORNER = {
 	"background":{
 		"background":"SingleImage",
 		"spriteSheet":"BackgroundStormySkies",
@@ -92,3 +92,7 @@ const STAGE_DATA_GREATCUBE = {
 		}
 	]
 }
+registerStage(STAGE_DATA_INCORNER, "Incorner", {
+	"selectable" : false,
+	"editable" : true,
+});
