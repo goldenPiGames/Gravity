@@ -71,6 +71,7 @@ var globalController = {
 function updateControllersBefore() {
 	pControllers.forEach(co=>co.updateBefore());
 	globalController.updateBefore();
+	touch.updateBefore();
 }
 
 function updateControllersAfter() {
@@ -79,6 +80,7 @@ function updateControllersAfter() {
 	//	pControllers.push(new KeyboardController(controlSettings.keyboard));
 	pControllers.forEach(co=>co.updateAfter());
 	globalController.updateAfter();
+	touch.updateAfter();
 	mouse.unClick();
 }
 

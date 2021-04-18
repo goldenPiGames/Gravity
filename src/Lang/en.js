@@ -7,12 +7,17 @@ LANG.en = {
 	"MainMenu-Controls" : "Controls",
 	
 	"Stage-Tutorial" : "Tutorial",
+	"Stage-Tutorial-Desc" : "An introduction to the games, controls, and gravity.",
 	"Stage-Twoside" : "Twoside",
+	"Stage-Twoside-Desc" : "Use momentum to your advantage in this double-sided platform strip.",
 	"Stage-Stairbelt" : "Stairbelt",
-	"Stage-Stormesa" : "Stormesa",
+	"Stage-Stairbelt-Desc" : "A series of round planets with steps that can only be conquered using orbital physics.",
 	"Stage-Incorner" : "Incorner",
+	"Stage--Desc" : "A great big cube.",
 	"Stage-Outcorner" : "Outcorner",
+	"Stage--Desc" : "The inside of another cube.",
 	"Stage-Stormesa" : "Stormesa",
+	"Stage--Desc" : "",
 	
 	"StageSelect-Back" : "Back",
 	

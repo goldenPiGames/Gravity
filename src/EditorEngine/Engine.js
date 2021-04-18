@@ -97,6 +97,8 @@ class EditorEngine {
 		this.stage.removeObject(obj);
 	}
 }
+EditorEngine.prototype.controlShow = CONTROL_SHOW_MENU;
+EditorEngine.prototype.controlShowCamera = true;
 
 class StageEditing {
 	constructor(stuff) {

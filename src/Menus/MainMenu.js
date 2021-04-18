@@ -20,6 +20,12 @@ class MainMenu extends SingleMenuScreen {
 						startLevelEditor();
 					}
 				},
+				{
+					lText : "MainMenu-Settings",
+					func : function() {
+						switchScreen(new SettingsMenu());
+					}
+				},
 				/*{
 					lText : "MainMenu-Jukebox",
 					func : function(){doJukebox()}

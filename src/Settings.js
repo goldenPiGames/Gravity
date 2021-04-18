@@ -12,6 +12,7 @@ var settings = {
 	normal_color : "#FFFFFF",
 	colorblind : false,
 	musicDontAsk : false,
+	directTouch : false,
 }
 
 function loadSettings() {

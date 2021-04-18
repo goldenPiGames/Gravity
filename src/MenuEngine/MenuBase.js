@@ -22,6 +22,7 @@ class Screen extends MenuThing {
 		return thing == this.hovered;
 	}
 }
+Screen.prototype.controlShow = CONTROL_SHOW_MENU;
 
 class MenuScreen extends Screen {
 	constructor(args) {
@@ -135,6 +136,8 @@ class MenuObject extends MenuThing {
 		}
 		if (args.bindCancel)
 			this.bindCancel = args.bindCancel;
+		if (args.needDoubleTap)
+			this.needDoubleTap = args.needDoubleTap;
 	}
 	resize(...bleh) {
 		this.resizeRect(...bleh);
@@ -150,6 +153,7 @@ class MenuObject extends MenuThing {
 	update(menu) {
 		this.mouseClicked = false;
 		this.mouseRightClicked = false;
+		this.touchClicked = false;
 		this.wasHovered = this.hovered;
 		if (mouse.changed || this.justResized) {
 			if (!mouse.obstructed && this.intersectsMouse()) {
@@ -164,9 +168,16 @@ class MenuObject extends MenuThing {
 				this.mouseHovered = false;
 			}
 		}
+		if (settings.directTouch && touch.changed) {
+			if (!touch.obstructed && this.intersectsTouchStart()) {
+				if (this.hoverable)
+					menu.objectMousedOver(this);
+				this.touchClicked = true;
+			}
+		}
 		if (this.hoverable) {
 			this.hovered = menu.isHovered(this);
-			this.clicked = (this.bindCancel && globalController.cancelClicked && !globalController.selectClicked && !mouse.clicked) || (this.hovered && (globalController.selectClicked || this.mouseClicked));
+			this.clicked = (this.touchClicked && (!this.needDoubleTap || this.wasHovered)) || (this.bindCancel && globalController.cancelClicked && !globalController.selectClicked && !mouse.clicked) || (this.hovered && (globalController.selectClicked || this.mouseClicked));
 			this.altClicked = this.hovered && (globalController.menuAltClicked || this.mouseRightClicked);
 			this.draggedOnto = !this.wasHovered && this.hovered && (globalController.select || mouse.down);
 		}
@@ -175,7 +186,11 @@ class MenuObject extends MenuThing {
 	intersectsMouse() {
 		return this.intersectsPointRect(mouse.x, mouse.y);
 	}
+	intersectsTouchStart() {
+		return !!touch.starts.find(t=>this.intersectsPointRect(t.x, t.y));
+	}
 	intersectsPointRect(x, y) {
+		//console.log(x, y);
 		return x >= this.x && x < this.x + this.width && y >= this.y && y < this.y + this.height;
 	}
 	objectMousedOver(thing) {
@@ -201,6 +216,7 @@ class MenuObject extends MenuThing {
 		return this;
 	}
 }
+MenuObject.prototype.needDoubleTap = false;
 
 class MenuButton extends MenuObject {
 	constructor(args) {

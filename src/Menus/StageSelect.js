@@ -72,6 +72,7 @@ class StageSelectScrollObject extends ScrollObject {
 	constructor(id) {
 		super({
 			lText : "Stage-"+id,
+			needDoubleTap : true,
 		});
 		this.stageID = id;
 	}
