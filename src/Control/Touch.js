@@ -135,7 +135,7 @@ class TouchControllerButton {
 		this.r2 = this.r**2;
 	}
 	update(par) {
-		this.held = !!touch.holds.find(s=>this.intersects(s.x, s.y));
+		this.held = touch.holds.find(s=>this.intersects(s.x, s.y)) ? this.held+1 : 0;
 		//console.log(this.held)
 		this.clicked = !!touch.starts.find(s=>this.intersects(s.x, s.y));
 		par[this.command] = this.held;
