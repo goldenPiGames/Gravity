@@ -1,6 +1,7 @@
 const CONTROL_SHOW_GAME = "gamer time sunglasses emoji";
 const CONTROL_SHOW_MENU = "hyello waiter";
 
+
 var touch = {
 	starts:[],
 	holds:[],
@@ -38,23 +39,25 @@ class TouchController extends Controller {
 		super();
 		//this.setBinds(binds);
 		this.jumpButton = new TouchControllerButton("jump");
-		this.leftButton = new TouchControllerButton("left");
-		this.rightButton = new TouchControllerButton("right");
+		this.moveStick = new TouchControllerStickLR();
+	//	this.leftButton = new TouchControllerButton("left");
+	//	this.rightButton = new TouchControllerButton("right");
 		this.pauseButton = new TouchControllerButton("pause");
-		this.menuLeftButton = new TouchControllerButton("menuLeft");
-		this.menuRightButton = new TouchControllerButton("menuRight");
-		this.menuUpButton = new TouchControllerButton("menuUp");
-		this.menuDownButton = new TouchControllerButton("menuDown");
-		this.selectButton = new TouchControllerButton("select");
-		this.cancelButton = new TouchControllerButton("cancel");
-		this.menuAltButton = new TouchControllerButton("menuAlt");
+		this.menuLeftButton = new TouchControllerButtonDiamond("menuLeft");
+		this.menuRightButton = new TouchControllerButtonDiamond("menuRight");
+		this.menuUpButton = new TouchControllerButtonDiamond("menuUp");
+		this.menuDownButton = new TouchControllerButtonDiamond("menuDown");
+		this.selectButton = new TouchControllerButtonDiamond("select");
+		this.cancelButton = new TouchControllerButtonDiamond("cancel");
+		this.menuAltButton = new TouchControllerButtonDiamond("menuAlt");
 		this.cameraLeftButton = new TouchControllerButton("cameraLeft");
 		this.cameraRightButton = new TouchControllerButton("cameraRight");
 		this.cameraUpButton = new TouchControllerButton("cameraUp");
 		this.cameraDownButton = new TouchControllerButton("cameraDown");
 		this.buttonsGame = [
-			this.leftButton,
-			this.rightButton,
+			//this.leftButton,
+			//this.rightButton,
+			this.moveStick,
 			this.jumpButton,
 			this.pauseButton,
 		];
@@ -79,21 +82,22 @@ class TouchController extends Controller {
 		var bright = mainCanvas.width;
 		var bbot = mainCanvas.height;
 		var scald = 20 + Math.floor(Math.min(mainCanvas.width/2, mainCanvas.height/2, Math.max(mainCanvas.width, mainCanvas.height)) / 10);
-		this.leftButton.resize(scald +5, bbot-scald -5, scald);
-		this.rightButton.resize(scald*3 +5, bbot-scald -5, scald);
-		this.jumpButton.resize(bright-scald -5, bbot-scald -5, scald);
+		//this.leftButton.resize(scald, bbot-scald, scald);
+		//this.rightButton.resize(scald*3, bbot-scald, scald);
+		this.moveStick.resize(scald*2, bbot-scald*2, scald*2);
+		this.jumpButton.resize(bright-scald, bbot-scald, scald);
 		this.pauseButton.resize(bright/2, bbot-scald, scald/2);
-		this.menuLeftButton.resize(scald +5, bbot-scald*2 -5, scald*2/3);
-		this.menuRightButton.resize(scald*3 +5, bbot-scald*2 -5, scald*2/3);
-		this.menuUpButton.resize(scald*2 +5, bbot-scald*3 -5, scald*2/3);
-		this.menuDownButton.resize(scald*2 +5, bbot-scald -5, scald*2/3);
-		this.selectButton.resize(bright - scald*2 -5, bbot - scald -5, scald*4/5);
-		this.cancelButton.resize(bright - scald -5, bbot - scald*9/4 -5, scald*2/3);
-		this.menuAltButton.resize(bright - scald*3 -5, bbot - scald*9/4 -5, scald*2/3);
-		this.cameraLeftButton.resize(bright - scald*3 +5, bbot-scald*5 -5, scald*2/3);
-		this.cameraRightButton.resize(bright - scald +5, bbot-scald*5 -5, scald*2/3);
-		this.cameraUpButton.resize(bright - scald*2 +5, bbot-scald*6 -5, scald*2/3);
-		this.cameraDownButton.resize(bright - scald*2 +5, bbot-scald*4 -5, scald*2/3);
+		this.menuLeftButton.resize(scald, bbot-scald*2, scald);
+		this.menuRightButton.resize(scald*3, bbot-scald*2, scald);
+		this.menuUpButton.resize(scald*2, bbot-scald*3, scald);
+		this.menuDownButton.resize(scald*2, bbot-scald, scald);
+		this.selectButton.resize(bright - scald*2, bbot - scald, scald);
+		this.cancelButton.resize(bright - scald, bbot - scald*2, scald);
+		this.menuAltButton.resize(bright - scald*3, bbot - scald*2, scald);
+		this.cameraLeftButton.resize(bright - scald*3, bbot-scald*5, scald*2/3);
+		this.cameraRightButton.resize(bright - scald, bbot-scald*5, scald*2/3);
+		this.cameraUpButton.resize(bright - scald*2, bbot-scald*6, scald*2/3);
+		this.cameraDownButton.resize(bright - scald*2, bbot-scald*4, scald*2/3);
 	}
 	updateBefore() {
 		if (justResized)
@@ -149,12 +153,88 @@ class TouchControllerButton {
 		mainCtx.strokeStyle = this.color;
 		mainCtx.lineWidth = 4;
 		mainCtx.beginPath();
-		mainCtx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+		mainCtx.arc(this.x, this.y, this.r-2, 0, 2*Math.PI);
 		mainCtx.closePath();
 		mainCtx.stroke();
 	}
 }
 
+class TouchControllerButtonDiamond extends TouchControllerButton {
+	intersects(x, y) {
+		return Math.abs(x-this.x) + Math.abs(y-this.y) <= this.r;
+	}
+	draw() {
+		mainCtx.strokeStyle = this.color;
+		mainCtx.lineWidth = 4;
+		mainCtx.beginPath();
+		mainCtx.moveTo(this.x-this.r+3, this.y);
+		mainCtx.lineTo(this.x, this.y-this.r+3);
+		mainCtx.lineTo(this.x+this.r-3, this.y);
+		mainCtx.lineTo(this.x, this.y+this.r-3);
+		mainCtx.closePath();
+		mainCtx.stroke();
+	}
+}
+
+class TouchControllerStick {
+	constructor() {
+		this.rotation = 0;
+	}
+	resize(x, y, r) {
+		this.x = x;
+		this.y = r;
+		this.r = r;
+		this.parts.forEach(p=>p.resize(x, y, r));
+	}
+	update(par) {
+		this.parts.forEach(p=>p.update(par, this));
+	}
+	draw() {
+		this.parts.forEach(p=>p.draw(this));
+	}
+}
+
+class TouchControllerStickLR extends TouchControllerStick {
+	constructor() {
+		super();
+		this.leftButton = new TouchControllerStickPart("left", Math.PI*3/2, 1/4)
+		this.rightButton = new TouchControllerStickPart("right", Math.PI/2, 1/4);
+		this.parts = [
+			this.leftButton,
+			this.rightButton,
+		];
+	}
+}
+
+class TouchControllerStickPart extends TouchControllerButton {
+	constructor(communism, rotatO, inner) {
+		super(communism);
+		this.rotatO = rotatO;
+		this.rotation = this.rotatO;
+		this.inner = inner;
+		this.dCCW = Math.asin(this.inner);
+		this.dCW = Math.PI - this.dCCW;
+	}
+	resize(x, y, r) {
+		super.resize(x, y, r);
+	}
+	intersects(x, y) {
+		return super.intersects(x, y) && new VectorRect(x-this.x, y-this.y).rotate(this.rotation).y > this.r * this.inner;
+	}
+	update(par, stick) {
+		super.update(par);
+	}
+	draw(stick) {
+		this.rotation = stick.rotation + this.rotatO;
+		mainCtx.strokeStyle = this.color;
+		mainCtx.lineWidth = 4;
+		mainCtx.beginPath();
+		mainCtx.arc(this.x, this.y, this.r-2, this.dCCW - this.rotation, this.dCW - this.rotation);
+		mainCtx.closePath();
+		mainCtx.stroke();
+		//super.draw();//TODO change it
+	}
+}
 
 function addTouchEvents() {
 	mainCanvas.addEventListener("touchstart", function(e) {
