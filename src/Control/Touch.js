@@ -81,7 +81,7 @@ class TouchController extends Controller {
 	resize() {
 		var bright = mainCanvas.width;
 		var bbot = mainCanvas.height;
-		var scald = 20 + Math.floor(Math.min(mainCanvas.width/2, mainCanvas.height/2, Math.max(mainCanvas.width, mainCanvas.height)) / 10);
+		var scald = 30 + Math.floor(Math.min(mainCanvas.width/2, mainCanvas.height/2, Math.max(mainCanvas.width, mainCanvas.height)) / 8);
 		//this.leftButton.resize(scald, bbot-scald, scald);
 		//this.rightButton.resize(scald*3, bbot-scald, scald);
 		this.moveStick.resize(scald*2, bbot-scald*2, scald*2);
@@ -218,6 +218,7 @@ class TouchControllerStickPart extends TouchControllerButton {
 	}
 	resize(x, y, r) {
 		super.resize(x, y, r);
+		this.r2 *= 1.2; //is this a dumb fix?
 	}
 	intersects(x, y) {
 		return super.intersects(x, y) && new VectorRect(x-this.x, y-this.y).rotate(this.rotation).y > this.r * this.inner;
