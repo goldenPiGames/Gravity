@@ -126,6 +126,7 @@ class TouchController extends Controller {
 		return "[" + KEY_NAMES[this.binds[command]] + "]";
 	}
 }
+TouchController.prototype.type = "Touch";
 
 class TouchControllerButton {
 	constructor(command) {

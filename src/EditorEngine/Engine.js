@@ -106,7 +106,7 @@ class StageEditing {
 		this.width = stuff.width;
 		this.height = stuff.height;
 		this.music = stuff.music;
-		this.objects = stuff.objects.map(o=>editorFromRegistry(o));
+		this.objects = stuff.objects.map(o=>editorFromRegistry(o)).filter(a=>a);
 	}
 	update(eng) {
 		

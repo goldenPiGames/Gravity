@@ -1,6 +1,5 @@
 var pControllers = [];
 
-
 const KEY_REPEAT_DELAY = 10;
 const KEY_REPEAT_RATE = 3;
 
@@ -92,6 +91,10 @@ function addControlEvents() {
 	addResizeEvents();
 	addMouseEvents();
 	addTouchEvents();
+}
+
+function getControllerType() {
+	return pControllers[0].type;
 }
 
 /*

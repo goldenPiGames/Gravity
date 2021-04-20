@@ -46,6 +46,8 @@ class DialogHandler {
 class DialogLine {
 	constructor(args) {
 		this.lText = args.lText;
+		if (args.lTextAddController)
+			this.lText += "-" + getControllerType();
 		this.duration = args.duration;
 		this.audio = makeVoice(this.lText);
 		this.timer = 0;

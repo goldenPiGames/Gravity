@@ -29,6 +29,7 @@ class KeyboardController extends Controller {
 		return "[" + KEY_NAMES[this.binds[command]] + "]";
 	}
 }
+KeyboardController.prototype.type = "Keyboard";
 //KeyboardController.prototype.binds = DEFAULT_BINDS_KEYBOARD;
 
 class NormalKeyboardController extends KeyboardController {

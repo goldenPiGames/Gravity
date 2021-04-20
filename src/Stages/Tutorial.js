@@ -61,7 +61,7 @@
 					],*/
 const STAGE_DATA_TUTORIAL = {
 	"width" : 860,
-	"height" : 2000,
+	"height" : 1500,
 	/*"background" : {
 		"background": "Solid",
 		"color" : "#202020"

@@ -35,6 +35,8 @@ function editorFromRegistry(o) {
 	if (o instanceof EditorObject) {
 		return o;
 	}
+	if (!EDITOR_REGISTRY[o.object])
+		return null;
 	return new (EDITOR_REGISTRY[o.object])(o);
 }
 

@@ -1,16 +1,14 @@
 
 class GamepadController extends Controller {
-	constructor(gpindex, binds, stickbinds, stickbindNames) {
+	constructor(gpindex) {
 		super();
 		this.gpindex = gpindex;
-		this.setBinds(binds, stickbinds, stickbindNames);
 	}
 	updateBefore() {
 		var gamepad = getGamepad(this.gpindex);
 		if (!gamepad)
 			return;
 		COMMAND_LIST.forEach(com => {
-			//console.log(com);
 			this[com+"Last"] = this[com];
 			this[com] = (this.binds[com] >= 0 && gamepad.buttons[this.binds[com]].pressed) || (this.stickbinds[com] && this.stickbinds[com](gamepad));
 			this[com+"Clicked"] = this[com] && !this[com+"Last"];
@@ -37,6 +35,7 @@ class GamepadController extends Controller {
 			return "(" + butt + ")";
 	}
 }
+GamepadController.prototype.type = "Gamepad";
 GamepadController.prototype.stickbinds = {};
 GamepadController.prototype.stickbindNames = {};
 COMMAND_LIST.forEach(com => {
