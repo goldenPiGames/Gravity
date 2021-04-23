@@ -112,6 +112,7 @@ const SPRITE_DATA = {
 	"TilesetMonochromeBrick" : TILESET_DATA,
 	"SubtilesetDemo" : SUBTILESET_DATA,
 	"SubtilesetStoneBrick" : SUBTILESET_DATA,
+	"SubtilesetPsychBorder" : SUBTILESET_DATA,
 	"RadTilesetDemo" : RADTILESET_DATA,
 	"RadTilesetStoneBrick" : RADTILESET_DATA,
 	"Clock160brown" : {

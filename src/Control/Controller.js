@@ -94,6 +94,8 @@ function addControlEvents() {
 }
 
 function getControllerType() {
+	if (!pControllers[0])
+		return "Keyboard";
 	return pControllers[0].type;
 }
 

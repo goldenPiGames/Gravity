@@ -39,7 +39,8 @@ class NormalKeyboardController extends KeyboardController {
 document.addEventListener("keydown", function(e) {
 	if (!pControllers.find(p=>p instanceof KeyboardController))
 		pControllers.push(new NormalKeyboardController());
-	//console.log(e.code);
+	if (keyCodesEnabled)
+		console.log(e.code);
 	if (document.activeElement.type != "text" && e.code != "KeyI")
 		e.preventDefault();
 	if (!keysHeld[e.code])
@@ -50,3 +51,9 @@ document.addEventListener("keydown", function(e) {
 document.addEventListener("keyup", function(e) {
 	keysHeld[e.code] = false;
 });
+
+var keyCodesEnabled = false;
+
+function enableKeyCodes() {
+	keyCodesEnabled = true;
+}

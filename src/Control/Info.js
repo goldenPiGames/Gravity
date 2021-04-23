@@ -1,4 +1,4 @@
-const COMMAND_LIST = ["menuLeft", "menuRight", "menuUp", "menuDown", "select", "cancel", "menuAlt", "left", "right", "up", "down", "gear", "jump", "pause", "restart", "cameraLeft", "cameraRight", "cameraUp", "cameraDown"];
+const COMMAND_LIST = ["menuLeft", "menuRight", "menuUp", "menuDown", "select", "cancel", "menuAlt", "left", "right", "up", "down", "gear", "jump", "pause", "restart", "cameraLeft", "cameraRight", "cameraUp", "cameraDown", "cameraZoomIn", "cameraZoomOut", "cameraToggleRotate"];
 //const COMMAND_LIST = ["menuLeft", "menuRight", "menuUp", "menuDown", "select", "cancel", "menuAlt", "left", "right", "up", "down", "jump", "attack", "shoot", "crouch", "special", "interact", /*"switch", */"zoomOut", "zoomIn", "pause", "restart"];
 
 /*const KEY_NAMES = [0, 1, 2, 3, 4, 5, 6, 7, "Backspace", "Tab", 10, 11, 12, "Enter", 14, 15, "Shift", "Ctrl", "Alt", "Pause", "Caps", 21, 22, 23, 24, 25, 26, "Esc", 28, 29, 30, 31, "Space", "PgUp", "PgDn", "End", "Home", "←", "↑", "→", "↓",
@@ -132,4 +132,16 @@ const CONTROLS_INFO = {
 		defaultKeyboardFull : ["KeyK"],
 		touchColor : "#808080",
 	},
+	cameraZoomIn : {
+		defaultKeyboardFull : ["Equal"],
+		touchColor : "A0A0A0",
+	},
+	cameraZoomOut : {
+		defaultKeyboardFull : ["Minus"],
+		touchColor : "606060",
+	},
+	cameraToggleRotate : {
+		defaultKeyboardFull : ["Digit0"],
+		touchColor : "808060",
+	}
 }

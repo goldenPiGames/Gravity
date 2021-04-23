@@ -81,7 +81,7 @@ class TouchController extends Controller {
 	resize() {
 		var bright = mainCanvas.width;
 		var bbot = mainCanvas.height;
-		var scald = 30 + Math.floor(Math.min(mainCanvas.width/2, mainCanvas.height/2, Math.max(mainCanvas.width, mainCanvas.height)) / 8);
+		var scald = Math.floor(Math.min(mainCanvas.width/10, mainCanvas.height/8, 30 + Math.max(mainCanvas.width, mainCanvas.height) / 16));
 		//this.leftButton.resize(scald, bbot-scald, scald);
 		//this.rightButton.resize(scald*3, bbot-scald, scald);
 		this.moveStick.resize(scald*2, bbot-scald*2, scald*2);
