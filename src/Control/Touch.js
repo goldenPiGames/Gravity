@@ -238,6 +238,13 @@ class TouchControllerStickPart extends TouchControllerButton {
 	}
 }
 
+class TouchControllerStickRing extends TouchControllerStick {
+	
+	getVector() {
+		
+	}
+}
+
 function addTouchEvents() {
 	mainCanvas.addEventListener("touchstart", function(e) {
 		if (!pControllers.find(p=>p instanceof TouchController))

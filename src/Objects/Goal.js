@@ -45,4 +45,10 @@ class GoalpostEditor extends EditorObject {
 		};
 	}
 }
-registerEditor(GoalpostEditor, "Goalpost");
+registerEditor(GoalpostEditor, "Goalpost", {
+	getNewArgs : cam=>({
+		x : cam.centerX,
+		y : cam.centerY,
+		r : 60,
+	})
+});

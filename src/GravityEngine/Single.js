@@ -13,7 +13,7 @@ class SingleStageEngine {
 		worldCanvas.height = this.stage.height;
 		staticWorldCanvas.width = this.stage.width;
 		staticWorldCanvas.height = this.stage.height;
-		this.camera = new Camera(this.stage);
+		this.camera = new FollowingCamera(this.stage);
 		this.camera.setFocus(this.stage.cameraFocus || this.stage.objects.find(oj=>oj.focusme) || this.stage.objects.find(oj=>oj.controller));
 	}
 	switchin() {
