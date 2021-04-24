@@ -1,10 +1,15 @@
 class MenuThing {
+	update() {
+		this.timeSinceLastUpdated = this.lastUpdated - globalTimer;
+		this.lastUpdated = globalTimer;
+	}
 	hoverNothing() {
 		this.hovered = null;
 	}
 	hoverDefault(ting) {
-		if (!this.hovered)
-			this.hovered = ting;
+		if (!this.hovered) {
+			this.hover(ting);
+		}
 	}
 }
 
@@ -60,6 +65,7 @@ class MenuScreen extends Screen {
 		}
 	}
 	update() {
+		super.update();
 		/*if (globalController.selectClicked) {
 			this.mainButtons[this.buttonIndex].func();
 			return;
@@ -153,6 +159,7 @@ class MenuObject extends MenuThing {
 		this.justResized = true;
 	}
 	update(menu) {
+		super.update();
 		this.mouseClicked = false;
 		this.mouseRightClicked = false;
 		this.touchClicked = false;

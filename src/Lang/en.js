@@ -49,6 +49,7 @@ LANG.en = {
 	"Editor-Play" : "Play",
 	"Editor-File" : "File",
 	"Editor-File-LoadBaseStage" : "L. Base Stage",
+	"Editor-File-SaveFile" : "Save File",
 	"Editor-SelectObject" : "Select Obj",
 	"Editor-SelectObject-Back" : "Back",
 	"Editor-EditObject-Back" : "Back",

@@ -135,34 +135,6 @@ class EditorSidebarStageParams extends EditorSidebarSub {
 	}
 }
 
-class EditorSidebarFile extends EditorSidebarSub {
-	constructor() {
-		super([
-			new EditorPanelButton({
-				lText: "Editor-File-LoadBaseStage",
-				func : ()=>this.parent.switchSub(new EditorSidebarLoadBaseStage())
-			}),
-		]);
-	}
-	back() {
-		this.parent.switchSub(new EditorSidebarMain());
-	}
-}
-
-class EditorSidebarLoadBaseStage extends EditorSidebarSub {
-	constructor() {
-		super([
-			...EDITABLE_STAGES.map(sid=>new EditorPanelButton({
-				lText : "Stage-"+sid,
-				func : ()=>this.engine.loadStage(STAGE_REGISTRY[sid])
-			})),
-		]);
-	}
-	back() {
-		this.parent.switchSub(new EditorSidebarFile());
-	}
-}
-
 class EditorSidebarSelectObject extends EditorSidebarSub {
 	constructor(stage) {
 		super([
@@ -213,7 +185,7 @@ class EditorSidebarMusic extends EditorSidebarSub {
 		]);
 	}
 	back() {
-		this.parent.switchSub(new EditorSidebarStageParams());
+		this.parent.switchSub(new EditorSidebarStageParams(this.engine.stage));
 	}
 }
 
