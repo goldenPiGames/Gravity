@@ -19,6 +19,9 @@ class EditorSidebar extends MenuObject {
 		this.sub.setParent(this);
 		this.resizeSub();
 	}
+	back() {
+		this.sub.back();
+	}
 	resize() {
 		this.topHeight = 40;
 		var wideness = Math.ceil(mainCanvas.width/4);
@@ -106,10 +109,6 @@ class EditorSidebarMain extends EditorSidebarSub {
 class EditorSidebarStageParams extends EditorSidebarSub {
 	constructor(stage) {
 		super([
-			new EditorPanelButton({
-				lText: "Editor-File-LoadBaseStage",
-				func : ()=>this.parent.switchSub(new EditorSidebarLoadBaseStage())
-			}),
 			new EditorPanelNumber(stage, {
 				lText : "StageParams-Width",
 				param : "width",
@@ -123,6 +122,10 @@ class EditorSidebarStageParams extends EditorSidebarSub {
 				min : 400,
 				max : 4000,
 				after : ()=>this.engine.resizeWorld(),
+			}),
+			new EditorPanelButton({
+				lText : "StageParams-Music",
+				func : ()=>this.parent.switchSub(new EditorSidebarMusic())
 			}),
 		]);
 		this.stage = stage;
@@ -203,6 +206,16 @@ class EditorSidebarEditObject extends EditorSidebarSub {
 	}
 }
 
+class EditorSidebarMusic extends EditorSidebarSub {
+	constructor(obj) {
+		super([
+			...SONG_LIST.map(s=>new EditorPanelSong(s))
+		]);
+	}
+	back() {
+		this.parent.switchSub(new EditorSidebarStageParams());
+	}
+}
 
 class EditorPanel extends ScrollObject {
 	constructor(args) {
@@ -301,3 +314,26 @@ class EditorPanelSelectObject extends EditorPanel {
 	}
 }
 
+class EditorPanelSong extends EditorPanel {
+	constructor(song) {
+		super({
+			text : song.name
+		});
+		this.songName = song.name;
+	}
+	update(wank) {
+		super.update(wank);
+		if (this.clicked) {
+			wank.engine.stage.music = this.songName;
+			wank.back()
+		}
+		if (this.altClicked) {
+			console.log(this.songName)
+			playMusic(this.songName);
+		}
+	}
+	draw() {
+		super.draw();
+		this.drawTextNormally();
+	}
+}

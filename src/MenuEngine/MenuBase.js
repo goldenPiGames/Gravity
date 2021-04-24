@@ -134,6 +134,8 @@ class MenuObject extends MenuThing {
 		if (this.lText) {
 			this.text = lg(this.lText);
 		}
+		if (args.text && !this.text)
+			this.text = args.text;
 		if (args.bindCancel)
 			this.bindCancel = args.bindCancel;
 		if (args.needDoubleTap)

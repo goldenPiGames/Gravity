@@ -117,8 +117,8 @@ class StageEditing {
 		//console.log("blah");
 		worldCtx.drawImage(staticWorldCanvas, 0, 0);
 		this.objects.forEach(oj=>oj.draw(this));
-		worldCtx.fillStyle = "#FF0000";
-		worldCtx.lineWidth = 4;
+		worldCtx.strokeStyle = "#FF0000";
+		worldCtx.lineWidth = 2;
 		worldCtx.strokeRect(0, 0, this.width, this.height);
 	}
 	getJSON() {

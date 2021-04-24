@@ -64,6 +64,7 @@ LANG.en = {
 	
 	"StageParams-Width" : "Width",
 	"StageParams-Height" : "Height",
+	"StageParams-Music" : "Music",
 	
 	"Grid-Bank-Solid" : "Solid",
 	"Grid-Bank-Up" : "Up",

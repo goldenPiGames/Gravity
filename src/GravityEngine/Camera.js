@@ -30,7 +30,7 @@ class Camera {
 		this.centerX = this.destX;
 		this.centerY = this.destY;
 		if (this.rotation != this.destRotation) {
-			let rotationDif = angleDifference(this.rotation, this.focusRotation);
+			let rotationDif = angleDifference(this.rotation, this.destRotation);
 			if (rotationDif > Math.PI - .01 && this.focusObject.facing == false)
 				rotationDif -= 2*Math.PI;
 			if (Math.abs(rotationDif) <= .004)

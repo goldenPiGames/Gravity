@@ -11,14 +11,14 @@ class EditorSidebarMoveObject extends EditorSidebarSub {
 		super.update(p);
 		var moveX = mouse.draggedX || 0;
 		var moveY = mouse.draggedY || 0;
-		if (globalController.isCommandPressedRepeating("left"))
-			moveX--;
-		if (globalController.isCommandPressedRepeating("right"))
-			moveX++;
-		if (globalController.isCommandPressedRepeating("up"))
-			moveY--;
-		if (globalController.isCommandPressedRepeating("down"))
-			moveY++;
+		if (globalController.isCommandPressedRepeating("menuLeft"))
+			moveX -= globalController.menuAlt ? 20 : 1;
+		if (globalController.isCommandPressedRepeating("menuRight"))
+			moveX += globalController.menuAlt ? 20 : 1;
+		if (globalController.isCommandPressedRepeating("menuUp"))
+			moveY -= globalController.menuAlt ? 20 : 1;
+		if (globalController.isCommandPressedRepeating("menuDown"))
+			moveY += globalController.menuAlt ? 20 : 1;
 		if (moveX || moveY) {
 			this.object[this.xParam] += moveX;
 			this.object[this.yParam] += moveY;
@@ -86,10 +86,10 @@ class EditorPanelNumber extends EditorPanel {
 			let before = this.object[this.param];
 			let after = before;
 			if (globalController.isCommandPressedRepeating("menuLeft")) {
-				after -= 1;
+				after -= globalController.menuAlt ? 20 : 1;
 			}
 			if (globalController.isCommandPressedRepeating("menuRight")) {
-				after += 1;
+				after += globalController.menuAlt ? 20 : 1;
 			}
 			if (this.mouseZoneLeft.mouseClicked)
 				after -= 1;
