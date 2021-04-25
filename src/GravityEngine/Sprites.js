@@ -38,6 +38,10 @@ class SpriteSheet {
 			console.log("Datum "+spriteName+" does not exist for this sprite sheet");
 			return;
 		}
+		if (args.alpha) {
+			var alphaBef = ctx.globalAlpha;
+			ctx.globalAlpha = args.alpha;
+		}
 		if (args.rotation) {
 			ctx.translate(args.x, args.y);
 			ctx.rotate(args.rotation);
@@ -51,6 +55,8 @@ class SpriteSheet {
 		var drawHeight = args.height || datum.height*args.scale || datum.height;
 		ctx.drawImage(this.image, datum.x, datum.y, datum.width, datum.height, args.x - (drawWidth * args.xadj || 0), args.y - (drawHeight * args.yadj || 0), drawWidth, drawHeight);
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
+		if (args.alpha)
+			ctx.globalAlpha = alphaBef;
 	}
 	drawParallax(spriteName, args, cam) {
 		if (Array.isArray(spriteName))

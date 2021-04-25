@@ -68,6 +68,9 @@ class StaticGridTerrain extends GameObject {
 		this.topY = args.topY || 0;
 		this.bank = args.bank;
 		this.grid = args.grid;
+		this.gravArrowsSprites = getSpriteSheet("GridGravArrows");
+		this.gravArrows = args.gravArrows;
+		this.gravBorders = args.gravBorders;
 		this.scale = args.scale || PIXELS_PER_BLOCK;
 		this.gravPriority = args.gravPriority;
 		var tilesetName = args.tileset || "SubtilesetDemo";
@@ -132,6 +135,8 @@ class StaticGridTile {
 		this.gridY = gridY;
 		this.data = data;
 		this.solid = this.data.solid;
+		this.gravArrows = this.data.gravArrows == undefined ? this.parent.gravArrows : this.data.gravArrows;
+		this.gravBorders = this.data.gravBorders == undefined ? this.parent.gravBorders : this.data.gravBorders;
 		this.gravity = this.data.gravity;
 		this.round = this.data.round;
 		if (this.round) {
@@ -169,6 +174,7 @@ class StaticGridTile {
 			this.parent.tileOfIndex(this.gridX-1, this.gridY-1),
 		];
 		this.neighborsSolid = this.neighbors.map(n=>n&&n.solid);
+		this.neighborsSame = this.neighbors.map(n=>n&&n.data==this.data);
 		this.neighborBin = this.neighborsSolid.map(m=>m?"W":"_").join("");
 		if (this.solid) {
 			if (this.parent.usingSubtileset) {
@@ -233,6 +239,36 @@ class StaticGridTile {
 					});
 				}
 			}
+		} else {
+			if (this.gravBorders) {
+				var borderWidth = 3;
+				staticWorldCtx.fillStyle = getEditorBankColor(this.data);
+				if (!this.neighborsSolid[0] && !this.neighborsSame[0]) {
+					staticWorldCtx.fillRect(this.leftX, this.topY, this.width, borderWidth);
+				}
+				if (!this.neighborsSolid[2] && !this.neighborsSame[2]) {
+					staticWorldCtx.fillRect(this.rightX-borderWidth, this.topY, borderWidth, this.height);
+				}
+				if (!this.neighborsSolid[4] && !this.neighborsSame[4]) {
+					staticWorldCtx.fillRect(this.leftX, this.bottomY-borderWidth, this.width, borderWidth);
+				}
+				if (!this.neighborsSolid[6] && !this.neighborsSame[6]) {
+					staticWorldCtx.fillRect(this.leftX, this.topY, borderWidth, this.height);
+				}
+			}
+			if (this.gravArrows) {
+				if (this.gravity.round) {
+					
+				} else {
+					this.parent.gravArrowsSprites.drawOnStaticWorld(this.gravity, {
+						alpha:0.5,
+						x:this.midX,
+						y:this.midY,
+						xadj:.5,
+						yadj:.5
+					});
+				}
+			}
 		}
 	}
 	isPixelSolid(x, y) {
@@ -261,6 +297,8 @@ class StaticGridTerrainEditor extends EditorObject {
 		this.leftX = args.leftX || 0;
 		this.topY = args.topY || 0;
 		this.bank = args.bank;
+		this.gravArrows = args.gravArrows || 0;
+		this.gravBorders = args.gravBorders || 0;
 		//this.grid = args.grid;
 		this.scale = args.scale || PIXELS_PER_BLOCK;
 		this.gravPriority = args.gravPriority;
@@ -322,6 +360,8 @@ class StaticGridTerrainEditor extends EditorObject {
 			scale : this.scale,
 			gravPriority : this.gravPriority,
 			tileset : this.tileset,
+			gravArrows : this.gravArrows,
+			gravBorders : this.gravBorders,
 			grid : this.tiles.map2d(t=>t.bankIndex),
 			bank : this.bank,
 		};
@@ -330,6 +370,12 @@ class StaticGridTerrainEditor extends EditorObject {
 		return [
 			new EditorPanelGrid(this),
 			new EditorPanelMove(this, "leftX", "topY"),
+			new EditorPanelBoolean(this, {
+				param : "gravArrows",
+			}),
+			new EditorPanelBoolean(this, {
+				param : "gravBorders",
+			}),
 		];
 	}
 	afterMove(x, y) {

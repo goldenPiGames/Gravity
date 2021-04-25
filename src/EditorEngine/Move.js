@@ -55,6 +55,52 @@ class EditorPanelMove extends EditorPanel {
 	}
 }
 
+class EditorPanelBoolean extends EditorPanel {constructor(object, args) {
+		super({
+			lText : args.lText || object.lText+"-"+args.param
+		});
+		this.object = object;
+		this.param = args.param;
+		this.setter = args.setter;
+		this.after = args.after;
+	}
+	resize(...a) {
+		let tret = super.resize(...a);
+		this.boxWidth = Math.min(this.height, this.width/4);
+		this.mainX = this.x + this.boxWidth;
+		this.mainWidth = this.width - this.boxWidth;
+		return tret;
+	}
+	update(yaro) {
+		super.update(yaro);
+		if (this.clicked) {
+			this.object[this.param] = !this.object[this.param];
+		}
+	}
+	draw() {
+		super.draw();
+		if (this.object[this.param]) {
+			mainCtx.strokeStyle = "#00FF00";
+			mainCtx.lineWidth = 2;
+			mainCtx.beginPath();
+			mainCtx.moveTo(this.x, this.y+this.height/2);
+			mainCtx.lineTo(this.x+this.boxWidth/2, this.y+this.height);
+			mainCtx.lineTo(this.x+this.boxWidth, this.y);
+			mainCtx.stroke();
+		} else {
+			mainCtx.strokeStyle = "#FF0000";
+			mainCtx.lineWidth = 2;
+			mainCtx.beginPath();
+			mainCtx.moveTo(this.x, this.y);
+			mainCtx.lineTo(this.x+this.boxWidth, this.y+this.height);
+			mainCtx.moveTo(this.x+this.boxWidth, this.y);
+			mainCtx.lineTo(this.x, this.y+this.height);
+			mainCtx.stroke();
+		}
+		drawTextInRect(this.text, this.mainX, this.y, this.mainWidth, this.height, {fill:"#FFFFFF"});
+	}
+}
+
 class EditorPanelNumber extends EditorPanel {
 	constructor(object, args) {
 		super({

@@ -115,6 +115,12 @@ const SPRITE_DATA = {
 	"SubtilesetPsychBorder" : SUBTILESET_DATA,
 	"RadTilesetDemo" : RADTILESET_DATA,
 	"RadTilesetStoneBrick" : RADTILESET_DATA,
+	"GridGravArrows" : {
+		down : {x: 0, y: 0, width:20, height:20},
+		up   : {x:20, y: 0, width:20, height:20},
+		left : {x:40, y: 0, width:20, height:20},
+		right: {x:40, y:20, width:20, height:20},
+	},
 	"Clock160brown" : {
 		body : {x:0, y:0, width:160, height:160},
 		hand : {x:160, y:0, width:20, height:160},

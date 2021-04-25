@@ -1,5 +1,5 @@
 LANG.en = {
-	"Title" : "Gravity",
+	"Title" : "Grav/vity",
 	"MainMenu-Play" : "Play",
 	"MainMenu-Editor" : "Editor",
 	"MainMenu-Jukebox" : "Jukebox",
@@ -12,12 +12,14 @@ LANG.en = {
 	"Stage-Twoside-Desc" : "Use momentum to your advantage in this double-sided platform strip.",
 	"Stage-Stairbelt" : "Stairbelt",
 	"Stage-Stairbelt-Desc" : "A series of round planets with steps that can only be conquered using orbit al physics.",
+	"Stage-Scramaze" : "Scramaze",
+	"Stage-Scramaze-Desc" : "A small maze with confusing gravity.",
 	"Stage-Incorner" : "Incorner",
 	"Stage--Desc" : "A great big cube.",
-	"Stage-Outcorner" : "Outcorner",
+	/*"Stage-Outcorner" : "Outcorner",
 	"Stage--Desc" : "The inside of another cube.",
 	"Stage-Stormesa" : "Stormesa",
-	"Stage--Desc" : "",
+	"Stage--Desc" : "",*/
 	
 	"StageSelect-Back" : "Back",
 	
@@ -34,6 +36,8 @@ LANG.en = {
 	
 	"Object-Player" : "Player",
 	"Object-StaticGridTerrain" : "Static Grid",
+	"Object-StaticGridTerrain-gravArrows" : "G Arrows",
+	"Object-StaticGridTerrain-gravBorders" : "G Borders",
 	"Object-Planet" : "Planet",
 	"Object-Planet-radius" : "Radius",
 	"Object-Planet-gravRadius" : "G Radius",
