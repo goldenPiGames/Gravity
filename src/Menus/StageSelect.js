@@ -22,7 +22,6 @@ class StageSelectMenu extends Screen {
 		this.cursor = new MenuCursor(this);
 		this.backButton.connectLeft = this.stageScroll.scrollObjects[0];
 		this.hover(this.stageScroll.getStartHover());
-		this.resize();
 	}
 	resize() {
 		this.backButton.resize(mainCanvas.width - 100, 0, 100, 40);
@@ -57,7 +56,7 @@ class StageSelectMenu extends Screen {
 class StageSelectScrollContainer extends ScrollContainer {
 	constructor() {
 		super();
-		this.scrollObjects = EDITABLE_STAGES.map(i=>new StageSelectScrollObject(i));
+		this.scrollObjects = SELECTABLE_STAGES.map(i=>new StageSelectScrollObject(i));
 		this.connect();
 	}
 	resize(x, width) {

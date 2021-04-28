@@ -95,6 +95,19 @@ class EditorSidebarObjectGridMenu extends EditorSidebarSub {
 	}
 }
 
+class EditorSidebarObjectBankEdit extends EditorSidebarSub {
+	constructor(returnTo, bankIndex) {
+		super([
+			...returnTo.gridOver.object.getEditorPanelsBankEdit(bankIndex),
+		])
+		this.returnTo = returnTo;
+		this.bankIndex = bankIndex;
+	}
+	back() {
+		this.parent.switchSub(this.returnTo);
+	}
+}
+
 class EditorGridOver extends MenuObject {
 	constructor(obj) {
 		super();
@@ -245,6 +258,8 @@ class EditorPanelBankSelect extends EditorPanel {
 		super.update(ojama);
 		if (this.clicked)
 			ojama.sub.selectBank(this.index);
+		else if (this.altClicked)
+			ojama.switchSub(new EditorSidebarObjectBankEdit(ojama.sub, this.index));
 	}
 	draw() {
 		super.draw();

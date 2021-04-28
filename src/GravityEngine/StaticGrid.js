@@ -376,19 +376,53 @@ class StaticGridTerrainEditor extends EditorObject {
 			new EditorPanelBoolean(this, {
 				param : "gravBorders",
 			}),
+			new EditorPanelNumber(this, {
+				param : "gravPriority",
+				min : 0,
+				max : 15,
+			}),
 		];
-	}
-	afterMove(x, y) {
-		this.tiles.forEach2d(t=>t.updatePosition());
 	}
 	getEditorPanelsBankSelect() {
 		return this.bank.map((b, i)=>new EditorPanelBankSelect(this, i));
+	}
+	getEditorPanelsBankEdit(bankIndex) {
+		var bangbang = this.bank[bankIndex];
+		if (bangbang.round) {
+			return [
+				new EditorPanelNumber(bangbang, {
+					lText : "Grid-Bank-centerX",
+					param : "centerX",
+					min : 0,
+					max : this.tiles.length,
+				}),
+				new EditorPanelNumber(bangbang, {
+					lText : "Grid-Bank-centerY",
+					param : "centerY",
+					min : 0,
+					max : this.tiles[0].length,
+				}),
+				new EditorPanelBoolean(bangbang, {
+					lText : "Grid-Bank-centerSolid",
+					param : "centerSolid"
+				}),
+			];
+		} else {
+			return [];
+		}
+	}
+	afterMove(x, y) {
+		this.tiles.forEach2d(t=>t.updatePosition());
 	}
 	addColumn(x) {
 		this.tiles.splice(x+1, 0, this.tiles[x].map((t,y)=>new StaticGridEditorTile(this, x+1, y, t.bankIndex)));
 		this.tiles.slice(x+2).forEach2d(t=>{
 			t.gridX++;
 			t.updatePosition();
+		});
+		this.bank.forEach(b=>{
+			if (b.centerX > x)
+				b.centerX++;
 		});
 	}
 	removeColumn(x) {
@@ -397,6 +431,10 @@ class StaticGridTerrainEditor extends EditorObject {
 			t.gridX--;
 			t.updatePosition();
 		});
+		this.bank.forEach(b=>{
+			if (b.centerX > x)
+				b.centerX--;
+		});
 	}
 	addRow(y) {
 		this.tiles.forEach((col,x)=>col.splice(y+1, 0, new StaticGridEditorTile(this, x, y+1, col[y].bankIndex)));
@@ -404,6 +442,10 @@ class StaticGridTerrainEditor extends EditorObject {
 			t.gridY++;
 			t.updatePosition();
 		}));
+		this.bank.forEach(b=>{
+			if (b.centerY > y)
+				b.centerY++;
+		});
 	}
 	removeRow(y) {
 		this.tiles.forEach((col,x)=>col.splice(y, 1));
@@ -411,6 +453,10 @@ class StaticGridTerrainEditor extends EditorObject {
 			t.gridY--;
 			t.updatePosition();
 		}));
+		this.bank.forEach(b=>{
+			if (b.centerY > y)
+				b.centerY--;
+		});
 	}
 }
 registerEditor(StaticGridTerrainEditor, "StaticGridTerrain", {

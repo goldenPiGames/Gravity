@@ -10,7 +10,7 @@ class Stage {
 		this.objects = args.objects.map(o=>objectFromRegistry(o));
 		this.background = backgroundFromRegistry(args.background || {"background":"Solid"}, this);
 		this.music = args.music;
-		playMusic(this.music);
+		//playMusic(this.music);
 		this.gravX = typeof args.gravX == "number" ? args.gravX : args.gravity ? args.gravity.x : 0;
 		this.gravY = typeof args.gravT == "number" ? args.gravT : args.gravity ? args.gravity.y : .5;
 		this.time = 0;

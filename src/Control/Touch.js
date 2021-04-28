@@ -50,10 +50,13 @@ class TouchController extends Controller {
 		this.selectButton = new TouchControllerButtonDiamond("select");
 		this.cancelButton = new TouchControllerButtonDiamond("cancel");
 		this.menuAltButton = new TouchControllerButtonDiamond("menuAlt");
-		this.cameraLeftButton = new TouchControllerButton("cameraLeft");
+		this.cameraStick = new TouchControllerStickCamera();
+		this.cameraZoomInButton = new TouchControllerButton("cameraZoomIn");
+		this.cameraZoomOutButton = new TouchControllerButton("cameraZoomOut");
+		/*this.cameraLeftButton = new TouchControllerButton("cameraLeft");
 		this.cameraRightButton = new TouchControllerButton("cameraRight");
 		this.cameraUpButton = new TouchControllerButton("cameraUp");
-		this.cameraDownButton = new TouchControllerButton("cameraDown");
+		this.cameraDownButton = new TouchControllerButton("cameraDown");*/
 		this.buttonsGame = [
 			//this.leftButton,
 			//this.rightButton,
@@ -71,17 +74,20 @@ class TouchController extends Controller {
 			this.menuAltButton,
 		];
 		this.buttonsCamera = [
-			this.cameraLeftButton,
+			this.cameraStick,
+			this.cameraZoomInButton,
+			this.cameraZoomOutButton,
+			/*this.cameraLeftButton,
 			this.cameraRightButton,
 			this.cameraUpButton,
-			this.cameraDownButton,
+			this.cameraDownButton,*/
 		];
 		this.resize();
 	}
 	resize() {
 		var bright = mainCanvas.width;
 		var bbot = mainCanvas.height;
-		var scald = Math.floor(Math.min(mainCanvas.width/10, mainCanvas.height/8, 30 + Math.max(mainCanvas.width, mainCanvas.height) / 16));
+		var scald = Math.floor(Math.min(mainCanvas.width/9, mainCanvas.height/8, 30 + Math.max(mainCanvas.width, mainCanvas.height) / 16));
 		//this.leftButton.resize(scald, bbot-scald, scald);
 		//this.rightButton.resize(scald*3, bbot-scald, scald);
 		this.moveStick.resize(scald*2, bbot-scald*2, scald*2);
@@ -94,10 +100,13 @@ class TouchController extends Controller {
 		this.selectButton.resize(bright - scald*2, bbot - scald, scald);
 		this.cancelButton.resize(bright - scald, bbot - scald*2, scald);
 		this.menuAltButton.resize(bright - scald*3, bbot - scald*2, scald);
-		this.cameraLeftButton.resize(bright - scald*3, bbot-scald*5, scald*2/3);
+		this.cameraStick.resize(bright - scald*5/2, bbot - scald*5, scald);
+		this.cameraZoomInButton.resize(bright - scald/2, bbot - scald*11/2, scald/2);
+		this.cameraZoomOutButton.resize(bright - scald/2, bbot - scald*9/2, scald/2);
+		/*this.cameraLeftButton.resize(bright - scald*3, bbot-scald*5, scald*2/3);
 		this.cameraRightButton.resize(bright - scald, bbot-scald*5, scald*2/3);
 		this.cameraUpButton.resize(bright - scald*2, bbot-scald*6, scald*2/3);
-		this.cameraDownButton.resize(bright - scald*2, bbot-scald*4, scald*2/3);
+		this.cameraDownButton.resize(bright - scald*2, bbot-scald*4, scald*2/3);*/
 	}
 	updateBefore() {
 		if (justResized)
@@ -198,11 +207,28 @@ class TouchControllerStick {
 class TouchControllerStickLR extends TouchControllerStick {
 	constructor() {
 		super();
-		this.leftButton = new TouchControllerStickPart("left", Math.PI*3/2, 1/4)
+		this.leftButton = new TouchControllerStickPart("left", Math.PI*3/2, 1/4);
 		this.rightButton = new TouchControllerStickPart("right", Math.PI/2, 1/4);
 		this.parts = [
 			this.leftButton,
 			this.rightButton,
+		];
+	}
+}
+
+class TouchControllerStickCamera extends TouchControllerStick {
+	constructor() {
+		super();
+		let port = 2/7;
+		this.leftButton = new TouchControllerStickPart("cameraLeft", Math.PI*3/2, port);
+		this.rightButton = new TouchControllerStickPart("cameraRight", Math.PI/2, port);
+		this.upButton = new TouchControllerStickPart("cameraUp", 0, port);
+		this.downButton = new TouchControllerStickPart("cameraDown", Math.PI, port);
+		this.parts = [
+			this.leftButton,
+			this.rightButton,
+			this.upButton,
+			this.downButton,
 		];
 	}
 }
@@ -221,7 +247,7 @@ class TouchControllerStickPart extends TouchControllerButton {
 		this.r2 *= 1.2; //is this a dumb fix?
 	}
 	intersects(x, y) {
-		return super.intersects(x, y) && new VectorRect(x-this.x, y-this.y).rotate(this.rotation).y > this.r * this.inner;
+		return super.intersects(x, y) && new VectorRect(x-this.x, y-this.y).rotate(-this.rotation).y < -this.r * this.inner;
 	}
 	update(par, stick) {
 		super.update(par);
@@ -235,13 +261,6 @@ class TouchControllerStickPart extends TouchControllerButton {
 		mainCtx.closePath();
 		mainCtx.stroke();
 		//super.draw();//TODO change it
-	}
-}
-
-class TouchControllerStickRing extends TouchControllerStick {
-	
-	getVector() {
-		
 	}
 }
 

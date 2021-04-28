@@ -16,7 +16,7 @@ function resizeLater() {
 
 function updateResize() {
 	if (justResized == 2) {
-		justResized--;
+		justResized = 0;
 		var width = window.innerWidth;
 		var height = window.innerHeight;
 		//console.log(width, height);
@@ -26,6 +26,9 @@ function updateResize() {
 		mainCanvas.height = height;
 		if (runnee && runnee.resize)
 			runnee.resize();
+		this.justResized = 1;
+	} else if (justResized) {
+		justResized = 1;
 	} else {
 		justResized = 0;
 	}

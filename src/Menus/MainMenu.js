@@ -1,58 +1,61 @@
-class MainMenu extends SingleMenuScreen {
+class MainMenu extends MenuScreen {
 	constructor() {
-		super({
-			mainButtons : [
-				/*{
-					lText : "MainMenu-Play",
-					func : function() {
-						selectNewGame();
-					}
-				},*/
-				{
-					lText : "MainMenu-Play",
-					func : function() {
-						switchScreen(StageSelectMenu)
-					}
-				},
-				{
-					lText : "MainMenu-Editor",
-					func : function() {
-						startLevelEditor();
-					}
-				},
-				{
-					lText : "MainMenu-Settings",
-					func : function() {
-						switchScreen(new SettingsMenu());
-					}
-				},
+		super();
+		this.playButton = new MenuButton({
+			lText : "MainMenu-Play",
+			func : function() {
+				switchScreen(StageSelectMenu)
+			}
+		});
+		this.editorButton = new MenuButton({
+			lText : "MainMenu-Editor",
+			func : function() {
+				startLevelEditor();
+			}
+		});
+		this.settingsButton = new MenuButton({
+			lText : "MainMenu-Settings",
+			func : ()=>switchScreen(new SettingsMenu())
+		});
 				/*{
 					lText : "MainMenu-Jukebox",
 					func : function(){doJukebox()}
 				},
 				{
-					lText : "MainMenu-Settings",
-					func : function(){doSettings()}
-				},
-				{
 					lText : "MainMenu-Controls",
 					func : function(){doControls()}
 				},*/
-			],
+		this.connectVert(this.playButton, this.editorButton, this.settingsButton);
+		this.menuObjects = [
+			this.playButton,
+			this.editorButton,
+			this.settingsButton,
+		];
+		this.hover(this.playButton);
+		this.attract = new AttractModeStageEngine({
+			stage : new Stage(STAGE_DATA_MAIN_TITLE),
 		});
 		//this.sprites = getSpriteSheet("MainMenu");
 	}
+	resize() {
+		([this.playButton, this.editorButton, this.settingsButton]).forEach((b, i)=>b.resize(mainCanvas.width/10, mainCanvas.height/2 + mainCanvas.height/10*i, mainCanvas.width*4/5, mainCanvas.height/15));
+	}
 	update() {
 		super.update();
+		if (runnee == this)
+			this.attract.update();
 	}
 	draw() {
-		mainCtx.globalAlpha = 1;
-		//this.drawFlow();
+		clearCanvas();
+		this.attract.draw();
 		super.draw();
 		mainCtx.fillStyle = "#FFFFFF";
-		drawTextInRect(lg("Title"), 0, 0, mainCanvas.width, 50);
-		drawParagraphInRect(lg("MainMenu-Unfinished"), 0, 50, mainCanvas.width, 50, 24);
-		drawParagraphInRect(lg("MainMenu-Instructions"), 0, mainCanvas.height*2/3, mainCanvas.width, mainCanvas.height/3, 24);
+		//drawTextInRect(lg("Title"), 0, 0, mainCanvas.width, 50);
+		//drawParagraphInRect(lg("MainMenu-Unfinished"), 0, 50, mainCanvas.width, 50, 24);
+		//drawParagraphInRect(lg("MainMenu-Instructions"), 0, mainCanvas.height*2/3, mainCanvas.width, mainCanvas.height/3, 24);
+	}
+	switchin() {
+		this.attract.switchin();
 	}
 }
 

@@ -12,6 +12,9 @@ class LoadingScreen {
 	draw() {
 		
 	}
+	resize() {
+		this.to.resize();
+	}
 }
 
 function isWaitingForLoad() {

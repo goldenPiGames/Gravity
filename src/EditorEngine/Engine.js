@@ -25,7 +25,6 @@ class EditorEngine {
 		this.sidebar = new EditorSidebar(this);
 		this.camera = new DraggableCamera(this.stage);
 		this.resizeWorld();
-		this.resize();
 	}
 	resize() {
 		this.sidebar.resize();
@@ -44,7 +43,6 @@ class EditorEngine {
 	}
 	draw() {
 		clearCanvas();
-		this.stage.drawWorld(this, worldCtx);
 		this.camera.draw();
 		this.sidebar.draw();
 	}
@@ -102,7 +100,8 @@ EditorEngine.prototype.controlShowCamera = true;
 
 class StageEditing {
 	constructor(stuff) {
-		this.background = stuff.background;
+		this.backgroundData = stuff.background;
+		this.background = new BackgroundNothing({}, this);
 		this.width = stuff.width;
 		this.height = stuff.height;
 		this.music = stuff.music;
@@ -123,7 +122,7 @@ class StageEditing {
 	}
 	getJSON() {
 		return {
-			background : this.background,
+			background : this.backgroundData,
 			music : this.music,
 			width : this.width,
 			height : this.height,

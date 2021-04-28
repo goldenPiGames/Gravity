@@ -12,7 +12,6 @@ class SettingsMenu extends Screen {
 		];
 		this.cursor = new MenuCursor(this);
 		this.hover(this.backButton);
-		this.resize();
 	}
 	resize() {
 		this.backButton.resize(mainCanvas.width - 100, 0, 100, 40);

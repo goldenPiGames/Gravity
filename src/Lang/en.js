@@ -20,6 +20,7 @@ LANG.en = {
 	"Stage--Desc" : "The inside of another cube.",
 	"Stage-Stormesa" : "Stormesa",
 	"Stage--Desc" : "",*/
+	"Stage-MainTitle" : "Main Title",
 	
 	"StageSelect-Back" : "Back",
 	
@@ -38,6 +39,7 @@ LANG.en = {
 	"Object-StaticGridTerrain" : "Static Grid",
 	"Object-StaticGridTerrain-gravArrows" : "G Arrows",
 	"Object-StaticGridTerrain-gravBorders" : "G Borders",
+	"Object-StaticGridTerrain-gravPriority" : "G Priority",
 	"Object-Planet" : "Planet",
 	"Object-Planet-radius" : "Radius",
 	"Object-Planet-gravRadius" : "G Radius",
@@ -79,4 +81,7 @@ LANG.en = {
 	"Grid-Bank-Round" : "Round",
 	"Grid-Bank-In" : "In",
 	"Grid-Bank-Out" : "Out",
+	"Grid-Bank-centerX" : "Center X",
+	"Grid-Bank-centerY" : "Center Y",
+	"Grid-Bank-centerSolid" : "Solid",
 }

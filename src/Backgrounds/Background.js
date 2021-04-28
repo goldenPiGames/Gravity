@@ -7,6 +7,12 @@ class Background {
 	}
 }
 
+class BackgroundNothing {
+	draw() {
+		
+	}
+}
+
 class BackgroundSolid extends Background {
 	constructor(args, ...rest) {
 		super(args, ...rest);

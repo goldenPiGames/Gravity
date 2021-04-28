@@ -32,27 +32,15 @@ Screen.prototype.controlShow = CONTROL_SHOW_MENU;
 class MenuScreen extends Screen {
 	constructor(args) {
 		super();
-		this.mainButtons = this.mapToButton(args.mainButtons);
-		if (this.mainButtons) {
-			this.mainButtonsTop = args.mainButtonsTop;
-		}
-		this.objects = [
-			...this.mainButtons,
-		]
-		this.connect();
-		this.resize();
-		this.hover(this.mainButtons[0]);
 		this.cursor = new MenuCursor(this);
 	}
-	resize() {
-		for (var i = 0; i < this.mainButtons.length; i++) {
-			this.mainButtons[i].resize(mainCanvas.width/10, mainCanvas.height/2 + mainCanvas.height/10*i, mainCanvas.width*4/5, mainCanvas.height/15);
-		}
+	resizeCenter() {
+		
 	}
-	connect() {
-		for (var i = 0; i < this.mainButtons.length - 1; i++) {
-			this.mainButtons[i].connectDown = this.mainButtons[i+1];
-			this.mainButtons[i+1].connectUp = this.mainButtons[i];
+	connectVert(...butt) {
+		for (var i = 0; i < butt.length - 1; i++) {
+			butt[i].connectDown = butt[i+1];
+			butt[i+1].connectUp = butt[i];
 		}
 	}
 	mapToButton(butt) {
@@ -66,33 +54,17 @@ class MenuScreen extends Screen {
 	}
 	update() {
 		super.update();
-		/*if (globalController.selectClicked) {
-			this.mainButtons[this.buttonIndex].func();
-			return;
-		} else if (globalController.menuUpClicked && this.buttonIndex > 0)
-			this.buttonIndex--;
-		else if (globalController.menuDownClicked && this.buttonIndex < this.mainButtons.length-1)
-			this.buttonIndex++;*/
 		if (!this.cursor.update()){
-			this.objects.forEach(o=>o.update(this));
+			this.menuObjects.forEach(o=>o.update(this));
 		}
 	}
 	draw() {
-		clearCanvas();
-		mainCtx.font = "30px "+getFont();
-		mainCtx.fillStyle = "#BFBFBF";
-		this.objects.forEach(o=>o.draw());
+		this.menuObjects.forEach(o=>o.draw());
 		this.cursor.draw();
 		//mainCtx.fillText("A: Select", mainCanvas.width/2, mainCanvas.height-50);
 	}
 }
 MenuScreen.prototype.mainButtons = [];
-
-class SingleMenuScreen extends MenuScreen {
-	constructor(args) {
-		super(args);
-	}
-}
 
 class MenuCursor extends MenuThing {
 	constructor(menu) {
@@ -240,7 +212,7 @@ class MenuButton extends MenuObject {
 	}
 	draw() {
 		//console.log(this.text, this.x, this.y, this.width, this.height);
-		drawTextInRect(this.text, this.x, this.y, this.width, this.height);
+		drawTextInRect(this.text, this.x, this.y, this.width, this.height, {fill:"#FFFFFF"});
 	}
 }
 MenuButton.prototype.hoverable = true;
@@ -279,5 +251,6 @@ function switchScreen(to) {
 	} else {
 		runnee = new LoadingScreen(to);
 	}
+	runnee.resize();
 	//particles.push(new ColorFade(4, 0, 0));
 }

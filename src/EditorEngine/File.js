@@ -33,8 +33,8 @@ class EditorSidebarLoadBaseStage extends EditorSidebarSub {
 
 
 //https://stackoverflow.com/questions/13405129/javascript-create-and-save-file
-function saveFile(str, name) {
-	var file = new Blob([str], {type : "text/plain"});
+function saveFile(contents, name) {
+	var file = new Blob([contents], {type : "text/plain"});
 	var a = document.createElement("a");
 	var url = URL.createObjectURL(file);
 	a.href = url;

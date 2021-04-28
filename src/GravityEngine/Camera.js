@@ -40,12 +40,18 @@ class Camera {
 			else
 				this.rotation += Math.max(rotationDif * .18, .006);
 		}
+		if (this.zoom != this.destZoom) {
+			this.zoom = this.destZoom;
+		}
 		if (this.controller.zoomIn)
 			this.zoom = Math.min(this.zoom+ZOOM_SPEED, ZOOM_MAX);
 		if (this.controller.zoomOut)
 			this.zoom = Math.max(this.zoom-ZOOM_SPEED, ZOOM_MIN);
 	}
 	draw() {
+		clearWorld();
+		this.stage.background.draw(this);
+		this.stage.drawWorld(this.engine, worldCtx);//TODO is engine actually used?
 		this.transfer();
 	}
 	transfer() {
@@ -57,6 +63,17 @@ class Camera {
 	}
 	rotateCW(amount) {
 		this.rotation += amount;
+	}
+	doManualZoom() {
+		var zooming;
+		if (this.controller.cameraZoomInClicked)
+			zooming = 1;
+		else if (this.controller.cameraZoomOutClicked)
+			zooming = -1;
+		if (zooming) {
+			var currStep = Math.round(Math.log2(this.destZoom)*2);
+			this.destZoom = Math.SQRT2**(currStep+zooming);
+		}
 	}
 	moveMouse() {
 		this.mouseX = this.screenToWorldX(mouse.x);
@@ -93,6 +110,7 @@ class FollowingCamera extends Camera {
 				this.destRotation = 0;
 			}
 		}
+		this.doManualZoom();
 	}
 	setFocus(ting) {
 		this.focusObject = ting;
@@ -113,6 +131,13 @@ class DraggableCamera extends Camera {
 			this.destX = Math.round(this.destX + vect.x * CAMERA_CONTROL_SPEED);
 			this.destY = Math.round(this.destY + vect.y * CAMERA_CONTROL_SPEED);
 		}
+		this.doManualZoom();
+	}
+}
+
+class FixedCamera extends Camera {
+	moveDest() {
+		
 	}
 }
 

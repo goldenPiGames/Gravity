@@ -13,3 +13,18 @@ class BasicHUD {
 		this.dialogHandler.startDialog(...stuff);
 	}
 }
+
+class EmptyHUD {
+	constructor(eng) {
+		this.engine = engine;
+	}
+	update() {
+		
+	}
+	draw() {
+		
+	}
+	startDialog(...stuff) {
+		
+	}
+}
