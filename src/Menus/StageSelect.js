@@ -7,6 +7,14 @@ function getStageSelectData(sid) {
 	};
 }
 
+function startStageNormally(sid) {
+	switchScreen(new SingleStageEngine({
+		stage : sid,
+		winFunc : eng=>finishStageNormally(eng),
+		exitFunc : ()=>switchScreen(new StageSelectMenu()),
+	}));
+}
+
 class StageSelectMenu extends Screen {
 	constructor() {
 		super({
@@ -45,11 +53,7 @@ class StageSelectMenu extends Screen {
 		switchScreen(MainMenu);
 	}
 	clickStage(sid) {
-		switchScreen(new SingleStageEngine({
-			stage : stageFromRegistry(sid),
-			winFunc : ()=>switchScreen(new StageSelectMenu()),
-			exitFunc : ()=>switchScreen(new StageSelectMenu()),
-		}));
+		startStageNormally(sid);
 	}
 }
 

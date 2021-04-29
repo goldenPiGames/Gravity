@@ -37,6 +37,12 @@ class MenuScreen extends Screen {
 	resizeCenter() {
 		
 	}
+	connectHoriz(...butt) {
+		for (var i = 0; i < butt.length - 1; i++) {
+			butt[i].connectRight = butt[i+1];
+			butt[i+1].connectLeft = butt[i];
+		}
+	}
 	connectVert(...butt) {
 		for (var i = 0; i < butt.length - 1; i++) {
 			butt[i].connectDown = butt[i+1];

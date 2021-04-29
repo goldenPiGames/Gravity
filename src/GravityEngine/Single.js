@@ -3,8 +3,15 @@ class StageEngine {
 		this.setStage(args.stage);
 	}
 	setStage(stage) {
-		this.stage = stage;
-		stage.engine = this;
+		if (typeof stage == "string") {
+			this.stageID = stage;
+			this.stage = stageFromRegistry(this.stageID);
+		} else if (stage instanceof Stage) {
+			this.stage = stage;
+		} else {
+			this.stage = new Stage(stage);
+		}
+		this.stage.engine = this;
 		this.setWorldSize();
 	}
 	setWorldSize() {
@@ -46,13 +53,13 @@ class SingleStageEngine extends StageEngine {
 		super.setStage(stage);
 		this.camera = new FollowingCamera(this.stage);
 		this.camera.setFocus(this.stage.cameraFocus || this.stage.objects.find(oj=>oj.focusme) || this.stage.objects.find(oj=>oj.controller));
-		playMusic(stage.music);
+		playMusic(this.stage.music);
 	}
 	update() {
 		if (checkPause(this)) return;
 		super.update();
 		if (this.goalReached) {
-			this.playing = false;
+			this.stage.playing = false;
 			this.winFunc(this);//TODO make "end of stage" screen as intermediate
 		}
 	}

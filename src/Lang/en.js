@@ -24,6 +24,10 @@ LANG.en = {
 	
 	"StageSelect-Back" : "Back",
 	
+	"StageEnd-StageSelect" : "Return",
+	"StageEnd-Restart" : "Restart",
+	"StageEnd-Next" : "Next",
+	
 	"Tutorial-Walk-Keyboard" : "You can walk left or right using the arrow or WASD keys.",
 	"Tutorial-Walk-Gamepad" : "You can walk left or right using the left stick or D-pad.",
 	"Tutorial-Walk-Touch" : "You can walk left or right using the pad in the lower left.",
