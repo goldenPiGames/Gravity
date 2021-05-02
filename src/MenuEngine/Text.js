@@ -1,5 +1,19 @@
 function drawTextInRect(text, x, y, width, height, opts = {}, ctx = mainCtx) {
-	ctx.textAlign = "center";
+	switch (opts.align) {
+		case "left": case 0:
+			dx = x;
+			ctx.textAlign = "left";
+			break;
+		case "right": case 1:
+			dx = x + width;
+			ctx.textAlign = "right";
+			break;
+		default:
+			dx = x + width / 2;
+			ctx.textAlign = "center";
+			break;
+	}
+	//ctx.textAlign = "center";
 	ctx.textBaseline = "middle";
 	ctx.font = height+"px "+settings.font;
 	var wid = ctx.measureText(text).width;
@@ -8,11 +22,11 @@ function drawTextInRect(text, x, y, width, height, opts = {}, ctx = mainCtx) {
 	if (opts.strokeStyle || opts.stroke) {
 		ctx.lineWidth = 2;
 		ctx.strokeStyle = opts.strokeStyle || opts.stroke;
-		ctx.strokeText(text, x+width/2, y+height/2);
+		ctx.strokeText(text, dx, y+height/2);
 	}
 	if (opts.fillStyle || opts.fill)
 		ctx.fillStyle = opts.fillStyle || opts.fill;
-	ctx.fillText(text, x+width/2, y+height/2);
+	ctx.fillText(text, dx, y+height/2);
 }
 
 function drawParagraphInRect(text, x, y, width, height, size, opts = {}, ctx = mainCtx) {

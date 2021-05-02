@@ -32,8 +32,11 @@ class StageSelectMenu extends Screen {
 		this.hover(this.stageScroll.getStartHover());
 	}
 	resize() {
+		this.mainX = mainCanvas.width/4;
+		this.mainWidth = mainCanvas.width/2;
 		this.backButton.resize(mainCanvas.width - 100, 0, 100, 40);
-		this.stageScroll.resize(0, mainCanvas.width/4);
+		this.stageScroll.resize(0, this.mainX);
+		
 	}
 	update() {
 		//console.log("bup");
@@ -48,12 +51,30 @@ class StageSelectMenu extends Screen {
 		this.backButton.draw();
 		this.stageScroll.draw();
 		this.cursor.draw();
+		if (this.stageID) {
+			drawTextInRect(this.stageName, this.mainX, 0, this.mainWidth, 60);
+			drawTextInRect(lg("StageSelect-BestTime")+(this.stageBestTime || "NA"), this.mainX, 90, this.mainWidth, 50);
+			drawParagraphInRect(this.stageDesc, this.mainX, 160, this.mainWidth, mainCanvas.height-240, 30);
+		}
 	}
 	back() {
 		switchScreen(MainMenu);
 	}
 	clickStage(sid) {
 		startStageNormally(sid);
+	}
+	hover(ting) {
+		super.hover(ting);
+		if (ting instanceof StageSelectScrollObject) {
+			this.setStageDisplay(ting.stageID);
+		}
+	}
+	setStageDisplay(sid) {
+		this.stageID = sid;
+		this.stageData = STAGE_REGISTRY[sid];
+		this.stageBestTime = localStorage.getItem(BEST_TIME_SAVE_PREFIX+this.stageID);
+		this.stageName = lg("Stage-"+sid);
+		this.stageDesc = lg("Stage-"+sid+"-Desc");
 	}
 }
 

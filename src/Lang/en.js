@@ -7,11 +7,11 @@ LANG.en = {
 	"MainMenu-Controls" : "Controls",
 	
 	"Stage-Tutorial" : "Tutorial",
-	"Stage-Tutorial-Desc" : "An introduction to the games, controls, and gravity.",
+	"Stage-Tutorial-Desc" : "An introduction to the game's controls and gravity.",
 	"Stage-Twoside" : "Twoside",
 	"Stage-Twoside-Desc" : "Use momentum to your advantage in this double-sided platform strip.",
 	"Stage-Stairbelt" : "Stairbelt",
-	"Stage-Stairbelt-Desc" : "A series of round planets with steps that can only be conquered using orbit al physics.",
+	"Stage-Stairbelt-Desc" : "A series of round planets with steps that can only be conquered using orbital physics.",
 	"Stage-Scramaze" : "Scramaze",
 	"Stage-Scramaze-Desc" : "A small maze with confusing gravity.",
 	"Stage-Incorner" : "Incorner",
@@ -22,8 +22,12 @@ LANG.en = {
 	"Stage--Desc" : "",*/
 	"Stage-MainTitle" : "Main Title",
 	
+	"StageSelect-BestTime" : "Best Time: ",
 	"StageSelect-Back" : "Back",
 	
+	"StageEnd-Time" : "Time: ",
+	"StageEnd-PrevBestTime" : "Prev Best: ",
+	"StageEnd-NewBestTime" : "New Record!",
 	"StageEnd-StageSelect" : "Return",
 	"StageEnd-Restart" : "Restart",
 	"StageEnd-Next" : "Next",

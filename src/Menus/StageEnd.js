@@ -1,12 +1,16 @@
+const BEST_TIME_SAVE_PREFIX = "GravvityBestTime-";
+
 function finishStageNormally(eng) {
-	console.log("Finished in "+eng.stage.time);
-	switchScreen(new StageEndScreen(eng))
+	var skrrrrrrra = new StageEndScreen(eng);
+	skrrrrrrra.saveBestTime();
+	switchScreen(skrrrrrrra);
 }
 
 class StageEndScreen extends MenuScreen {
 	constructor(eng) {
 		super();
 		this.stageEngine = eng;
+		this.time = this.stageEngine.stage.time;
 		this.nextButton = new MenuButton({
 			lText : "StageEnd-Next",
 			bindCancel : true,
@@ -41,5 +45,22 @@ class StageEndScreen extends MenuScreen {
 	draw() {
 		this.stageEngine.draw();
 		super.draw();
+		mainCtx.fillStyle = "#FFFFFF";
+		var timesBaseline = mainCanvas.height/3;
+		drawTextInRect(lg("StageEnd-Time"), 0, timesBaseline, mainCanvas.width/2, 50, {align:"right"});
+		drawTextInRect(this.time, mainCanvas.width/2, timesBaseline, mainCanvas.width/2, 50, {align:"left"});
+		drawTextInRect(lg("StageEnd-PrevBestTime"), 0, timesBaseline+50, mainCanvas.width/2, 50, {align:"right"});
+		drawTextInRect(this.prevBestTime || "-", mainCanvas.width/2, timesBaseline+50, mainCanvas.width/2, 50, {align:"left"});
+		if (this.newBestTime) {
+			drawTextInRect(lg("StageEnd-NewBestTime"), 0, timesBaseline+100, mainCanvas.width, 50);
+		}
+	}
+	saveBestTime() {
+		const storageKey = BEST_TIME_SAVE_PREFIX+this.stageEngine.stageID;
+		this.prevBestTime = parseInt(localStorage.getItem(storageKey));
+		if (!(this.time >= this.prevBestTime)) {
+			localStorage.setItem(storageKey, this.time);
+			this.newBestTime = true;
+		}
 	}
 }
