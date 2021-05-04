@@ -15,6 +15,15 @@ function startStageNormally(sid) {
 	}));
 }
 
+function startStageAfter(sid) {
+	let dex = SELECTABLE_STAGES.indexOf(sid);
+	if (dex < SELECTABLE_STAGES.length-1) {
+		startStageNormally(SELECTABLE_STAGES[dex+1]);
+	} else {
+		switchScreen(new StageSelectMenu());
+	}
+}
+
 class StageSelectMenu extends Screen {
 	constructor() {
 		super({

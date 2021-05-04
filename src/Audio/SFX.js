@@ -37,7 +37,7 @@ function initSFX() {
 
 function playSFX(name) {
 	//console.log(name)
-	if (!settings.sfx) {
+	if (!settings.sfx || settings.muted) {
 		return;
 	}
 	if (!sfxCyclers[name]) {

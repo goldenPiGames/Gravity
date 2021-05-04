@@ -43,10 +43,11 @@ function playMusic(sin) {
 	song = sin;
 	songLast = sin;
 	musicIsAlt = false;
-	music.src = song.src;
-	music.volume = settings.music;
-	if (settings.music)
+	//music.volume = settings.music;
+	if (settings.music && !settings.muted) {
+		music.src = song.src;
 		music.play();
+	}
 }
 
 function playMusicFromLeftOff(sin) {
@@ -142,6 +143,14 @@ function getMusicPosition() {
 	return !song ? 0 : music.currentTime.toFixed(2);
 }
 
+function toggleMute() {
+	settings.muted = !settings.muted;
+	saveSettings();
+	if (settings.muted)
+		music.pause();
+	return settings.muted;
+}
+
 function setMusicPosition(tim) {
 	if (tim == tim)
 		music.currentTime = tim;
@@ -149,6 +158,9 @@ function setMusicPosition(tim) {
 
 function musicLoopCheck() {
 	//console.log(music.currentTime);
+	if (globalController.muteClicked) {
+		toggleMute();
+	}
 	if (song && song.loopEnd && music.currentTime >= song.loopEnd) {
 		var d = song.loopEnd - song.loopStart;
 		//music.pause();

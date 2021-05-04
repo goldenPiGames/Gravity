@@ -17,11 +17,11 @@ var engine = {
 		updateResize();
 		updateControllersBefore();
 		runnee.update();
+		musicLoopCheck();//moved this here because mute check
 		globalTimer++;
 		updateControllersAfter();
 		runnee.draw();
 		drawControllers();
-		musicLoopCheck();
 		this.sch = setTimeout(()=>this.run(), Math.max(0, desiredTime-Date.now()));
 	},
 	stop : function() {

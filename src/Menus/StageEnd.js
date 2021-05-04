@@ -14,12 +14,12 @@ class StageEndScreen extends MenuScreen {
 		this.nextButton = new MenuButton({
 			lText : "StageEnd-Next",
 			bindCancel : true,
-			func : ()=>switchScreen(new StageSelectMenu()),//TODO
+			func : ()=>startStageAfter(this.stageEngine.stageID),//TODO
 		});
 		this.restartButton = new MenuButton({
 			lText : "StageEnd-Restart",
 			bindAlt : true, //TODO bindAlt
-			func : ()=>switchScreen(new StageSelectMenu()),//TODO
+			func : ()=>startStageNormally(this.stageEngine.stageID),//TODO
 		});
 		this.stageSelectButton = new MenuButton({
 			lText : "StageEnd-StageSelect",

@@ -53,6 +53,7 @@ class TouchController extends Controller {
 		this.cameraStick = new TouchControllerStickCamera();
 		this.cameraZoomInButton = new TouchControllerButton("cameraZoomIn");
 		this.cameraZoomOutButton = new TouchControllerButton("cameraZoomOut");
+		this.muteButton = new TouchControllerButton("mute");
 		/*this.cameraLeftButton = new TouchControllerButton("cameraLeft");
 		this.cameraRightButton = new TouchControllerButton("cameraRight");
 		this.cameraUpButton = new TouchControllerButton("cameraUp");
@@ -72,6 +73,7 @@ class TouchController extends Controller {
 			this.selectButton,
 			this.cancelButton,
 			this.menuAltButton,
+			this.muteButton,
 		];
 		this.buttonsCamera = [
 			this.cameraStick,
@@ -100,13 +102,14 @@ class TouchController extends Controller {
 		this.selectButton.resize(bright - scald*2, bbot - scald, scald);
 		this.cancelButton.resize(bright - scald, bbot - scald*2, scald);
 		this.menuAltButton.resize(bright - scald*3, bbot - scald*2, scald);
-		this.cameraStick.resize(bright - scald*5/2, bbot - scald*5, scald);
+		this.cameraStick.resize(bright - scald*5/2, bbot - scald*5, scald*5/4);
 		this.cameraZoomInButton.resize(bright - scald/2, bbot - scald*11/2, scald/2);
 		this.cameraZoomOutButton.resize(bright - scald/2, bbot - scald*9/2, scald/2);
 		/*this.cameraLeftButton.resize(bright - scald*3, bbot-scald*5, scald*2/3);
 		this.cameraRightButton.resize(bright - scald, bbot-scald*5, scald*2/3);
 		this.cameraUpButton.resize(bright - scald*2, bbot-scald*6, scald*2/3);
 		this.cameraDownButton.resize(bright - scald*2, bbot-scald*4, scald*2/3);*/
+		this.muteButton.resize(bright - scald/2, scald/2, scald/2);
 	}
 	updateBefore() {
 		if (justResized)
@@ -154,6 +157,8 @@ class TouchControllerButton {
 		this.clicked = !!touch.starts.find(s=>this.intersects(s.x, s.y));
 		par[this.command] = this.held;
 		par[this.command+"Clicked"] = this.clicked;
+		//if (this.command == "mute")
+		//	console.log(this.clicked);
 	}
 	intersects(x, y) {
 		//console.log(this.x, this.y, x, y, (x-this.x)**2 + (y-this.y)**2, this.r2, (x-this.x)**2 + (y-this.y)**2 <= this.r2);

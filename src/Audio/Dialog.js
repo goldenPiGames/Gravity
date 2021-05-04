@@ -54,12 +54,12 @@ class DialogLine {
 	}
 	updateActive() {
 		this.timer++;
-		if (!this.playedYet) {
+		if (!this.playedYet && !settings.muted) {
 			this.audio.play();
 			this.playedYet = true;
 		}
 	}
 	isDone() {
-		return this.audio.ended || this.timer > this.duration*2;
+		return settings.muted ? this.timer > this.duration : this.audio.ended || this.timer > this.duration*2;
 	}
 }
