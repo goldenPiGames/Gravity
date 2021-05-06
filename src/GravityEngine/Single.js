@@ -22,7 +22,8 @@ class StageEngine {
 		worldCanvas.height = this.stage.height;
 	}
 	resize() {
-		this.camera.setScreenCenter();
+		this.hud.resize();
+		this.camera.resize();
 	}
 	update() {
 		if (this.playing) {
@@ -83,7 +84,7 @@ class AttractModeStageEngine extends StageEngine {
 	}
 	setStage(stage) {
 		super.setStage(stage);
-		this.camera = new FixedCamera(this.stage);
+		this.camera = new AttractCamera(this.stage);
 	}
 	update() {
 		super.update();

@@ -9,17 +9,26 @@ class Camera {
 		this.destZoom = 1;
 		this.zoom = this.destZoom;
 		this.rotation = 0;
-		this.setScreenCenter();
 		this.rotation = 0;
 		this.destRotation = 0;
+		this.hasSeetInitialPosition = false;
+	}
+	resize() {
+		this.setScreenCenter(mainCanvas.width/2, mainCanvas.height/2);
+		if (!this.hasSetInitialPosition) {
+			this.setInitialPosition();
+			this.hasSeetInitialPosition = true;
+		}
+	}
+	setInitialPosition() {
 		this.destX = this.screenCenterX;
 		this.destY = this.screenCenterY;
 		this.centerX = this.destX;
 		this.centerY = this.destY;
 	}
 	setScreenCenter(x, y) {
-		this.screenCenterX = x || mainCanvas.width/2;
-		this.screenCenterY = y || mainCanvas.height/2;
+		this.screenCenterX = x;
+		this.screenCenterY = y;
 	}
 	update() {
 		this.moveDest();
@@ -136,6 +145,29 @@ class DraggableCamera extends Camera {
 }
 
 class FixedCamera extends Camera {
+	moveDest() {
+		
+	}
+}
+
+class AttractCamera extends Camera {
+	resize() {
+		super.resize();
+		let stageWidth = this.stage.width;
+		let stageHeight = this.stage.height;
+		let canvasWidth = mainCanvas.width;
+		let canvasHeight = mainCanvas.height;
+		if (canvasWidth => stageWidth) {
+			this.needMoveX = false;
+			this.destX = stageWidth/2;
+			this.centerX = stageWidth/2;
+			this.screenCenterX = canvasWidth - stageWidth/2;//TODO make alignment adjustible
+		} else {
+			this.needMoveX = true;
+			this.minX = canvasWidth/2;
+			this.maxX = stageWidth - canvasWidth/2;
+		}
+	}
 	moveDest() {
 		
 	}

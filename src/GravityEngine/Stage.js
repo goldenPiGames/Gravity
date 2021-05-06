@@ -76,6 +76,9 @@ class Stage {
 	touchGoal(to) {
 		this.engine.touchGoal(to);
 	}
+	randomInt(to) {
+		return Math.floor(Math.random()*to)//TODo PRNG
+	}
 }
 
 

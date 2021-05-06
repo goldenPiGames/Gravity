@@ -26,6 +26,7 @@ class MainMenu extends MenuScreen {
 					func : function(){doControls()}
 				},*/
 		this.connectVert(this.playButton, this.editorButton, this.settingsButton);
+		
 		this.menuObjects = [
 			this.playButton,
 			this.editorButton,
@@ -38,7 +39,8 @@ class MainMenu extends MenuScreen {
 		//this.sprites = getSpriteSheet("MainMenu");
 	}
 	resize() {
-		([this.playButton, this.editorButton, this.settingsButton]).forEach((b, i)=>b.resize(mainCanvas.width/10, mainCanvas.height/2 + mainCanvas.height/10*i, mainCanvas.width*4/5, mainCanvas.height/15));
+		this.attract.resize();
+		([this.playButton, this.editorButton, this.settingsButton]).forEach((b, i)=>b.resize(mainCanvas.width/20, mainCanvas.height/2 + mainCanvas.height/10*i, mainCanvas.width*2/5, mainCanvas.height/15));
 	}
 	update() {
 		super.update();

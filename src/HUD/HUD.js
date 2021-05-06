@@ -3,6 +3,9 @@ class BasicHUD {
 		this.engine = engine;
 		this.dialogHandler = new DialogHandler();
 	}
+	resize() {
+		
+	}
 	update() {
 		this.dialogHandler.update();
 	}
@@ -17,6 +20,9 @@ class BasicHUD {
 class EmptyHUD {
 	constructor(eng) {
 		this.engine = engine;
+	}
+	resize() {
+		
 	}
 	update() {
 		

@@ -24,9 +24,19 @@ class BasePlayer extends Mob {
 		//requireSFX("DrawerThump", 2);
 		this.drawState = "jumping";
 		player = this;
+		this.recording = "";
+	}
+	control() {
+		var left = this.controller.left;
+		var right = this.controller.right;
+		this.ctrlMove = 0 + (right?1:0) - (left?1:0);//this.controller.getHoriz(); TODO put horiz in controller for camera and gamepad stuff
+		this.ctrlJump = this.controller.jumpClicked;
+		let toadd = (left?"L":"") + (right?"R":"") + (this.ctrlJump?"J":"") + ",";
+		this.recording += toadd;
 	}
 	update(stage) {
-		let horiz = 0 + (this.controller.right?1:0) - (this.controller.left?1:0);//this.controller.getHoriz(); TODO put horiz in controller for camera and gamepad stuff
+		this.control();
+		let horiz = this.ctrlMove;
 		var lastRotation = this.body.rotation;
 		if (horiz) {
 			if (this.body.grounded) {
@@ -42,7 +52,7 @@ class BasePlayer extends Mob {
 				});
 			}
 		}
-		if (this.controller.jumpClicked && this.body.grounded) { //Jump
+		if (this.ctrlJump && this.body.grounded) { //Jump
 			playSFX("HDMI");
 			this.body.jump(9);
 		}
@@ -86,6 +96,28 @@ class BasePlayer extends Mob {
 }
 registerObject(BasePlayer, "Player");
 BasePlayer.prototype.controller = globalController;
+
+class DemoPlayer extends BasePlayer {
+	constructor(args) {
+		super(args);
+		this.scriptIndex = 0;
+		this.script = args.script.split(",");
+	}
+	control() {
+		var now = this.script[this.scriptIndex];
+		this.ctrlMove = 0 + (now.includes("R")?1:0) - (now.includes("L")?1:0);
+		this.ctrlJump = now.includes("J");
+		this.scriptIndex++;
+	}
+	update(prongs) {
+		let c = super.update(prongs);
+		if (this.scriptIndex >= this.script.length)
+			return OBRET_REMOVE;
+		else
+			return c;
+	}
+}
+registerObject(DemoPlayer, "DemoPlayer");
 
 class PlayerEditor extends EditorObject {
 	constructor(args) {
