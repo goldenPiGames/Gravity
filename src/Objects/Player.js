@@ -94,7 +94,7 @@ class BasePlayer extends Mob {
 		this.playSFX("Hurt");
 	}
 	playSFX(snom) {
-		playSFX(nom);
+		playSFX(snom);
 	}
 }
 registerObject(BasePlayer, "Player");

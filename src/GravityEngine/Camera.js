@@ -169,7 +169,7 @@ class AttractCamera extends Camera {
 		}
 	}
 	moveDest() {
-		
+		this.moveHard(
 	}
 }
 
