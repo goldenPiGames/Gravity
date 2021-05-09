@@ -53,16 +53,16 @@ class BasePlayer extends Mob {
 			}
 		}
 		if (this.ctrlJump && this.body.grounded) { //Jump
-			playSFX("HDMI");
+			this.playSFX("HDMI");
 			this.body.jump(9);
 		}
 		var wasGrounded = this.body.grounded;
 		this.body.physics(stage);
 		if (this.body.grounded && !wasGrounded) { //Landing sound
-			//playSFX("DrawerThump");//TODO find another sound effect for landing
+			//this.playSFX("DrawerThump");//TODO find another sound effect for landing
 		}
 		if (Math.abs(angleDifference(this.body.rotation, lastRotation)) >= GRAVITY_CHANGE_SFX_THRESHOLD) { //Turning sound
-			playSFX("Sprocket");
+			this.playSFX("Sprocket");
 		}
 		//States for drawing
 		if (this.body.grounded) {
@@ -91,7 +91,10 @@ class BasePlayer extends Mob {
 	}
 	getHit(args) {
 		super.getHit(args);
-		playSFX("Hurt");
+		this.playSFX("Hurt");
+	}
+	playSFX(snom) {
+		playSFX(nom);
 	}
 }
 registerObject(BasePlayer, "Player");
@@ -115,6 +118,9 @@ class DemoPlayer extends BasePlayer {
 			return OBRET_REMOVE;
 		else
 			return c;
+	}
+	playSFX() {
+		
 	}
 }
 registerObject(DemoPlayer, "DemoPlayer");
