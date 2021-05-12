@@ -242,51 +242,73 @@ const STAGE_DATA_TUTORIAL = {
 			//"midY" : 530,
 		},
 		{
-			"object" : "DialogCueArea",
+			"object" : "ScriptCueArea",
 			"body" : {
 				"shape" : "Circle",
 				"midX" : 80,
 				"midY" : 150,
 				"radius" : 60,
 			},
-			"dialogue" : [
-				{speakerID:"me", lText:"Tutorial-Walk", lTextAddController:"true", duration:150},
-			]
+			"script" : "Tutorial-Walk"
 		},
 		{
-			"object" : "DialogCueArea",
+			"object" : "ScriptCueArea",
 			"body" : {
 				"shape" : "Circle",
 				"midX" : 300,
 				"midY" : 270,
 				"radius" : 30,
 			},
-			"dialogue" : [
-				{speakerID:"me", lText:"Tutorial-Jump", lTextAddController:"true", duration:100},
-			]
+			"script" : "Tutorial-Jump"
 		},
 		{
-			"object" : "DialogCueArea",
+			"object" : "ScriptCueArea",
 			"body" : {
 				"shape" : "Circle",
 				"midX" : 580,
 				"midY" : 160,
 				"radius" : 20,
 			},
-			"dialogue" : [
+			"script" : "Tutorial-Gravity"
+		},
+		{
+			"object" : "ScriptCueArea",
+			"body" : {
+				"shape" : "Circle",
+				"midX" : 669,
+				"midY" : 303,
+				"radius" : 12,
+			},
+			"script" : "Tutorial-LedgeCircle"
+		}
+	],
+	scripts : [
+		{
+			"id" : "Tutorial-Walk",
+			"what" : "dialog",
+			"dialog" : [
+				{speakerID:"me", lText:"Tutorial-Walk", lTextAddController:"true", duration:150},
+			]
+		},
+		{
+			"id" : "Tutorial-Jump",
+			"what" : "dialog",
+			"dialog" : [
+				{speakerID:"me", lText:"Tutorial-Jump", lTextAddController:"true", duration:100},
+			]
+		},
+		{
+			"id" : "Tutorial-Gravity",
+			"what" : "dialog",
+			"dialog" : [
 				{speakerID:"me", lText:"Tutorial-Gravity1", duration:105},
 				//{speakerID:"me", lText:"Tutorial-Gravity2", duration:120},
 			]
 		},
 		{
-			"object" : "DialogCueArea",
-			"body" : {
-				"shape" : "Circle",
-				"midX" : 700,
-				"midY" : 280,
-				"radius" : 20,
-			},
-			"dialogue" : [
+			"id" : "Tutorial-LedgeCircle",
+			"what" : "dialog",
+			"dialog" : [
 				{speakerID:"me", lText:"Tutorial-LedgeCircle1", duration:160},
 				{speakerID:"me", lText:"Tutorial-LedgeCircle2", duration:105},
 			]

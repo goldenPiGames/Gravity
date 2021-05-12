@@ -28,7 +28,7 @@ class EditorEngine {
 	}
 	resize() {
 		this.sidebar.resize();
-		this.camera.setScreenCenter(this.sidebar.x/2, mainCanvas.height/2);
+		this.camera.resize(this.sidebar.x);
 	}
 	resizeWorld() {
 		worldCanvas.width = this.stage.width;

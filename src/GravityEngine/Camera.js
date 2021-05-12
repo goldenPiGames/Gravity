@@ -13,8 +13,8 @@ class Camera {
 		this.destRotation = 0;
 		this.hasSeetInitialPosition = false;
 	}
-	resize() {
-		this.setScreenCenter(mainCanvas.width/2, mainCanvas.height/2);
+	resize(right) {
+		this.setScreenCenter((right || mainCanvas.width)/2, mainCanvas.height/2);
 		if (!this.hasSetInitialPosition) {
 			this.setInitialPosition();
 			this.hasSeetInitialPosition = true;

@@ -1,23 +1,27 @@
-class DialogCueArea extends GameObject {
+class ScriptCueArea extends GameObject {
 	constructor(args) {
 		super();
 		this.body = bodyFromRegistry(args.body);
-		this.dialogue = args.dialogue;
+		this.script = args.script;
 	}
 	update(stag) {
 		if (this.body.intersectsAny(stag.getAllPlayers())) {
 			//console.log("talk now");
-			stag.startDialog(this.dialogue);
+			stag.runScript(this.script);
 			return OBRET_REMOVE;
 		}
 	}
 	draw() {
+		if (cueAreasShown) {
 		/*worldCtx.strokeStyle = "#80808080";
 		worldCtx.lineWidth = 4;
 		worldCtx.beginPath();
 		worldCtx.arc(this.body.x, this.body.y, this.radius, 0, Math.PI/2);
 		worldCtx.stroke();*/
-		//this.body.drawTest();
+			this.body.drawTest();
+		}
 	}
 }
-registerObject(DialogCueArea);
+registerObject(ScriptCueArea);
+
+var cueAreasShown = false;

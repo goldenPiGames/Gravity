@@ -8,6 +8,9 @@ class Stage {
 		this.width = args.width;
 		this.height = args.height;
 		this.objects = args.objects.map(o=>objectFromRegistry(o));
+		this.scripts = {};
+		if (args.scripts)
+			args.scripts.forEach(s=>this.scripts[s.id]=new Script(s));
 		this.background = backgroundFromRegistry(args.background || {"background":"Solid"}, this);
 		this.music = args.music;
 		//playMusic(this.music);
@@ -77,7 +80,16 @@ class Stage {
 		this.engine.touchGoal(to);
 	}
 	randomInt(to) {
-		return Math.floor(Math.random()*to)//TODo PRNG
+		return Math.floor(Math.random()*to)//TODO PRNG
+	}
+	runScript(id) {
+		console.log(id);
+		var scr = this.scripts[id];
+		if (!scr) {
+			console.log(id + " is not a script id");
+		} else {
+			scr.execute(this);
+		}
 	}
 }
 
