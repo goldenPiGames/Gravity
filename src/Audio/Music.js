@@ -34,7 +34,7 @@ function playMusic(sin) {
 	}
 	//console.log(sin, song, music.src, sin.src)
 	if (sin == song && sin == songLast) {
-		if (music.paused)
+		if (music.paused && !settings.muted)
 			music.play();
 		return;
 	}

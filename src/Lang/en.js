@@ -8,6 +8,8 @@ LANG.en = {
 	
 	"Stage-Tutorial" : "Tutorial",
 	"Stage-Tutorial-Desc" : "An introduction to the game's controls and gravity.",
+	"Stage-Demomentum" : "Demomentum",
+	"Stage-Demomentum-Desc" : "Learn how you can use momentum to your advantage.",
 	"Stage-Twoside" : "Twoside",
 	"Stage-Twoside-Desc" : "Use momentum to your advantage in this double-sided platform strip.",
 	"Stage-Stairbelt" : "Stairbelt",

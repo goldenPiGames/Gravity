@@ -77,7 +77,7 @@ class StaticGridTerrain extends GameObject {
 		this.tileset = getSpriteSheet(tilesetName);
 		this.usingSubtileset = tilesetName.substring(0, 7) != "Tileset";
 		this.tiles = this.grid.map((col, x) => col.map((pis, y) => new StaticGridTile(this, x, y, this.bank[pis])));
-		this.tiles.forEach2d(t=>t.findNeighbors());
+		this.findNeighbors();
 	}
 	update() {
 		
@@ -92,7 +92,7 @@ class StaticGridTerrain extends GameObject {
 	tileOfPixel(x, y) {
 		if (x != x || typeof x != "number" || y != y || typeof y != "number")
 			return undefined;
-		return this.tileOfIndex(this.pixToGridX(x), this.pixToGridY(y))
+		return this.tileOfIndex(this.pixToGridX(x), this.pixToGridY(y));
 	}
 	tileOfIndex(a, b) {
 		if (a >= this.grid.length || a < 0 || b < 0 || b >= this.grid[a].length)
@@ -124,6 +124,48 @@ class StaticGridTerrain extends GameObject {
 	}
 	gridToPixY(gridY) {
 		return gridY * this.scale + this.topY;
+	}
+	findNeighbors() {
+		this.tiles.forEach2d(t=>t.findNeighbors());
+		this.doTwosideEscapes();
+	}
+	doTwosideEscapes() {
+		for (var i = 0; i < this.tiles.length-1; i++) {
+			for (var j = 0; j < this.tiles[i].length-1; j++) {
+				if (this.tiles[i][j].gravity == "down" && this.tiles[i][j+1].gravity == "up" && (this.tiles[i+1][j].solid || this.tiles[i+1][j+1].solid))
+					this.doTwosideEscapeUpDown(i, j);
+				//if (this.tiles[i][j].gravity == "right" && this
+			}
+		}
+	}
+	doTwosideEscapeUpDown(a, b) {
+		//console.log(a, b);
+		for (var i = a; i > 0; i--) {
+			if (this.tiles[i][b].solid || this.tiles[i][b+1].solid) {
+				return this.doTwosideEscapeUpDown2(a, i+1, b);
+			} else if (this.tiles[i][b].gravity != "down" || this.tiles[i][b+1].gravity != "up") {
+				return;
+			}
+		}
+	}
+	doTwosideEscapeUpDown2(xr, xl, yt) {
+		console.log(xr, xl, yt);
+		var yh = this.findTwosideEscapeUpDownHeight(xr, xl, yt);
+		console.log(yh);
+		for (var i = xl; i <= xr; i++) {
+			this.tiles[i][yt].setTwosideEscape(yh);
+			this.tiles[i][yt+1].setTwosideEscape(yh);
+		}
+	}
+	findTwosideEscapeUpDownHeight(xr, xl, yt) {
+		for (var i = 0; i < 12; i++) {
+			for (var j = xl-1; j <= xr+1; j++) {
+				if (this.tiles[j][yt+1-i].solid && !this.tiles[j][yt-i].solid)
+					return i;
+				if (this.tiles[j][yt+i].solid && !this.tiles[j][yt+1+i].solid)
+					return i;
+			}
+		}
 	}
 }
 registerObject(StaticGridTerrain);
@@ -199,6 +241,9 @@ class StaticGridTile {
 				}//console.log(this.neighborBin, GRID_TILESET_NAMES[this.neighborBin], this.spriteNames);
 			}
 		}
+	}
+	setTwosideEscape(val) {
+		this.twosideEscape = val;
 	}
 	drawStatic(ctx) {
 		if (this.solid) {
@@ -277,7 +322,7 @@ class StaticGridTile {
 		}
 		return this.solid;
 	}
-	getGravityAtPixel(x, y) {
+	getGravityAtPixel(x, y, obj) {
 		var vect = undefined;
 		switch (this.gravity) {
 			case "up": vect = new VectorRect(0, -1); break;
@@ -287,7 +332,10 @@ class StaticGridTile {
 			case "round": vect = new VectorRect(this.centerX - x, this.centerY - y); break;
 			default: return undefined; break;
 		}
-		return vect.setR(this.parent.gravMagnitude || .5).setPriority(this.parent.gravPriority || 1);
+		vect.setR(this.parent.gravMagnitude || .5).setPriority(this.parent.gravPriority || 1);
+		if (obj && obj.doesTwosideEscape)
+			obj.noteTwosideEscape(this.x);
+		return vect;
 	}
 }
 

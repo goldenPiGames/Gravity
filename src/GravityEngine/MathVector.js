@@ -57,6 +57,12 @@ class CustomVector {
 		this.priority = p;
 		return this;
 	}
+	clone() {
+		return new VectorRecct(this.x, this.y);
+	}
+	dot(other) {
+		return dotproduct(this, other);
+	}
 }
 
 class UnitVector extends CustomVector {
@@ -108,7 +114,7 @@ function cancelVectorNormal(before, normal) {
 }
 
 function dotproduct(a, b) {
-	return a.x * b.x + a.y * b.y
+	return a.x * b.x + a.y * b.y;
 }
 
 function angleDifference(a, b) {

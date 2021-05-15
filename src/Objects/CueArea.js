@@ -25,3 +25,4 @@ class ScriptCueArea extends GameObject {
 registerObject(ScriptCueArea);
 
 var cueAreasShown = false;
+
