@@ -82,8 +82,6 @@ function addMouseEvents() {
 				mouse.rightDown = false;
 				break;
 		}
-		mouse.down = false;
-		mouse.clicked;
 	});
 	
 	mainCanvas.addEventListener("mouseleave", function(e) {

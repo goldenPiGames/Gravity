@@ -28,10 +28,17 @@ class Planet extends GameObject {
 		}
 	}
 	tileOfPixel(x, y) {
+		if ((x-this.x)**2 + (y-this.y)**2 > this.radiusOuter2)
+			return undefined;
 		var vest = this.pixToGrid(x, y);
 		return (this.tileOfIndex(vest.theta, vest.r));
 	}
 	tileOfIndex(a, b) {
+		//if (this.loggin)
+			//throw "yo"
+		if (a != a || b != b) {
+			throw a + ", " + b + " are NaN";
+		}
 		if (b < 0)
 			return this.core;
 		while (a < 0)
@@ -54,7 +61,7 @@ class Planet extends GameObject {
 			return new UnitVector(this.x-x, this.y-y).setR(this.gravity).setPriority(this.gravPriority-r*this.gravPriorityFade)
 	}
 	update(stage) {
-		
+		this.loggin = true;//DEBUG
 	}
 	draw() {
 		

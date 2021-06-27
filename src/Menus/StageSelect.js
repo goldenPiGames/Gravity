@@ -108,6 +108,7 @@ class StageSelectScrollObject extends ScrollObject {
 			needDoubleTap : true,
 		});
 		this.stageID = id;
+		this.sprites = getSpriteSheet("ButtonBevelGrey");
 	}
 	update(wummy) {
 		super.update(wummy);
@@ -117,8 +118,11 @@ class StageSelectScrollObject extends ScrollObject {
 	}
 	draw() {
 		//console.log(this.text, this.x, this.y, this.width, this.height);
+		mainCtx.fillStyle = this.color || "#808080";
+		mainCtx.fillRect(this.x, this.y, this.width, this.height);
+		this.sprites.drawBorderOnMain(this.x, this.y, this.width, this.height);
 		mainCtx.fillStyle = "#FFFFFF";
-		drawTextInRect(this.text, this.x, this.y, this.width, this.height);
+		drawTextInRect(this.text, this.x+4, this.y+4, this.width-8, this.height-8, {fill:"#FFFFFF"});
 	}
 }
 StageSelectScrollObject.prototype.hoverable = true;

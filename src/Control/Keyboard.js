@@ -1,4 +1,4 @@
-
+const KEYBOARD_HORIZ_DEADZONE = .2;
 var keysPressed = {};
 var keysHeld = {};
 
@@ -27,6 +27,10 @@ class KeyboardController extends Controller {
 	}
 	getBindText(command) {
 		return "[" + KEY_NAMES[this.binds[command]] + "]";
+	}
+	getHoriz(offset) {
+		let vect = new VectorRect(0 + !!this.right - !!this.left, 0 + !!this.down - !!this.up).rotate(-offset);
+		return vect.x >= KEYBOARD_HORIZ_DEADZONE ? 1 : vect.x <= -KEYBOARD_HORIZ_DEADZONE ? -1 : 0;
 	}
 }
 KeyboardController.prototype.type = "Keyboard";

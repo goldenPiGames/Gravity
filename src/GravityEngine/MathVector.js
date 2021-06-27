@@ -6,6 +6,9 @@ class CustomVector {
 		newv.r = this.r;
 		newv.theta = this.theta;
 	}
+	clone() {
+		return new VectorClone(this);
+	}
 	rotate(by) {
 		this.theta += by;
 		this.mirrorPolarToRect();
@@ -25,6 +28,18 @@ class CustomVector {
 		this.r *= by;
 		this.x *= by;
 		this.y *= by;
+		return this;
+	}
+	add(other) {
+		this.x += other.x;
+		this.y += other.y;
+		this.mirrorRectToPolar();
+		return this;
+	}
+	subtract(other) {
+		this.x -= other.x;
+		this.y -= other.y;
+		this.mirrorRectToPolar();
 		return this;
 	}
 	setX(to) {
@@ -57,11 +72,11 @@ class CustomVector {
 		this.priority = p;
 		return this;
 	}
-	clone() {
-		return new VectorRecct(this.x, this.y);
-	}
 	dot(other) {
 		return dotproduct(this, other);
+	}
+	closeEnough(other, diff) {
+		return (Math.abs(other.x - this.x) <= diff && Math.abs(other.y - this.y) <= diff);
 	}
 }
 
@@ -96,6 +111,16 @@ class VectorRect extends CustomVector {
 		this.x = x;
 		this.y = y;
 		this.mirrorRectToPolar();
+	}
+}
+
+class VectorClone extends CustomVector {
+	constructor(from) {
+		super();
+		this.x = from.x;
+		this.y = from.y;
+		this.r = from.r;
+		this.theta = from.theta;
 	}
 }
 

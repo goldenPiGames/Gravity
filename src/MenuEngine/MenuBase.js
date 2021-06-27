@@ -21,6 +21,8 @@ class Screen extends MenuThing {
 	hover(thing) {
 		if (thing) {
 			this.hovered = thing;
+			if (this.playsHoverSFX)
+				playSFX("Blip1");
 		}
 	}
 	isHovered(thing) {
@@ -33,6 +35,7 @@ class MenuScreen extends Screen {
 	constructor(args) {
 		super();
 		this.cursor = new MenuCursor(this);
+		requireSFX("Blip1", 4);
 	}
 	resizeCenter() {
 		
@@ -70,7 +73,7 @@ class MenuScreen extends Screen {
 		//mainCtx.fillText("A: Select", mainCanvas.width/2, mainCanvas.height-50);
 	}
 }
-MenuScreen.prototype.mainButtons = [];
+MenuScreen.prototype.playsSFX = true;
 
 class MenuCursor extends MenuThing {
 	constructor(menu) {
@@ -213,12 +216,6 @@ class MenuButton extends MenuObject {
 	}
 	resize(...subscribeToTechnoblade) {
 		super.resize(...subscribeToTechnoblade);
-		this.tbXStart = this.x + this.sprites.data.cornerUL.width;
-		this.tbXInc = this.sprites.data.edgeU.width;
-		this.tbXNum = Math.ceil((this.width - this.sprites.data.cornerUL.width - this.sprites.data.cornerUR.width) / this.tbXInc);
-		this.lrYStart = this.y + this.sprites.data.cornerUL.height;
-		this.lrYInc = this.sprites.data.edgeL.height;
-		this.lrYNum = Math.ceil((this.height - this.sprites.data.cornerUL.height - this.sprites.data.cornerDL.height) / this.lrYInc);
 	}
 	update(menu) {
 		super.update(menu);
@@ -230,58 +227,7 @@ class MenuButton extends MenuObject {
 		//console.log(this.text, this.x, this.y, this.width, this.height);
 		mainCtx.fillStyle = this.color || "#808080";
 		mainCtx.fillRect(this.x, this.y, this.width, this.height);
-		for (var i = 0; i < this.tbXNum; i++) {
-			this.sprites.drawOnCtx("edgeU", {
-				x : this.tbXStart + this.tbXInc*i,
-				y : this.y,
-				xadj : 0,
-				yadj : 0,
-			}, mainCtx);
-			this.sprites.drawOnCtx("edgeD", {
-				x : this.tbXStart + this.tbXInc*i,
-				y : this.y+this.height,
-				xadj : 0,
-				yadj : 1,
-			}, mainCtx);
-		}
-		for (var i = 0; i < this.lrYNum; i++) {
-			this.sprites.drawOnCtx("edgeL", {
-				x : this.x,
-				y : this.lrYStart + this.lrYInc*i,
-				xadj : 0,
-				yadj : 0,
-			}, mainCtx);
-			this.sprites.drawOnCtx("edgeR", {
-				x : this.x + this.width,
-				y : this.lrYStart + this.lrYInc*i,
-				xadj : 1,
-				yadj : 0,
-			}, mainCtx);
-		}
-		this.sprites.drawOnCtx("cornerUL",  {
-			x : this.x,
-			y : this.y,
-			xadj : 0,
-			yadj : 0,
-		}, mainCtx);
-		this.sprites.drawOnCtx("cornerUR",  {
-			x : this.x + this.width,
-			y : this.y,
-			xadj : 1,
-			yadj : 0,
-		}, mainCtx);
-		this.sprites.drawOnCtx("cornerDL",  {
-			x : this.x,
-			y : this.y + this.height,
-			xadj : 0,
-			yadj : 1,
-		}, mainCtx);
-		this.sprites.drawOnCtx("cornerDR",  {
-			x : this.x + this.width,
-			y : this.y + this.height,
-			xadj : 1,
-			yadj : 1,
-		}, mainCtx);
+		this.sprites.drawBorderOnMain(this.x, this.y, this.width, this.height);
 		drawTextInRect(this.text, this.x+4, this.y+4, this.width-8, this.height-8, {fill:"#FFFFFF"});
 	}
 }

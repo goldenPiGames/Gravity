@@ -6,6 +6,10 @@ LANG.en = {
 	"MainMenu-Settings" : "Settings",
 	"MainMenu-Controls" : "Controls",
 	
+	"Settings-Music" : "Music",
+	"Settings-SFX" : "SFX",
+	"Settings-Voice" : "Voice",
+	
 	"Stage-Tutorial" : "Tutorial",
 	"Stage-Tutorial-Desc" : "An introduction to the game's controls and gravity.",
 	"Stage-Demomentum" : "Demomentum",
@@ -16,6 +20,8 @@ LANG.en = {
 	"Stage-Stairbelt-Desc" : "A series of round planets with steps that can only be conquered using orbital physics.",
 	"Stage-Scramaze" : "Scramaze",
 	"Stage-Scramaze-Desc" : "A small maze with confusing gravity.",
+	"Stage-Wilderwall" : "Wilderwall",
+	"Stage-Wilderwall-Desc" : "Did you get used to being able to see what the gravity was? Sorry.",
 	"Stage-Incorner" : "Incorner",
 	"Stage--Desc" : "A great big cube.",
 	/*"Stage-Outcorner" : "Outcorner",
@@ -44,6 +50,12 @@ LANG.en = {
 	"Tutorial-Gravity2" : "Rounded corners are a good indication that it'll curve around.",
 	"Tutorial-LedgeCircle1" : "Unlike in most platformer games, here, your collision area is a circle, not a rectangle.",
 	"Tutorial-LedgeCircle2" : "You may need to jump off ledges a bit earlier than you're used to.",
+	"Tutorial-GravityLines" : "Those lines indicate the boundary between different gravity zones.",
+	"Tutorial-LineConserveSpeed" : "When gravity changes, you keep your speed.",
+	"Tutorial-LineJumpIn" : "Jump in for more height.",
+	"Tutorial-CameraToggleRotate-Keyboard" : "You can fix the camera's rotation by pressing key 0).",
+	"Tutorial-CameraToggleRotate-Gamepad" : "You can fix the camera's rotation by pushing in the right stick.",
+	"Tutorial-CameraToggleRotate-Touch" : "You can fix the camera's rotation by pushing in the right stick.",
 	
 	"Object-Player" : "Player",
 	"Object-StaticGridTerrain" : "Static Grid",

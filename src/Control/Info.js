@@ -12,7 +12,7 @@ const COMMAND_LIST = ["menuLeft", "menuRight", "menuUp", "menuDown", "select", "
 const CONTROLS_INFO = {
 	menuLeft : {
 		defaultKeyboardFull : ["KeyA", "ArrowLeft"],
-		defaultGamepad : 14,
+		defaultGamepad : [14],
 		defaultStickFunc : gp => gp.axes[0] <= -.8,
 		defaultStickText : "L←",
 		mutualExclusion : ["menuRight", "menuUp", "menuDown", "select", "cancel", "menuAlt", "pause", "restart"],
@@ -20,7 +20,7 @@ const CONTROLS_INFO = {
 	},
 	menuRight : {
 		defaultKeyboardFull : ["KeyD", "ArrowRight"],
-		defaultGamepad : 15,
+		defaultGamepad : [15],
 		defaultStickFunc : gp => gp.axes[0] >= .8,
 		defaultStickText : "L→",
 		mutualExclusion : ["menuLeft", "menuUp", "menuDown", "select", "cancel", "menuAlt", "pause", "restart"],
@@ -28,7 +28,7 @@ const CONTROLS_INFO = {
 	},
 	menuUp : {
 		defaultKeyboardFull : ["KeyW", "ArrowUp"],
-		defaultGamepad : 12,
+		defaultGamepad : [12],
 		defaultStickFunc : gp => gp.axes[1] <= -.8,
 		defaultStickText : "L↑",
 		mutualExclusion : ["menuLeft", "menuRight", "menuDown", "select", "cancel", "menuAlt", "pause", "restart"],
@@ -36,7 +36,7 @@ const CONTROLS_INFO = {
 	},
 	menuDown : {
 		defaultKeyboardFull : ["KeyS", "ArrowDown"],
-		defaultGamepad : 13,
+		defaultGamepad : [13],
 		defaultStickFunc : gp => gp.axes[1] >= .8,
 		defaultStickText : "L↓",
 		mutualExclusion : ["menuLeft", "menuRight", "menuUp", "select", "cancel", "menuAlt", "pause", "restart"],
@@ -44,25 +44,25 @@ const CONTROLS_INFO = {
 	},
 	select : {
 		defaultKeyboardFull : ["KeyZ", "Enter", "NumpadEnter"],
-		defaultGamepad : 0,
+		defaultGamepad : [0],
 		mutualExclusion : ["menuLeft", "menuRight", "menuUp", "menuDown", "cancel", "menuAlt", "pause", "restart"],
 		touchColor : "#00FF00",
 	},
 	cancel : {
 		defaultKeyboardFull : ["KeyX", "Backspace", "Numpad0"],
-		defaultGamepad : 1,
+		defaultGamepad : [1],
 		mutualExclusion : ["menuLeft", "menuRight", "menuUp", "menuDown", "select", "menuAlt", "pause", "restart"],
 		touchColor : "#FF0000",
 	},
 	menuAlt : {
 		defaultKeyboardFull : ["KeyC", "NumpadDecimal"],
-		defaultGamepad : 2,
+		defaultGamepad : [2],
 		mutualExclusion : ["menuLeft", "menuRight", "menuUp", "menuDown", "select", "cancel", "pause", "restart"],
 		touchColor : "#0000FF",
 	},
 	left : {
 		defaultKeyboardFull : ["KeyA", "ArrowLeft"],
-		defaultGamepad : 14,
+		defaultGamepad : [14],
 		defaultStickFunc : gp => gp.axes[0] <= -.7,
 		defaultStickText : "L←",
 		mutualExclusion : ["right", "up", "down", "jump", "attack", "shoot", "crouch", "special", "interact", "pause", "restart"],
@@ -70,7 +70,7 @@ const CONTROLS_INFO = {
 	},
 	right : {
 		defaultKeyboardFull : ["KeyD", "ArrowRight"],
-		defaultGamepad : 15,
+		defaultGamepad : [15],
 		defaultStickFunc : gp => gp.axes[0] >= .7,
 		defaultStickText : "L→",
 		mutualExclusion : ["left", "up", "down", "jump", "attack", "shoot", "crouch", "special", "interact", "pause", "restart"],
@@ -78,7 +78,7 @@ const CONTROLS_INFO = {
 	},
 	up : {
 		defaultKeyboardFull : ["KeyW", "ArrowUp"],
-		defaultGamepad : 12,
+		defaultGamepad : [12],
 		defaultStickFunc : gp => gp.axes[1] <= -.7,
 		defaultStickText : "L↑",
 		mutualExclusion : ["left", "right", "down", "attack", "shoot", "crouch", "special", "pause", "restart"],
@@ -86,7 +86,7 @@ const CONTROLS_INFO = {
 	},
 	down : {
 		defaultKeyboardFull : ["KeyS", "ArrowDown"],
-		defaultGamepad : 13,
+		defaultGamepad : [13],
 		defaultStickFunc : gp => gp.axes[1] >= .7,
 		defaultStickText : "L↓",
 		mutualExclusion : ["left", "right", "up", "attack", "shoot", "special", "pause", "restart"],
@@ -94,58 +94,66 @@ const CONTROLS_INFO = {
 	},
 	gear : {
 		defaultKeyboardFull : ["ShiftLeft", "ShiftRight"],
-		//defaultGamepad : 13,
+		defaultGamepad : [13],
 		mutualExclusion : ["left", "right", "up", "attack", "pause", "restart"],
 		touchColor : "#808080",
 	},
 	jump : {
 		defaultKeyboardFull : ["KeyZ", "Space", "NumpadAdd", "Numpad0"],
-		defaultGamepad : 0,
+		defaultGamepad : [0],
 		mutualExclusion : ["left", "right", "up", "attack", "pause", "restart"],
 		touchColor : "#FF0000",
 	},
 	pause : {
 		defaultKeyboardFull : ["KeyP", "Escape"],
-		defaultGamepad : 9,
+		defaultGamepad : [9],
 		mutualExclusion : ["menuLeft", "menuRight", "menuUp", "menuDown", "select", "cancel", "left", "right", "up", "down", "attack", "shoot", "crouch", "special", "zoomIn", "zoomOut", "restart"],
 		touchColor : "#808080",
 	},
 	restart : {
 		defaultKeyboardFull : ["KeyR"],
-		defaultGamepad : 8,
+		defaultGamepad : [8],
 		mutualExclusion : ["menuLeft", "menuRight", "menuUp", "menuDown", "select", "cancel", "left", "right", "up", "down", "attack", "shoot", "crouch", "special", "zoomIn", "zoomOut", "pause"],
 		touchColor : "#808080",
 	},
 	cameraLeft : {
 		defaultKeyboardFull : ["KeyJ"],
+		defaultGamepad : [],
 		touchColor : "#808080",
 	},
 	cameraRight : {
 		defaultKeyboardFull : ["KeyL"],
+		defaultGamepad : [],
 		touchColor : "#808080",
 	},
 	cameraUp : {
 		defaultKeyboardFull : ["KeyI"],
+		defaultGamepad : [],
 		touchColor : "#808080",
 	},
 	cameraDown : {
 		defaultKeyboardFull : ["KeyK"],
+		defaultGamepad : [],
 		touchColor : "#808080",
 	},
 	cameraZoomIn : {
 		defaultKeyboardFull : ["Equal"],
+		defaultGamepad : [],
 		touchColor : "A0A0A0",
 	},
 	cameraZoomOut : {
 		defaultKeyboardFull : ["Minus"],
+		defaultGamepad : [],
 		touchColor : "606060",
 	},
 	cameraToggleRotate : {
 		defaultKeyboardFull : ["Digit0"],
+		defaultGamepad : [11],
 		touchColor : "808060",
 	},
 	mute : {
 		defaultKeyboardFull : ["KeyM"],
+		defaultGamepad : [],
 		//defaultGamepad : 2,
 		//mutualExclusion : ["menuLeft", "menuRight", "menuUp", "menuDown", "select", "cancel", "pause", "restart"],
 		touchColor : "#0000FF",

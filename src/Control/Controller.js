@@ -6,7 +6,7 @@ const KEY_REPEAT_RATE = 3;
 class Controller {
 	constructor() {
 		COMMAND_LIST.forEach(nom =>	{
-			this[nom] = false;
+			this[nom] = 0;
 			this[nom+"Clicked"] = false;
 		});
 	}
@@ -46,6 +46,9 @@ class Controller {
 	isCommandPressedRepeating(com) {
 		return this[com+"Clicked"] || this[com] >= KEY_REPEAT_DELAY && (this[com] - KEY_REPEAT_DELAY) % KEY_REPEAT_RATE == 0;
 	}
+	getHoriz() {
+		0 + (right?1:0) - (left?1:0);
+	}
 }
 
 var globalController = {
@@ -64,6 +67,9 @@ var globalController = {
 	},
 	isCommandPressedRepeating(com) {
 		return this[com+"Clicked"] || this[com] >= KEY_REPEAT_DELAY && (this[com] - KEY_REPEAT_DELAY) % KEY_REPEAT_RATE == 0;
+	},
+	getHoriz(...stuff) {
+		return pControllers.map(c=>c.getHoriz(...stuff)).filter(r=>r)[0] || 0;
 	}
 }
 

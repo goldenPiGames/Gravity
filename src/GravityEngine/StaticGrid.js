@@ -107,11 +107,11 @@ class StaticGridTerrain extends GameObject {
 		//console.log(blox)
 		return blox.isPixelSolid(x, y);
 	}
-	getGravityAtPixel(x, y) {
+	getGravityAtPixel(x, y, ...rest) {
 		var blox = this.tileOfPixel(x, y);
 		if (blox == undefined)
 			return false;
-		return blox.getGravityAtPixel(x, y);
+		return blox.getGravityAtPixel(x, y, ...rest);
 	}
 	pixToGridX(pixX) {
 		return Math.floor((pixX - this.leftX) / this.scale);
@@ -149,12 +149,12 @@ class StaticGridTerrain extends GameObject {
 		}
 	}
 	doTwosideEscapeUpDown2(xr, xl, yt) {
-		console.log(xr, xl, yt);
+		//console.log(xr, xl, yt);
 		var yh = this.findTwosideEscapeUpDownHeight(xr, xl, yt);
-		console.log(yh);
+		//console.log(yh);
 		for (var i = xl; i <= xr; i++) {
-			this.tiles[i][yt].setTwosideEscape(yh);
-			this.tiles[i][yt+1].setTwosideEscape(yh);
+			this.tiles[i][yt].setTwosideEscapeUp(yt+1-yh);
+			this.tiles[i][yt+1].setTwosideEscapeDown(yt+1+yh);
 		}
 	}
 	findTwosideEscapeUpDownHeight(xr, xl, yt) {
@@ -205,6 +205,9 @@ class StaticGridTile {
 		this.height = this.bottomY - this.topY;
 	}
 	findNeighbors() {
+		this.twosideEscape = false;
+		this.twosideEscapeGrid = null;
+		this.twosideEscapePix = null;
 		this.neighbors = [
 			this.parent.tileOfIndex(this.gridX, this.gridY-1),
 			this.parent.tileOfIndex(this.gridX+1, this.gridY-1),
@@ -242,8 +245,15 @@ class StaticGridTile {
 			}
 		}
 	}
-	setTwosideEscape(val) {
-		this.twosideEscape = val;
+	setTwosideEscapeUp(val) {
+		this.twosideEscape = "up";
+		this.twosideEscapeGrid = val;
+		this.twosideEscapePix = this.parent.gridToPixY(val);
+	}
+	setTwosideEscapeDown(val) {
+		this.twosideEscape = "down";
+		this.twosideEscapeGrid = val;
+		this.twosideEscapePix = this.parent.gridToPixY(val);
 	}
 	drawStatic(ctx) {
 		if (this.solid) {
@@ -288,16 +298,16 @@ class StaticGridTile {
 			if (this.gravBorders) {
 				var borderWidth = 3;
 				staticWorldCtx.fillStyle = getEditorBankColor(this.data);
-				if (!this.neighborsSolid[0] && !this.neighborsSame[0]) {
+				if (this.neighbors[0] && !this.neighborsSolid[0] && !this.neighborsSame[0]) {
 					staticWorldCtx.fillRect(this.leftX, this.topY, this.width, borderWidth);
 				}
-				if (!this.neighborsSolid[2] && !this.neighborsSame[2]) {
+				if (this.neighbors[2] && !this.neighborsSolid[2] && !this.neighborsSame[2]) {
 					staticWorldCtx.fillRect(this.rightX-borderWidth, this.topY, borderWidth, this.height);
 				}
-				if (!this.neighborsSolid[4] && !this.neighborsSame[4]) {
+				if (this.neighbors[4] && !this.neighborsSolid[4] && !this.neighborsSame[4]) {
 					staticWorldCtx.fillRect(this.leftX, this.bottomY-borderWidth, this.width, borderWidth);
 				}
-				if (!this.neighborsSolid[6] && !this.neighborsSame[6]) {
+				if (this.neighbors[6] && !this.neighborsSolid[6] && !this.neighborsSame[6]) {
 					staticWorldCtx.fillRect(this.leftX, this.topY, borderWidth, this.height);
 				}
 			}
@@ -322,7 +332,8 @@ class StaticGridTile {
 		}
 		return this.solid;
 	}
-	getGravityAtPixel(x, y, obj) {
+	getGravityAtPixel(x, y, bod, obj) {
+		//console.log(x, y, bod, obj);
 		var vect = undefined;
 		switch (this.gravity) {
 			case "up": vect = new VectorRect(0, -1); break;
@@ -333,8 +344,10 @@ class StaticGridTile {
 			default: return undefined; break;
 		}
 		vect.setR(this.parent.gravMagnitude || .5).setPriority(this.parent.gravPriority || 1);
-		if (obj && obj.doesTwosideEscape)
-			obj.noteTwosideEscape(this.x);
+		//console.log(this.twosideEscape && bod && bod.doesTwosideEscape && vect.dot(bod.velocity));
+		if (this.twosideEscape && bod && bod.doesTwosideEscape && vect.dot(bod.velocity) < 0) {//TODO actually finish implementing this dumb mechanic
+			bod.noteTwosideEscape(this.twosideEscape, this.twosideEscapePix, vect);
+		}
 		return vect;
 	}
 }

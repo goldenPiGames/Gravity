@@ -1,5 +1,6 @@
 var player;
-const GRAVITY_CHANGE_SFX_THRESHOLD = .6
+const GRAVITY_CHANGE_SFX_THRESHOLD = .6;
+const GRAVITY_CHANGE_TURN_THRESHOLD = 2;
 
 class BasePlayer extends Mob {
 	constructor(args) {
@@ -15,6 +16,7 @@ class BasePlayer extends Mob {
 			slideGround : .6,
 			slideAir : .95,
 		});
+		this.body.doesTwosideEscape = 1;
 		this.hittable = this.body;
 		this.facing = args.facing || true;
 		this.spriteSheet = getSpriteSheet("Player");
@@ -23,16 +25,6 @@ class BasePlayer extends Mob {
 		requireSFX("Sprocket", 2);
 		//requireSFX("DrawerThump", 2);
 		this.drawState = "jumping";
-		player = this;
-		this.recording = "";
-	}
-	control() {
-		var left = this.controller.left;
-		var right = this.controller.right;
-		this.ctrlMove = 0 + (right?1:0) - (left?1:0);//this.controller.getHoriz(); TODO put horiz in controller for camera and gamepad stuff
-		this.ctrlJump = this.controller.jumpClicked;
-		let toadd = (left?"L":"") + (right?"R":"") + (this.ctrlJump?"J":"") + ",";
-		this.recording += toadd;
 	}
 	update(stage) {
 		this.control();
@@ -61,8 +53,13 @@ class BasePlayer extends Mob {
 		if (this.body.grounded && !wasGrounded) { //Landing sound
 			//this.playSFX("DrawerThump");//TODO find another sound effect for landing
 		}
-		if (Math.abs(angleDifference(this.body.rotation, lastRotation)) >= GRAVITY_CHANGE_SFX_THRESHOLD) { //Turning sound
+		let gravityChange = Math.abs(angleDifference(this.body.rotation, lastRotation))
+		if (gravityChange >= GRAVITY_CHANGE_SFX_THRESHOLD) { //Turning sound
 			this.playSFX("Sprocket");
+			if (gravityChange >= GRAVITY_CHANGE_TURN_THRESHOLD) {
+				this.facing = !this.facing;
+			}
+			//console.log(this.body.velocity.y);
 		}
 		//States for drawing
 		if (this.body.grounded) {
@@ -97,14 +94,36 @@ class BasePlayer extends Mob {
 		playSFX(snom);
 	}
 }
-registerObject(BasePlayer, "Player");
-BasePlayer.prototype.controller = globalController;
+
+class ActualPlayer extends BasePlayer {
+	constructor(args) {
+		super(args);
+		player = this;
+		this.recording = "";
+	}
+	control() {
+		//var left = this.controller.left;
+		//var right = this.controller.right;
+		this.ctrlMove = this.controller.getHoriz(this.camera ? this.camera.getControlOffset(this.body.rotation) : 0);
+		//this.ctrlMove = 0 + (right?1:0) - (left?1:0);//this.controller.getHoriz(); TODO put horiz in controller for camera and gamepad stuff
+		this.ctrlJump = this.controller.jumpClicked;
+		let toadd = (this.ctrlMove<0?"L":"") + (this.ctrlMove>0?"R":"") + (this.ctrlJump?"J":"") + ",";
+		this.recording += toadd;
+	}
+}
+registerObject(ActualPlayer, "Player");
+ActualPlayer.prototype.controller = globalController;
 
 class DemoPlayer extends BasePlayer {
 	constructor(args) {
 		super(args);
 		this.scriptIndex = 0;
-		this.script = args.script.split(",");
+		this.script = [];
+		this.setScript(args.script);
+	}
+	setScript(bleh) {
+		if (typeof bleh == "string")
+			this.script = bleh.split(",");
 	}
 	control() {
 		var now = this.script[this.scriptIndex];
@@ -114,7 +133,7 @@ class DemoPlayer extends BasePlayer {
 	}
 	update(prongs) {
 		let c = super.update(prongs);
-		if (this.scriptIndex >= this.script.length)
+		if (this.scriptIndex >= this.script.length || this.body.midX != this.body.midX)
 			return OBRET_REMOVE;
 		else
 			return c;

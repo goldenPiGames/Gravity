@@ -47,14 +47,12 @@ function playSFX(name) {
 	sfxCyclers[name].play();
 }
 
-/*function setSFXVolume(quant) {
-	if (quant != lastSFXvolume) {
-		for (f in sfx) {
-			sfx[f].volume = quant;
-		}
-		lastSFXvolume = quant;
+function applySFXVolume() {
+	for (f in sfxCyclers) {
+		sfxCyclers[f].setVolume(settings.sfx);
 	}
-}*/
+	lastSFXvolume = quant;
+}
 
 class SFXCycler {
 	constructor(name, numElems) {
@@ -70,5 +68,8 @@ class SFXCycler {
 	play() {
 		this.elems[this.cycle].play();
 		this.cycle = (this.cycle+1) % this.elems.length;;
+	}
+	setVolume(danana) {
+		this.elems.forEach(e=>e.volume=danana);
 	}
 }

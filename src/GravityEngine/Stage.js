@@ -39,15 +39,15 @@ class Stage {
 		this.objects.forEach(oj=>oj.drawStatic(this));
 	}
 	isPixelSolid(x, y) {
-		//TODO check only terrains
 		return this.terrains.find(oj=>oj.isPixelSolid && oj.isPixelSolid(x, y))
 	}
-	getGravityAtPixel(x, y) {//TODO vector bullshit
+	getGravityAtPixel(x, y, body, object) {
+		//console.log(body)
 		var prior = -1;
 		var curr;
 		this.terrains.forEach(oj => {
 			if (oj.getGravityAtPixel) {
-				var grav = oj.getGravityAtPixel(x, y);
+				var grav = oj.getGravityAtPixel(x, y, body, object);
 				if (grav && grav.priority > prior) {
 					prior = grav.priority;
 					curr = grav;

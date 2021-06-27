@@ -118,6 +118,66 @@ class SpriteSheet {
 	isLoaded() {
 		return this.image.loaded;
 	}
+	drawBorderOnMain(x, y, width, height) {
+		let tbXStart = x + this.data.cornerUL.width;
+		let tbXInc = this.data.edgeU.width;
+		let tbXNum = Math.ceil((width - this.data.cornerUL.width - this.data.cornerUR.width) / tbXInc);
+		let lrYStart = y + this.data.cornerUL.height;
+		let lrYInc = this.data.edgeL.height;
+		let lrYNum = Math.ceil((height - this.data.cornerUL.height - this.data.cornerDL.height) / lrYInc);
+		for (var i = 0; i < tbXNum; i++) {
+			this.drawOnCtx("edgeU", {
+				x : tbXStart + tbXInc*i,
+				y : y,
+				xadj : 0,
+				yadj : 0,
+			}, mainCtx);
+			this.drawOnCtx("edgeD", {
+				x : tbXStart + tbXInc*i,
+				y : y+height,
+				xadj : 0,
+				yadj : 1,
+			}, mainCtx);
+		}
+		for (var i = 0; i < lrYNum; i++) {
+			this.drawOnCtx("edgeL", {
+				x : x,
+				y : lrYStart + lrYInc*i,
+				xadj : 0,
+				yadj : 0,
+			}, mainCtx);
+			this.drawOnCtx("edgeR", {
+				x : x + width,
+				y : lrYStart + lrYInc*i,
+				xadj : 1,
+				yadj : 0,
+			}, mainCtx);
+		}
+		this.drawOnCtx("cornerUL",  {
+			x : x,
+			y : y,
+			xadj : 0,
+			yadj : 0,
+		}, mainCtx);
+		this.drawOnCtx("cornerUR",  {
+			x : x + width,
+			y : y,
+			xadj : 1,
+			yadj : 0,
+		}, mainCtx);
+		this.drawOnCtx("cornerDL",  {
+			x : x,
+			y : y + height,
+			xadj : 0,
+			yadj : 1,
+		}, mainCtx);
+		this.drawOnCtx("cornerDR",  {
+			x : x + width,
+			y : y + height,
+			xadj : 1,
+			yadj : 1,
+		}, mainCtx);
+	}
 }
 function makeSprites(sauce, sec, prel = true) {
 	var image;

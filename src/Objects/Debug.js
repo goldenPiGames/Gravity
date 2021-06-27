@@ -18,3 +18,20 @@ class DebugWarpPoint extends GameObject {
 		
 	}
 }
+
+function addLambda(func) {
+	runnee.stage.addObject(new DebugLambda(func));
+}
+
+class DebugLambda extends GameObject {
+	constructor(lam) {
+		super();
+		this.func = lam;
+	}
+	update(stage) {
+		this.func(stage);
+	}
+	draw() {
+		
+	}
+}

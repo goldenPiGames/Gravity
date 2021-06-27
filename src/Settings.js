@@ -1,7 +1,8 @@
 var settings = {
 	lang : "en",
 	voice : "en",
-	music : .8,
+	voice : 1,
+	musicVolume : .8,
 	sfx : .8,
 	sfxTick : false,
 	focusOutPause : true,
@@ -13,6 +14,7 @@ var settings = {
 	colorblind : false,
 	musicDontAsk : false,
 	directTouch : false,
+	cameraRotateWithFocus : true,
 }
 
 function loadSettings() {
@@ -25,12 +27,20 @@ function loadSettings() {
 	}
 	//loadFavSongs();
 	//loadPaletteFromSettings();
-	//setMusicVolume(settings.music);
+	//setMusicVolume(settings.musicVolume);
 	applyFont(settings.font);
 }
 
 function saveSettings() {
 	localStorage.setItem("GravitySettings", JSON.stringify(settings));
+}
+
+function setSetting(syet, tyu) {
+	settings[syet] = tyu;
+	switch(syet) {
+		case "musicVolume" : applyMusicVolume(); break;
+		case "sfx" : applySFXVolume(); break;
+	}
 }
 
 function profane() {

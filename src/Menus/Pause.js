@@ -24,6 +24,12 @@ class PauseMenu extends MenuScreen {
 		this.hover(this.resumeButton);
 		this.returnTo = returnTo;
 	}
+	update() {
+		if (globalController.pauseClicked)
+			this.resume();
+		else
+			super.update();
+	}
 	resize() {
 		([this.resumeButton, this.exitButton]).forEach((b, i)=>b.resize(mainCanvas.width/10, mainCanvas.height/2 + mainCanvas.height/10*i, mainCanvas.width*4/5, mainCanvas.height/15));
 	}

@@ -31,3 +31,16 @@ class ObjectSpawnerRandom extends ObjectSpawner {
 	}
 }
 registerObject(ObjectSpawnerRandom, "ObjectSpawnerRandom");
+
+class DemoPlayerSpawner extends ObjectSpawner {
+	constructor(args) {
+		super(args);
+		this.scripts = args.scripts;
+	}
+	makeObject(stage) {
+		let yerDoinGoodLad = objectFromRegistry(this.objectArgs);
+		yerDoinGoodLad.setScript(this.scripts[stage.randomInt(this.scripts.length)]);
+		return yerDoinGoodLad;
+	}
+}
+registerObject(DemoPlayerSpawner, "DemoPlayerSpawner");

@@ -1,3 +1,6 @@
+const CIRCLE_BODY_NORMAL_CHECKS = 16;
+var CIRCLE_BODY_MOVE_BEFORE = .5;
+
 class CircleBody extends Body {
 	constructor(args) {
 		super();
@@ -14,108 +17,181 @@ class CircleBody extends Body {
 		this.slideGround = args.slideGround || 0;
 		this.slideAir = args.slideAir || 1;
 		this.groundTolerance = args.groundTolerance || Math.PI/4;
-		this.dx = 0;
-		this.dy = 0;
+		this.velocity = new VectorRect(0, 0);
 		this.doesGravity = args.doesGravity == undefined ? 1 : args.doesGravity;
 	}
 	physics(stage) {
 		this.checkGrounded(stage);
-		this.attemptMove(stage);
-		//console.log(this.grounded)
-		var grav = stage.getGravityAtPixel(this.getCenterX(), this.getCenterY())
+		//console.log(this.midY);
+		this.attemptMove(stage, null, {stepSize:2, doGravity:this.doesGravity});
+		//console.log(this.midY);
+		var grav = stage.getGravityAtPixel(this.getCenterX(), this.getCenterY(), this, this.object)
 		this.rotation = grav.theta-Math.PI;
-		if (this.grounded && !this.allowJumpNext) {
-			var hypothesis = new HypotheticalCircleBody(this);
-			hypothesis.attemptMove(stage, {dx:grav.x*STAY_GROUNDED_MULT, dy:grav.y*STAY_GROUNDED_MULT});
-			if (hypothesis.checkGrounded) {
-				this.midX = hypothesis.midX;
-				this.midY = hypothesis.midY;
-				this.setRelativeDY(this.getRelativeDY()/STAY_GROUNDED_MULT)
-			}
+		if (this.grounded && !this.allowJumpNext) { //if you're grounded, try to stay grounded, even if moving on small round planets
+			this.attemptStayGrounded(stage);
 		}
 		this.allowJumpNext = false;
 		this.unOverlap(stage);
 		if (this.doesGravity && !this.checkGrounded(stage)) {
-			this.dx += grav.x * this.doesGravity;
-			this.dy += grav.y * this.doesGravity;
+			//console.log(this.velocity);
+			this.velocity.add(grav.clone().multiply(this.doesGravity));
+			//console.log(this.velocity);
 		}
 		
-		if (Math.abs(this.dx) < 1e-4)
+		/*if (Math.abs(this.dx) < 1e-4)
 			this.dx = 0;
 		if (Math.abs(this.dy) < 1e-4)
-			this.dy = 0;
+			this.dy = 0;*/
 		//console.log("Before:", this.getRelativeDX())
 		this.setRelativeDX(this.getRelativeDX() * (this.grounded ? this.slideGround : this.slideAir));
 		//console.log("After:", this.getRelativeDX())
-		//if you're grounded, try to stay grounded, even if moving on round planets
 	}
-	attemptMove(stage, args = {}) {
-		var own = true;
-		var dx = this.dx;
-		if (typeof args.dx == "number") {
-			dx = args.dx;
+	attemptMove(stage, invect, args = {}) {
+		var own;
+		var vect;
+		if (invect) {
 			own = false;
+			vect = invect;
+		} else {
+			own = true;
+			vect = this.velocity;
 		}
-		var dy = this.dy;
-		if (typeof args.dy == "number") {
-			dy = args.dy;
-			own = false;
-		}
-		if (!dx && !dy)
-			return false;
-		let bx = this.midX;
+		//if (vect.r == 0)
+			//return false;
 		//console.log("Before:", this.midX, this.midY, dx, dy);
 		//console.log(dx, dy)
+		//if (!(this instanceof DemoPlayer)) console.log(vect)
 		var loops = 0;
 		var stepped = 0;
-		var baseStepLength = 1 / Math.ceil(Math.max(Math.abs(dx), Math.abs(dy)) / (args.stepSize || MIN_SOLID_SIZE));
+		var baseStepLength = Math.min(1 / Math.ceil(Math.max(Math.abs(vect.x), Math.abs(vect.y)) / (args.stepSize || MIN_SOLID_SIZE)), 1);
 		//console.log(baseStepLength)
 		var stepLength = baseStepLength;
 		while (stepped < 1.0 && loops < 69) {
 			//console.log(stepLength);
 			loops++;
 			var hypothesis = new HypotheticalCircleBody(this);
-			hypothesis.midX = this.midX + dx * stepLength;
-			hypothesis.midY = this.midY + dy * stepLength;
+			let mvect = vect.clone().multiply(stepLength);
+			hypothesis.midX = this.midX + mvect.x;
+			hypothesis.midY = this.midY + mvect.y;
 			var norms = hypothesis.checkCollideNormals(stage);
 			if (!norms || norms.length < 1) {
 				stepped += stepLength;
 				this.midX = hypothesis.midX;
 				this.midY = hypothesis.midY;
-			} else if (stepLength*(dx*dx+dy*dy) < MAX_REAL_STEP_2) {
-				var newv = new VectorRect(dx, dy);
+			} else if (mvect.r < MAX_REAL_STEP_2) {
 				for (var i = 0; i < norms.length; i++) {
-					newv = cancelVectorNormal(newv, norms[i]);
-				}
-				dx = newv.x;
-				dy = newv.y;
-				if (own) {
-					this.dx = dx;
-					this.dy = dy;
+					vect = cancelVectorNormal(vect, norms[i]);
 				}
 				stepLength = Math.min(baseStepLength, 1-stepped);
 			} else {
 				stepLength /= 2;
 			}
 		}
+		if (own) {
+			this.velocity = vect;
+		}
 		//console.log(loops)
 		if (loops >= 69) {
 			//console.log("reached the failsafe, probably a problem")
-			this.unOverlap(stage, 1)
+			this.unOverlap(stage, 1);
 		}
 		//console.log("After:", this.midX, this.midY, this.dx, this.dy);
 		//console.log("Change:", this.midX-bx)
 	}
-	checkCollideNormal(stage, out = 0) {
-		for (var t = -Math.PI; t <= Math.PI; t += Math.PI/8) {
-			if (this.isEdgeSolid(stage, t, out))
-				return new UnitVector(this.rotation+t-Math.PI);
+	attemptMoveOmnistep(stage, invect, args = {}) {//An experimental version of attemptMove that doesn't work quier right.
+		var own;
+		var vect;
+		if (invect) {
+			own = false;
+			vect = invect;
+		} else {
+			own = true;
+			vect = this.velocity;
 		}
-		return false;
+		//if (vect.r <= 0)
+			//return;
+		var vectStart = vect.clone();
+		var yStart = this.midY;
+		
+		var loops = 0;
+		var stepped = 0;
+		var baseStepLength = Math.min(1, 1 / Math.ceil(Math.max(Math.abs(vect.x), Math.abs(vect.y)) / (args.stepSize || MIN_SOLID_SIZE)));
+		var stepLength = baseStepLength;
+		while (stepped < 1.0 && loops < 69) {
+			//console.log(stepLength);
+			loops++;
+			var hypothesis = new HypotheticalCircleBody(this);
+			var mvect = vect.clone().multiply(stepLength);
+			if (args.doGravity) {
+				var gravBefore = stage.getGravityAtPixel(this.midX, this.midY, this, this.object);
+				let gravBeforeH = gravBefore.clone().multiply(stepLength*CIRCLE_BODY_MOVE_BEFORE);
+				var gravAfter = stage.getGravityAtPixel(hypothesis.midX, hypothesis.midY, hypothesis, this.object);
+				mvect.add(gravBeforeH);
+			}
+			hypothesis.midX = this.midX + mvect.x;
+			hypothesis.midY = this.midY + mvect.y;
+			//throw "up";
+			var norms = hypothesis.checkCollideNormals(stage);
+			var obstructed = norms && norms.length >= 1;
+			if (obstructed) {//smack your face against the solid object. losing the appropriate momentum
+				if (mvect.r < MAX_REAL_STEP_2) {
+					for (var i = 0; i < norms.length; i++) {
+						vect = cancelVectorNormal(vect, norms[i]);
+					}
+					stepLength = Math.min(baseStepLength, 1-stepped);
+				} else {
+					stepLength /= 2;
+				}
+			} else if (args.doGravity && !gravBefore.closeEnough(gravAfter, MAX_REAL_STEP_2)) {
+				if (mvect.r < MAX_REAL_STEP_2) {
+					stepped += stepLength;
+					this.midX = hypothesis.midX;
+					this.midY = hypothesis.midY;
+					stepLength = Math.min(baseStepLength, 1-stepped);
+				} else {
+					stepLength /= 2;
+				}
+			} else { //move on uninterrupted because it's clear and there's no gravity changes
+				stepped += stepLength;
+				this.midX = hypothesis.midX;
+				this.midY = hypothesis.midY;
+				if (args.doGravity) {
+					vect.add(gravAfter.clone().multiply(stepLength));//.add(gravBeforeH);
+				}
+				stepLength = Math.min(baseStepLength, 1-stepped);
+			}
+		}
+		if (own)
+			this.velocity = vect;
+		if (this.dyLog)
+			this.dyLog.push(vect.y);
+		//console.log(loops)
+		
+		console.log(vect.y - vectStart.y, this.midY - yStart);
+		
+		if (loops >= 69) {
+			//console.log("reached the failsafe, probably a problem")
+			this.unOverlap(stage, 1)
+		}
+		this.snapToIntPixel(MAX_REAL_STEP_2);
+	}
+	attemptStayGrounded(stage) {
+		var hypothesis = new HypotheticalCircleBody(this);
+		hypothesis.attemptMove(stage, stage.getGravityAtPixel(hypothesis.getCenterX(), hypothesis.getCenterY(), hypothesis, this.object).clone().multiply(STAY_GROUNDED_MULT));
+		if (hypothesis.checkGrounded(stage)) {
+			this.midX = hypothesis.midX;
+			this.midY = hypothesis.midY;
+			this.setRelativeDY(this.getRelativeDY()/STAY_GROUNDED_MULT);
+			return true;
+		} else
+			return false;
+	}
+	checkCollideNormal(stage, out = 0) {
+		return this.checkCollideNormals(stage, out)[0];
 	}
 	checkCollideNormals(stage, out = 0) {
 		var toret = [];
-		for (var t = -Math.PI; t <= Math.PI; t += Math.PI/8) {
+		for (var t = -Math.PI; t <= Math.PI; t += Math.PI*2/CIRCLE_BODY_NORMAL_CHECKS) {
 			if (this.isEdgeSolid(stage, t, out))
 				toret.push(new UnitVector(this.rotation+t-Math.PI));
 		}
@@ -127,6 +203,42 @@ class CircleBody extends Body {
 			this.midX += norm.x;
 			this.midY += norm.y;
 		}
+	}
+	snapToIntPixel(tolerance = MAX_REAL_STEP_2) {
+		if (Math.abs(this.midX - Math.round(this.midX)) <= tolerance)
+			this.midX = Math.round(this.midX);
+		if (Math.abs(this.midY - Math.round(this.midY)) <= tolerance)
+			this.midY = Math.round(this.midY);
+	}
+	noteTwosideEscape(dir, to, grabbity) {
+		//console.log("TwosideEscape", dir, to);
+		return;
+		var diff;
+		var vel;
+		var grav;
+		if (dir == "up" || dir == "down") {
+			if (dir == "up")
+				diff = to - this.midY - this.radius;
+			else
+				diff = to - this.midY + this.radius;
+			vel = this.velocity.y;
+			grav = grabbity.y;
+		}
+		var missed = willMissJump(diff, vel, grav);
+		//console.log(missed);
+		if (missed)
+			this.velocity.add(grabbity.clone().multiply(-.2));
+		/*max = vel**2/2/(-grav);
+		var max;
+		var rmax = 0;
+		var velspec = vel;
+		var dist = 0;
+		while (
+		if (diff < 0) {
+			diff = -diff;
+			max = -max;
+		}
+		console.log((max-diff).toFixed(3), diff.toFixed(3), max.toFixed(3));*/
 	}
 	getCenterX() {
 		return this.midX;
@@ -160,21 +272,16 @@ class CircleBody extends Body {
 		return false;
 	}
 	getRelativeDX() {
-		return new VectorRect(this.dx, this.dy).rotate(-this.rotation).x;
-		//return this.dx;
+		return this.velocity.clone().rotate(-this.rotation).x;
 	}
 	getRelativeDY() {
-		return new VectorRect(this.dx, this.dy).rotate(-this.rotation).y;
+		return this.velocity.clone().rotate(-this.rotation).y;
 	}
 	setRelativeDX(nu) {
-		var newv = new VectorRect(this.dx, this.dy).rotate(-this.rotation).setX(nu).rotate(this.rotation);
-		this.dx = newv.x;
-		this.dy = newv.y;
+		this.velocity.rotate(-this.rotation).setX(nu).rotate(this.rotation);
 	}
 	setRelativeDY(nu) {
-		var newv = new VectorRect(this.dx, this.dy).rotate(-this.rotation).setY(nu).rotate(this.rotation);
-		this.dx = newv.x;
-		this.dy = newv.y;
+		this.velocity.rotate(-this.rotation).setY(nu).rotate(this.rotation);
 	}
 	/*getCenterY() {
 		return this.footY - this.height/2;
@@ -225,6 +332,23 @@ class CircleBody extends Body {
 	}
 }
 registerBody(CircleBody, "Circle");
+
+function willMissJump(height, velocity, gravity) {
+	if (height < 0) {
+		height = -height;
+		velocity = -velocity;
+		gravity = -gravity;
+	}
+	while (true) {//TODO figure out an equation for this
+		velocity += gravity;
+		height -= velocity;
+		//console.log(height, velocity, gravity)
+		if (height < 0)
+			return false;
+		if (velocity < 0)
+			return height;
+	}
+}
 
 class HypotheticalCircleBody extends CircleBody {
 	

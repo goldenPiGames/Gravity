@@ -9,11 +9,12 @@ var loading = {
 }
 var runnee = loading;
 const FPS = 30;
+var fps = 30;
 var globalTimer = 0;
 
 var engine = {
 	run : function() {
-		var desiredTime = Date.now() + 1000/FPS;
+		var desiredTime = Date.now() + 1000/fps;
 		updateResize();
 		updateControllersBefore();
 		runnee.update();
@@ -22,6 +23,7 @@ var engine = {
 		updateControllersAfter();
 		runnee.draw();
 		drawControllers();
+		//console.log(desiredTime-Date.now())
 		this.sch = setTimeout(()=>this.run(), Math.max(0, desiredTime-Date.now()));
 	},
 	stop : function() {

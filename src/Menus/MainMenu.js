@@ -52,6 +52,7 @@ class MainMenu extends MenuScreen {
 		this.attract.draw();
 		super.draw();
 		mainCtx.fillStyle = "#FFFFFF";
+		drawTextInRect("©2021 goldenPiGames", 0, mainCanvas.height-20, 300, 20, {align:"left", fill:"#FFFFFF", stroke:"#000000"});
 		//drawTextInRect(lg("Title"), 0, 0, mainCanvas.width, 50);
 		//drawParagraphInRect(lg("MainMenu-Unfinished"), 0, 50, mainCanvas.width, 50, 24);
 		//drawParagraphInRect(lg("MainMenu-Instructions"), 0, mainCanvas.height*2/3, mainCanvas.width, mainCanvas.height/3, 24);
