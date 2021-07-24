@@ -45,7 +45,10 @@ function editorFromRegistryDefault(n, cam) {
 }
 
 function backgroundFromRegistry(b, ...rest) {
-	return new (BACKGROUND_REGISTRY[b.background])(b, ...rest);
+	if (Array.isArray(b))
+		return new BackgroundLayerer(b, ...rest)
+	else
+		return new (BACKGROUND_REGISTRY[b.background])(b, ...rest);
 }
 
 

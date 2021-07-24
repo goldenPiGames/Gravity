@@ -118,6 +118,12 @@ class SpriteSheet {
 	isLoaded() {
 		return this.image.loaded;
 	}
+	getWidthOf(nom) {
+		return this.data[nom].width;
+	}
+	getHeightOf(nom) {
+		return this.data[nom].height;
+	}
 	drawBorderOnMain(x, y, width, height) {
 		let tbXStart = x + this.data.cornerUL.width;
 		let tbXInc = this.data.edgeU.width;

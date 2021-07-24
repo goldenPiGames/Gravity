@@ -59,6 +59,20 @@ const GRID_SUBTILESET_NAMES = {
 	"WWW" : "Surrounded",
 }
 
+const GRID_SUBTILESET_NEIGHBORS = {
+	"UL" : [0, 7, 6],
+	"UR" : [0, 1, 2],
+	"DL" : [4, 5, 6],
+	"DR" : [4, 3, 2],
+}
+
+const GRID_SUBTILESET_G_NAMES = {
+	"__" : "None",
+	"I_" : "Vert",
+	"_I" : "Horiz",
+	"II" : "Both",
+}
+
 const PIXELS_PER_BLOCK = 20;
 
 class StaticGridTerrain extends GameObject {
@@ -221,12 +235,15 @@ class StaticGridTile {
 		this.neighborsSolid = this.neighbors.map(n=>n&&n.solid);
 		this.neighborsSame = this.neighbors.map(n=>n&&n.data==this.data);
 		this.neighborBin = this.neighborsSolid.map(m=>m?"W":"_").join("");
+		this.neighborsGravIn = this.neighbors.map(n=>n&&n.isGravTowards(this.gridX, this.gridY));
+		this.neighborGBin = this.neighborsGravIn.map(m=>m?"I":"_").join("");
 		if (this.solid) {
 			if (this.parent.usingSubtileset) {
-				this.spriteNamesUL = "UL"+GRID_SUBTILESET_NAMES[this.neighborBin[0]+this.neighborBin[7]+this.neighborBin[6]];
-				this.spriteNamesUR = "UR"+GRID_SUBTILESET_NAMES[this.neighborBin[0]+this.neighborBin[1]+this.neighborBin[2]];
-				this.spriteNamesDL = "DL"+GRID_SUBTILESET_NAMES[this.neighborBin[4]+this.neighborBin[5]+this.neighborBin[6]];
-				this.spriteNamesDR = "DR"+GRID_SUBTILESET_NAMES[this.neighborBin[4]+this.neighborBin[3]+this.neighborBin[2]];
+				["UL", "UR", "DL", "DR"].forEach(dn=>{
+					let nebs = GRID_SUBTILESET_NEIGHBORS[dn];
+					let nomBase = dn + GRID_SUBTILESET_NAMES[nebs.map(sd=>this.neighborBin[sd]).join("")];
+					this["spriteNames"+dn] = [nomBase + "G" + GRID_SUBTILESET_G_NAMES[this.neighborGBin[nebs[0]] + this.neighborGBin[nebs[2]]], nomBase];
+				});
 				if (this.roundCorner) {
 					this.spriteNamesFull = "round"+this.roundCorner;
 					switch (this.roundCorner) {
@@ -254,6 +271,13 @@ class StaticGridTile {
 		this.twosideEscape = "down";
 		this.twosideEscapeGrid = val;
 		this.twosideEscapePix = this.parent.gridToPixY(val);
+	}
+	isGravTowards(oX, oY) {
+		if (oX == this.gridX)
+			return oY > this.gridY && this.gravity == "down" || oY < this.gridY && this.gravity == "up";
+		if (oY == this.gridY)
+			return oX > this.gridX && this.gravity == "right" || oX < this.gridX && this.gravity == "left";
+		return false;
 	}
 	drawStatic(ctx) {
 		if (this.solid) {
@@ -365,9 +389,20 @@ class StaticGridTerrainEditor extends EditorObject {
 		this.gravPriority = args.gravPriority;
 		this.tileset = args.tileset;
 		this.tiles = args.grid.map2d((pis, x, y) => new StaticGridEditorTile(this, x, y, pis));
+		this.gridCornerNextX = false;
 	}
 	draw() {
 		this.tiles.forEach2d(tile=>tile.draw());
+		if (this.gridCornerNextX != false) {
+			let px = this.gridToPixX(this.gridCornerNextX);
+			let py = this.gridToPixY(this.gridCornerNextY);
+			worldCtx.strokeStyle = "#FFFFFF";
+			worldCtx.lineWidth = 4;
+			worldCtx.beginPath();
+			worldCtx.arc(px, py, 12, 0, 2*Math.PI);
+			worldCtx.stroke();
+			this.gridCornerNextX = false;
+		}
 	}
 	tileOfPixel(x, y) {
 		if (x != x || typeof x != "number" || y != y || typeof y != "number")
@@ -471,6 +506,10 @@ class StaticGridTerrainEditor extends EditorObject {
 		} else {
 			return [];
 		}
+	}
+	drawGridCornerNext(gx, gy) {
+		this.gridCornerNextX = gx;
+		this.gridCornerNextY = gy;
 	}
 	afterMove(x, y) {
 		this.tiles.forEach2d(t=>t.updatePosition());

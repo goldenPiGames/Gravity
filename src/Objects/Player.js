@@ -93,6 +93,9 @@ class BasePlayer extends Mob {
 	playSFX(snom) {
 		playSFX(snom);
 	}
+	getLookForward(cam) {
+		return new VectorPolar(1, this.body.rotation + Math.PI / 2 * (this.facing ? 1 : -1));
+	}
 }
 
 class ActualPlayer extends BasePlayer {
@@ -100,6 +103,7 @@ class ActualPlayer extends BasePlayer {
 		super(args);
 		player = this;
 		this.recording = "";
+		this.musicVar = args.musicVar;
 	}
 	control() {
 		//var left = this.controller.left;
@@ -109,6 +113,18 @@ class ActualPlayer extends BasePlayer {
 		this.ctrlJump = this.controller.jumpClicked;
 		let toadd = (this.ctrlMove<0?"L":"") + (this.ctrlMove>0?"R":"") + (this.ctrlJump?"J":"") + ",";
 		this.recording += toadd;
+	}
+	draw(...a) {
+		super.draw(...a)
+		if (this.musicVar)
+			this.varMusic();
+	}
+	varMusic() {
+		let r = this.body.rotation;
+		switch (this.musicVar) {
+			case "X2": setMusicVar(Math.floor((r / Math.PI * 2 + 4.5)) % 2); return;
+			case "-": setMusicVar(Math.floor((r / Math.PI + 4.5)) % 2); return;
+		}
 	}
 }
 registerObject(ActualPlayer, "Player");

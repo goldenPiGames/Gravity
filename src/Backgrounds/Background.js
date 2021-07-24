@@ -13,6 +13,19 @@ class BackgroundNothing {
 	}
 }
 
+class BackgroundLayerer extends Background {
+	constructor(dats, ...rest) {
+		super(dats, ...rest);
+		this.layers = dats.map(d=>backgroundFromRegistry(d, ...rest));
+	}
+	update() {
+		this.layers.forEach(l=>l.update());
+	}
+	draw(...a) {
+		this.layers.forEach(l=>l.draw(...a));
+	}
+}
+
 class BackgroundSolid extends Background {
 	constructor(args, ...rest) {
 		super(args, ...rest);
@@ -47,3 +60,23 @@ class BackgroundSingleImage extends Background {
 	}
 }
 registerBackground(BackgroundSingleImage, "SingleImage");
+
+
+class BackgroundTileImage extends BackgroundSingleImage {
+	constructor(args, ...rest) {
+		super(args, ...rest);
+		this.tileWidth = this.spriteSheet.getWidthOf(this.spriteName) * this.scale;
+		this.tileHeight = this.spriteSheet.getHeightOf(this.spriteName) * this.scale;
+	}
+	update() {
+		
+	}
+	draw(cam) {//TODO actually do the maffs for the bounds
+		for (var i = -1; i <= 1; i++) {
+			for (var j = -1; j <= 1; j++) {
+				this.spriteSheet.drawParallax(this.spriteName, {baseX:this.baseX+i*this.tileWidth, baseY:this.baseY+j*this.tileWidth, rotation:this.rotation, parallax:this.parallax, scale:this.scale}, cam);
+			}
+		}
+	}
+}
+registerBackground(BackgroundTileImage, "TileImage");

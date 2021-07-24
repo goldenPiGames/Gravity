@@ -1,9 +1,6 @@
 const STAGE_DATA_MAIN_TITLE = {
 	"background":{
-		"background":"SingleImage",
-		"spriteSheet":"BackgroundStormySkies",
-		"scale":5,
-		"parallax":0.1
+		"background":"BlueSky"
 	},
 	"music":"Notion",
 	"width":820,
@@ -14,7 +11,7 @@ const STAGE_DATA_MAIN_TITLE = {
 			"leftX":0,
 			"topY":0,
 			"scale":20,
-			"tileset":"SubtilesetStoneBrick",
+			"tileset":"GSubtileGrass",
 			"gravArrows":0,
 			"gravBorders":0,
 			"grid":[

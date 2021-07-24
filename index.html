@@ -50,6 +50,9 @@
 			#WorldCanvas {
 				
 			}
+			#CodeHere {
+				color : "#FFFFFF";
+			}
 		</style>
 		<script type="text/javascript" src="src/Main.js"></script>
 		<script type="text/javascript" src="src/Settings.js"></script>
@@ -112,8 +115,11 @@
 		<script type="text/javascript" src="src/Audio/SongData.js"></script>
 		<script type="text/javascript" src="src/Audio/SFX.js"></script>
 		<script type="text/javascript" src="src/Audio/Dialog.js"></script>
+		<script type="text/javascript" src="src/Audio/Jukebox.js"></script>
 		
 		<script type="text/javascript" src="src/Backgrounds/Background.js"></script>
+		<script type="text/javascript" src="src/Backgrounds/GravColor.js"></script>
+		<script type="text/javascript" src="src/Backgrounds/Presets.js"></script>
 		
 		<script type="text/javascript" src="src/Objects/Player.js"></script>
 		<script type="text/javascript" src="src/Objects/CueArea.js"></script>
@@ -125,6 +131,9 @@
 		<script type="text/javascript" src="src/Sprites/Data.js"></script>
 		
 		<script type="text/javascript" src="src/Stages/MainTitle.js"></script>
+		<script type="text/javascript" src="src/Stages/Walklern.js"></script>
+		<script type="text/javascript" src="src/Stages/Leaplern.js"></script>
+		<script type="text/javascript" src="src/Stages/Downlern.js"></script>
 		<script type="text/javascript" src="src/Stages/Tutorial.js"></script>
 		<script type="text/javascript" src="src/Stages/Demomentum.js"></script>
 		<script type="text/javascript" src="src/Stages/Twoside.js"></script>
@@ -148,12 +157,14 @@
 				<button onclick="resetControls()">Emergency Reset Controls</button>
 			</div>
 		</div>
+			<pre id="CodeHere"></pre>
 		<div id="Worlds" hidden>
 			<div id="WorldsSpace" style="height:600px"></div>
 			<canvas id="WorldCanvas">You should not be able to see this</canvas>
 			<canvas id="StaticWorldCanvas">You should not be able to see this</canvas>
 		</div>
-		<audio id="Music" preload="auto" controls="none" style="display:none"></audio>
+		<audio id="Music0" preload="auto" controls="none" style="display:none"></audio>
+		<audio id="Music1" preload="auto" controls="none" style="display:none"></audio>
 		<script>
 			begin();
 		</script>

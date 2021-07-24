@@ -62,6 +62,8 @@ class Camera {
 				this.rotation -= Math.max(-rotationDif * CAMERA_ROTATE_PORTION, CAMERA_ROTATE_MIN);
 			else
 				this.rotation += Math.max(rotationDif * CAMERA_ROTATE_PORTION, CAMERA_ROTATE_MIN);
+			if (this.rotation < 0)
+				this.rotation += 2 * Math.PI;
 		}
 		if (this.zoom != this.destZoom) {
 			let zoomStep = Math.log2(this.zoom);
@@ -143,8 +145,9 @@ class FollowingCamera extends Camera {
 	}
 	moveDest() {
 		if (this.focusObject) {
-			this.focusX = Math.round(this.focusObject.getCameraX());
-			this.focusY = Math.round(this.focusObject.getCameraY());
+			let lf = this.focusObject.getLookForward(this);
+			this.focusX = Math.round(this.focusObject.getCameraX() + lf.x * 40);
+			this.focusY = Math.round(this.focusObject.getCameraY() + lf.y * 40);
 			this.destX = this.focusX;
 			this.destY = this.focusY;
 			if (globalController.cameraToggleRotateClicked) {

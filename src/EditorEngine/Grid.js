@@ -59,6 +59,7 @@ class EditorSidebarObjectGridMenu extends EditorSidebarSub {
 		this.tileOver = til;
 		this.gridOver = til.parent;
 		this.returnTo = this.gridOver.parentSub;
+		//this.scrollObjects[0].bindCancel = true;
 	}
 	update(yam) {
 		super.update(yam);
@@ -101,7 +102,16 @@ class EditorSidebarObjectBankEdit extends EditorSidebarSub {
 			...returnTo.gridOver.object.getEditorPanelsBankEdit(bankIndex),
 		])
 		this.returnTo = returnTo;
+		this.gridOver = this.returnTo.gridOver;
+		this.grid = this.gridOver.object;
 		this.bankIndex = bankIndex;
+		this.bankData = this.grid.bank[this.bankIndex];
+	}
+	draw(...aLittleBitOfMonika) {
+		super.draw(...aLittleBitOfMonika);
+		if (this.bankData.round) {
+			this.grid.drawGridCornerNext(this.bankData.centerX, this.bankData.centerY);
+		}
 	}
 	back() {
 		this.parent.switchSub(this.returnTo);
@@ -143,6 +153,10 @@ class EditorGridOver extends MenuObject {
 		this.tiles.forEach2d(t=>t.update(yam));
 		if (!mouse.down && !globalController.select) {
 			this.bankHolding = null;
+		}
+		let bankData = this.object.bank[this.bankHolding || this.bankSelected];
+		if (bankData.round) {
+			this.object.drawGridCornerNext(bankData.centerX, bankData.centerY);
 		}
 	}
 	draw() {

@@ -79,6 +79,59 @@ const SUBTILESET_DATA = {
 	"roundDR" : {x:80, y:20, width:20, height:20},
 }
 
+const G_SUBTILESET_DATA = {
+	"pattern" : {x:0, y:0, width:20, height:20},
+	
+	"ULSurrounded" : {x:40, y:0, width:10, height:10},
+	"ULExtCorner" : {x:10, y:10, width:10, height:10},
+	"ULExtCornerGBoth" : {x:0, y:0, width:10, height:10},
+	"ULExtCornerGHoriz" : {x:0, y:10, width:10, height:10},
+	"ULExtCornerGVert" : {x:10, y:0, width:10, height:10},
+	"ULEdgeHoriz" : {x:20, y:10, width:10, height:10},
+	"ULEdgeHorizGVert" : {x:20, y:0, width:10, height:10},
+	"ULEdgeVert" : {x:10, y:20, width:10, height:10},
+	"ULEdgeVertGHoriz" : {x:0, y:20, width:10, height:10},
+	"ULIntCorner" : {x:30, y:30, width:10, height:10},
+	
+	"URSurrounded" : {x:70, y:0, width:10, height:10},
+	"URExtCorner" : {x:100, y:10, width:10, height:10},
+	"URExtCornerGBoth" : {x:110, y:0, width:10, height:10},
+	"URExtCornerGHoriz" : {x:110, y:10, width:10, height:10},
+	"URExtCornerGVert" : {x:100, y:0, width:10, height:10},
+	"UREdgeHoriz" : {x:90, y:10, width:10, height:10},
+	"UREdgeHorizGVert" : {x:90, y:0, width:10, height:10},
+	"UREdgeVert" : {x:100, y:20, width:10, height:10},
+	"UREdgeVertGHoriz" : {x:110, y:20, width:10, height:10},
+	"URIntCorner" : {x:80, y:30, width:10, height:10},
+	
+	"DLSurrounded" : {x:40, y:70, width:10, height:10},
+	"DLExtCorner" : {x:10, y:60, width:10, height:10},
+	"DLExtCornerGBoth" : {x:0, y:70, width:10, height:10},
+	"DLExtCornerGHoriz" : {x:0, y:60, width:10, height:10},
+	"DLExtCornerGVert" : {x:10, y:70, width:10, height:10},
+	"DLEdgeHoriz" : {x:20, y:60, width:10, height:10},
+	"DLEdgeHorizGVert" : {x:20, y:70, width:10, height:10},
+	"DLEdgeVert" : {x:10, y:40, width:10, height:10},
+	"DLEdgeVertGHoriz" : {x:0, y:40, width:10, height:10},
+	"DLIntCorner" : {x:30, y:40, width:10, height:10},
+	
+	"DRSurrounded" : {x:70, y:70, width:10, height:10},
+	"DRExtCorner" : {x:100, y:60, width:10, height:10},
+	"DRExtCornerGBoth" : {x:110, y:70, width:10, height:10},
+	"DRExtCornerGHoriz" : {x:110, y:60, width:10, height:10},
+	"DRExtCornerGVert" : {x:100, y:70, width:10, height:10},
+	"DREdgeHoriz" : {x:90, y:60, width:10, height:10},
+	"DREdgeHorizGVert" : {x:90, y:70, width:10, height:10},
+	"DREdgeVert" : {x:100, y:40, width:10, height:10},
+	"DREdgeVertGHoriz" : {x:110, y:40, width:10, height:10},
+	"DRIntCorner" : {x:80, y:40, width:10, height:10},
+	
+	"roundUL" : {x:40, y:20, width:20, height:20},
+	"roundUR" : {x:60, y:20, width:20, height:20},
+	"roundDL" : {x:40, y:40, width:20, height:20},
+	"roundDR" : {x:60, y:40, width:20, height:20},
+}
+
 const RADTILESET_DATA = {
 	"patternStatic" : {x:0, y:0, width:20, height:20},
 	"ULSurrounded" : {x:0, y:0, width:10, height:10},
@@ -113,6 +166,9 @@ const SPRITE_DATA = {
 	"SubtilesetDemo" : SUBTILESET_DATA,
 	"SubtilesetStoneBrick" : SUBTILESET_DATA,
 	"SubtilesetPsychBorder" : SUBTILESET_DATA,
+	"GSubtileDemo" : G_SUBTILESET_DATA,
+	"GSubtileGrass" : G_SUBTILESET_DATA,
+	"GSubtileChevronW" : G_SUBTILESET_DATA,
 	"RadTilesetDemo" : RADTILESET_DATA,
 	"RadTilesetStoneBrick" : RADTILESET_DATA,
 	"ButtonBevelGrey" : {
@@ -161,6 +217,10 @@ const SPRITE_DATA = {
 	"BackgroundStormySkies" : {//https://www.photos-public-domain.com/2017/06/26/stormy-skies/
 		background : {x:0, y:0, width:600, height:450},
 		_ext : "jpg",
+	},
+	"BackgroundTileCloud" : {//solid noise, size 10, detail ~4, seed 0
+		background : {x:0, y:0, width:360, height:360},
+		_ext : "png",
 	}
 }
 

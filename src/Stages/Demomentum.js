@@ -6,7 +6,7 @@ const STAGE_DATA_DEMOMENTUM = {
 		"scale":4,
 		"parallax":0.1
 	},
-	"music":"Notion",
+	"music":"Walkin'",
 	"width":1380,
 	"height":1040,
 	"objects":[
@@ -107,7 +107,8 @@ const STAGE_DATA_DEMOMENTUM = {
 		{
 			"object":"Player",
 			"midX":80,
-			"midY":990
+			"midY":990,
+			"musicVar" : "-"
 		},
 		{
 			"object":"Goalpost",
@@ -116,7 +117,7 @@ const STAGE_DATA_DEMOMENTUM = {
 			"r":120,
 			"rotation":0
 		},
-		{
+		/*{
 			"object" : "ScriptCueArea",
 			"body" : {
 				"shape" : "Circle",
@@ -155,7 +156,7 @@ const STAGE_DATA_DEMOMENTUM = {
 				"radius" : 50,
 			},
 			"script" : "Tutorial-CameraToggleRotate"
-		}
+		}*/
 	],
 	scripts : [
 		{

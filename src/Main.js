@@ -13,6 +13,7 @@ var miscSprites;
 var miscSprites = {};
 var miscSFX = {};
 var emergencyStuff;
+var codeHere;
 //var usingPizz = settings.sfxSystem;
 
 //var stageBackground;
@@ -43,6 +44,8 @@ function begin() {
 	staticWorldCtx.imageSmoothingEnabled = false;
 	staticWorldCtx.mozImageSmoothingEnabled = false;
 	staticWorldCtx.webkitImageSmoothingEnabled = false;
+	
+	codeHere = document.getElementById("CodeHere");
 	
 	emergencyStuff = document.getElementById("Emergency");
 	//initMusic();
@@ -76,9 +79,12 @@ function disableImageSmoothing(ctx) {
 	setImageSmoothing(ctx, false);
 }
 
-
 function enableImageSmoothing(ctx) {
 	setImageSmoothing(ctx, true);
+}
+
+function openWindow(href) {
+	window.open(href);
 }
 
 function doNothing() {};

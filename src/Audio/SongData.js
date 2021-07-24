@@ -11,17 +11,24 @@ const SONG_LIST_ABS = [
 	{name:"Soaring", intensity:1/2,
 		by:"PeriTune", yt:"XYhFLYIDv3E", siten:"PeriTune", site:"https://peritune.com/soaring/"},
 	{name:"Joy Noise", intensity:1/2,
-		by:"TeraVex", siten:"PeriTune", ng:913514},
+		by:"TeraVex", ng:913514},
+	{name:"Walkin'", intensity:1/2, loopStart:41.202, loopEnd:150.909, vars:2,
+		by:"TeraVex", yt:"UOut1_-8_lU", ng:1052804},
 ]
 //Because some sites have an upload size limit.
 //const SONG_LIST = STRIP_SONGS ? SONG_LIST_ABS.filter(s=>s[STRIP_SONGS]) : SONG_LIST_ABS;
-const SONG_LIST = SONG_LIST_ABS.filter(s => (!s.adultOnly || VERSION_ADULT));
+const SONG_LIST = SONG_LIST_ABS;
 
 var SONG_HASH = {};
 SONG_LIST.forEach(function(sing, dex) {
 	if (!sing.iname)
 		sing.iname = ((sing.fname || sing.name) + "-" + sing.by).replace(/\s/g, "");
-	sing.src = "src/Audio/Songs/" + sing.iname + ".mp3";
+	sing.srcs = ["src/Audio/Songs/" + sing.iname + ".mp3"];
+	if (sing.vars > 1) {
+		for (var i = 1; i < sing.vars; i++) {
+			sing.srcs.push("src/Audio/Songs/" + sing.iname + "-"+i+".mp3");
+		}
+	}
 	SONG_HASH[sing.iname] = sing;
 	SONG_HASH[sing.name + " - " + sing.by] = sing;
 	SONG_HASH[sing.name] = sing;

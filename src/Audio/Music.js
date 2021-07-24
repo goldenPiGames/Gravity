@@ -1,5 +1,7 @@
 //this.particles.push(new MusicInfoBar(name));
+const MUSIC_MAX_VARS = 2;
 var music;
+var musicElems;
 var songName;
 var song;
 var musicIsAlt;
@@ -7,8 +9,12 @@ const MUSIC_STOP = "STOP RIGHT THERE, CRIMINAL SCUM!";
 //var canPlayOgg = !!(music.canPlayType && music.canPlayType('audio/ogg; codecs="vorbis"'));
 
 function initMusic() {
-	music = document.getElementById("Music");
-	music.volume = settings.musicVolume;
+	musicElems = [];
+	for (var i = 0; i < MUSIC_MAX_VARS; i++) {
+		musicElems[i] = document.getElementById("Music"+i);
+		musicElems[i].volume = settings.musicVolume;
+	}
+	music = musicElems[0];
 	setMusicShuffle(false);
 	//setMusicShuffle(jukeboxSpecs.shuffle);
 }
@@ -42,11 +48,24 @@ function playMusic(sin) {
 		song.leftOff = music.currentTime;
 	song = sin;
 	songLast = sin;
-	musicIsAlt = false;
+	songVar = 0;
 	//music.volume = settings.musicVolume;
 	if (settings.musicVolume && !settings.muted) {
-		music.src = song.src;
+		music = musicElems[songVar];
+		song.srcs.forEach((s, i) => musicElems[i].src = s);
 		music.play();
+	}
+}
+
+function setMusicVar(a) {
+	if (a != songVar) {
+		songVar = a;
+		let musicOld = music;
+		let musicNew = musicElems[songVar];
+		music = musicNew;
+		musicNew.currentTime = musicOld.currentTime;
+		musicOld.pause();
+		musicNew.play();
 	}
 }
 
@@ -135,7 +154,7 @@ function applyMusicVolume() {
 	} else if (!music.volume) {
 		sp = true;
 	}
-	music.volume = settings.musicVolume;
+	musicElems.forEach(mus => mus.volume = settings.musicVolume);
 	if (sp) {
 		playMusic(song);
 	}

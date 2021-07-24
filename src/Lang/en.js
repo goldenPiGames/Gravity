@@ -10,6 +10,12 @@ LANG.en = {
 	"Settings-SFX" : "SFX",
 	"Settings-Voice" : "Voice",
 	
+	"Stage-Walklern" : "Walklern",
+	"Stage-Walklern-Desc" : "Learn how to walk.",
+	"Stage-Leaplern" : "Leaplern",
+	"Stage-Leaplern-Desc" : "Learn how to jump.",
+	"Stage-Downlern" : "Downlern",
+	"Stage-Downlern-Desc" : "Learn how to jump across. No funny business here.",
 	"Stage-Tutorial" : "Tutorial",
 	"Stage-Tutorial-Desc" : "An introduction to the game's controls and gravity.",
 	"Stage-Demomentum" : "Demomentum",
@@ -106,4 +112,6 @@ LANG.en = {
 	"Grid-Bank-centerX" : "Center X",
 	"Grid-Bank-centerY" : "Center Y",
 	"Grid-Bank-centerSolid" : "Solid",
+	
+	"Jukebox-Pause" : "Pause",
 }

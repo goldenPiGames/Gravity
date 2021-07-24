@@ -45,7 +45,7 @@ document.addEventListener("keydown", function(e) {
 		pControllers.push(new NormalKeyboardController());
 	if (keyCodesEnabled)
 		console.log(e.code);
-	if (document.activeElement.type != "text" && e.code != "KeyI")
+	if (document.activeElement.type != "text" && e.code != "KeyI" && e.code != "KeyA")
 		e.preventDefault();
 	if (!keysHeld[e.code])
 		keysPressed[e.code] = globalTimer;

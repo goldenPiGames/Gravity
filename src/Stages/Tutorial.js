@@ -257,6 +257,6 @@ const STAGE_DATA_TUTORIAL = {
 	]
 }
 registerStage(STAGE_DATA_TUTORIAL, "Tutorial", {
-	"selectable" : true,
+	"selectable" : false,
 	"editable" : true,
 });
