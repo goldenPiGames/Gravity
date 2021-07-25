@@ -23,12 +23,13 @@ class JukeboxMenu extends MenuScreen {
 		var swid = Math.floor(mainCanvas.width - midx) - 10;
 		this.pauseButton.resize(midx, 5, swid/2, 40);
 		//this.volumeSlider.resize(midx+10, 100, 200, 30);
-		this.resizeLinkButtons();
+		this.resizeSideButtons();
 	}
-	resizeLinkButtons() {
+	resizeSideButtons() {
 		if (!this.songScroll.width)
 			return;
-		this.linkButtons.forEach((l, i)=>l.resize(this.songScroll.width+10, mainCanvas.height/2 + 50*i, 200, 40));
+		this.linkButtons.forEach((l, i)=>l.resize(this.songScroll.width+10, mainCanvas.height/3 + 40*i, 200, 35));
+		this.varButtons.forEach((l, i)=>l.resize(this.songScroll.width+10, mainCanvas.height*2/3 + 40*i, 200, 35));
 	}
 	rebuildMenuObjects() {
 		this.menuObjects = [
@@ -36,7 +37,9 @@ class JukeboxMenu extends MenuScreen {
 			this.songScroll,
 			this.pauseButton,
 			...this.linkButtons,
+			...this.varButtons
 		];
+		this.connectVert(this.pauseButton, ...this.linkButtons, ...this.varButtons);
 	}
 	update() {
 		super.update();
@@ -63,10 +66,15 @@ class JukeboxMenu extends MenuScreen {
 				text : s.name,
 				func : ()=>openWindow(s.href)
 			}));
+			this.varButtons = song.vars ? song.varNames.map((v,i)=>new MenuButton({
+				text : v,
+				func : ()=>setMusicVar(i)
+			})) : [];
 			this.rebuildMenuObjects();
-			this.resizeLinkButtons();
+			this.resizeSideButtons();
 		} else {
 			this.linkButtons = [];
+			this.varButtons = [];
 		}
 	}
 	togglePause() {

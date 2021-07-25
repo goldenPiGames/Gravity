@@ -115,8 +115,9 @@ class TouchController extends Controller {
 		if (justResized)
 			this.resize();
 		//console.log(touch.starts)
+		this.unClick();
 		this.buttonsGame.forEach(b=>b.update(this));
-		if (runnee.controlShow == CONTROL_SHOW_MENU) {
+		if (runnee.controlShow == CONTROL_SHOW_MENU && !settings.directTouch) {
 			this.buttonsMenu.forEach(b=>b.update(this));
 		}
 		this.buttonsCamera.forEach(b=>b.update(this));
@@ -127,7 +128,7 @@ class TouchController extends Controller {
 	draw() {
 		if (runnee.controlShow == CONTROL_SHOW_GAME) {
 			this.buttonsGame.forEach(b=>b.draw());
-		} else if (runnee.controlShow == CONTROL_SHOW_MENU) {
+		} else if (runnee.controlShow == CONTROL_SHOW_MENU && !settings.directTouch) {
 			this.buttonsMenu.forEach(b=>b.draw());
 		}
 		if (runnee.controlShowCamera) {

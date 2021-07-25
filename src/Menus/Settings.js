@@ -22,22 +22,30 @@ class SettingsMenu extends MenuScreen {
 			setting : "voice",
 			segments : 10,
 		});
-		this.menuObjects = [
-			this.backButton,
+		this.touchMenuToggle = new SettingsObjectToggle({
+			lText : "Settings-TouchMenu",
+			setting : "directTouch"
+		});
+		this.settingObjects = [
 			this.musicSlider,
 			this.sfxSlider,
-			this.voiceSlider
+			this.voiceSlider,
+			this.touchMenuToggle
+		]
+		this.menuObjects = [
+			this.backButton,
+			...this.settingObjects
 		];
 		this.backButton.connectDown = this.musicSlider;
-		this.connectVert(this.musicSlider, this.sfxSlider, this.voiceSlider);
+		this.connectVert(...this.settingObjects);
 		this.cursor = new MenuCursor(this);
 		this.hover(this.backButton);
 	}
 	resize() {
 		this.backButton.resize(mainCanvas.width - 100, 0, 100, 40);
-		this.musicSlider.resize(mainCanvas.width*1/10, 50, mainCanvas.width*4/5, 50);
-		this.sfxSlider.resize(mainCanvas.width*1/10, 110, mainCanvas.width*4/5, 50);
-		this.voiceSlider.resize(mainCanvas.width*1/10, 170, mainCanvas.width*4/5, 50);
+		this.settingObjects.forEach((s, i) => {
+			s.resize(mainCanvas.width*1/10, 50+60*i, mainCanvas.width*4/5, 50);
+		});
 	}
 	update() {
 		super.update();
@@ -48,6 +56,34 @@ class SettingsMenu extends MenuScreen {
 	}
 	back() {
 		switchScreen(MainMenu);
+	}
+}
+
+class SettingsObjectToggle extends MenuButton {
+	constructor(args) {
+		super(args);
+		this.setting = args.setting;
+		this.lTextTrue = this.lText + "-true";
+		this.textTrue = lg(this.lTextTrue);
+		this.lTextFalse = this.lText + "-false";
+		this.textFalse = lg(this.lTextFalse);
+	}
+	update(bleh) {
+		super.update(bleh);
+		if (this.clicked) {
+			setSetting(this.setting, !settings[this.setting]);
+		}
+	}
+	draw() {
+		mainCtx.fillStyle = this.color || "#808080";
+		mainCtx.fillRect(this.x, this.y, this.width, this.height);
+		this.sprites.drawBorderOnMain(this.x, this.y, this.width, this.height);
+		drawTextInRect(this.text, this.x+4, this.y+4, this.width/3-8, this.height-8, {align:"left", fill:"#FFFFFF"});
+		drawTextInRect(this.textFalse, this.x+this.width/3+4, this.y+4, this.width/3-8, this.height-8, {align:"left", fill:"#FFFFFF", align:"center"});
+		drawTextInRect(this.textTrue, this.x+this.width*2/3+4, this.y+4, this.width/3-8, this.height-8, {align:"left", fill:"#FFFFFF", align:"center"});
+		mainCtx.strokeStyle = "#FFFFFF";
+		mainCtx.lineWidth = 4;
+		mainCtx.strokeRect(this.x + this.width*(settings[this.setting]?2:1)/3+3, this.y+3, this.width/3-6, this.height-6);
 	}
 }
 

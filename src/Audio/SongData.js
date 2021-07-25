@@ -6,13 +6,15 @@ const MUSIC_GENRES = ["all", "chiptune"];
 const SONG_LIST_ABS = [
 	{name:"Notion", intensity:1/2, loopStart:9.604, loopEnd:172.288,
 		by:"Hyenaedon, HOJL", yt:"_EuA_TfvC94", ng:939780, sc:"hyenaedon/notion/s-64CsxHviHxQ"},
-	{name:"Lost Place 6", intensity:1/2,
-		by:"PeriTune", yt:"SWUthfq_zaU", siten:"PeriTune", site:"https://peritune.com/lost_place6/"},
+	{name:"Climbing", intensity:3/4, vars:2, varNames:["Normal", "Retro Game"],
+		by:"PeriTune", yt:"oMi4OrwpClE", siten:"PeriTune", site:"https://peritune.com/climbing/"},
+	{name:"Dungeon Tower", intensity:1/4, vars:2, varNames:["Normal", "Retro Game"],
+		by:"PeriTune", yt:"C03wgPMeeUs", siten:"PeriTune", site:"https://peritune.com/dungeon_tower/"},
 	{name:"Soaring", intensity:1/2,
 		by:"PeriTune", yt:"XYhFLYIDv3E", siten:"PeriTune", site:"https://peritune.com/soaring/"},
 	{name:"Joy Noise", intensity:1/2,
 		by:"TeraVex", ng:913514},
-	{name:"Walkin'", intensity:1/2, loopStart:41.202, loopEnd:150.909, vars:2,
+	{name:"Walkin'", intensity:1/2, loopStart:41.202, loopEnd:150.909, vars:2, varNames:["Normal","Water"],
 		by:"TeraVex", yt:"UOut1_-8_lU", ng:1052804},
 ]
 //Because some sites have an upload size limit.

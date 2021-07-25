@@ -9,6 +9,9 @@ LANG.en = {
 	"Settings-Music" : "Music",
 	"Settings-SFX" : "SFX",
 	"Settings-Voice" : "Voice",
+	"Settings-TouchMenu" : "Touch Menu",
+	"Settings-TouchMenu-true" : "Direct",
+	"Settings-TouchMenu-false" : "Pad",
 	
 	"Stage-Walklern" : "Walklern",
 	"Stage-Walklern-Desc" : "Learn how to walk.",

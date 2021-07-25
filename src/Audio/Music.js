@@ -50,6 +50,7 @@ function playMusic(sin) {
 	songLast = sin;
 	songVar = 0;
 	//music.volume = settings.musicVolume;
+	music.pause();
 	if (settings.musicVolume && !settings.muted) {
 		music = musicElems[songVar];
 		song.srcs.forEach((s, i) => musicElems[i].src = s);
