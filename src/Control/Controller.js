@@ -47,7 +47,7 @@ class Controller {
 		return this[com+"Clicked"] || this[com] >= KEY_REPEAT_DELAY && (this[com] - KEY_REPEAT_DELAY) % KEY_REPEAT_RATE == 0;
 	}
 	getHoriz() {
-		0 + (right?1:0) - (left?1:0);
+		return 0 + (this.right?1:0) - (this.left?1:0);
 	}
 }
 
