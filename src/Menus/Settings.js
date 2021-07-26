@@ -144,7 +144,7 @@ class SettingsObjectPercentSegment extends MenuObject {
 	}
 	update(bleh) {
 		super.update(bleh);
-		if (this.mouseClicked) {
+		if (this.mouseClicked || this.touchClicked) {
 			this.parent.setSegment(this.index);
 		}
 	}

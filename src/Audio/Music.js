@@ -103,17 +103,17 @@ function playMusicFromStart(sin) {
 function setMusicShuffle(val) {
 	if (val) {
 		if (typeof music.loop == 'boolean') {
-			music.loop = false;
+			musicElems.forEach(m => m.loop = false);
 		} else {
-			music.removeEventListener('ended', awkwardLoopSubstitute, false);
+			musicElems.forEach(m => m.removeEventListener('ended', awkwardLoopSubstitute, false));
 		}
-		music.addEventListener('ended', shuffleMusic, false);
+		musicElems.forEach(m => m.addEventListener('ended', shuffleMusic, false));
 	} else {
-		music.removeEventListener('ended', shuffleMusic, false);
+		musicElems.forEach(m => m.removeEventListener('ended', shuffleMusic, false));
 		if (typeof music.loop == 'boolean') {
-			music.loop = true;
+			musicElems.forEach(m => m.loop = true);
 		} else {
-			music.addEventListener('ended', awkwardLoopSubstitute, false);
+			musicElems.forEach(m => m.addEventListener('ended', awkwardLoopSubstitute, false));
 		}
 	}
 }

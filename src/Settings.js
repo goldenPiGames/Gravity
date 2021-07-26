@@ -1,9 +1,9 @@
 var settings = {
 	lang : "en",
-	voice : "en",
-	voice : 1,
+	voiceLang : "en",
+	voiceVolume : 1,
 	musicVolume : .8,
-	sfx : .8,
+	sfxVolume : .8,
 	sfxTick : false,
 	focusOutPause : true,
 	profanity : false,
@@ -41,6 +41,7 @@ function setSetting(syet, tyu) {
 		case "musicVolume" : applyMusicVolume(); break;
 		case "sfx" : applySFXVolume(); break;
 	}
+	saveSettings();
 }
 
 function profane() {

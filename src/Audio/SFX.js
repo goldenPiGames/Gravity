@@ -10,7 +10,7 @@ function makeSound(nom) {
 			this.pause();
 		}, false);
 	fec.src = "src/Audio/SFX/"+nom;
-	fec.volume = settings.sfx;
+	fec.volume = settings.sfxVolume;
 	document.body.appendChild(fec);
 	return fec;
 }
@@ -32,12 +32,12 @@ function requireSFX(id, count=1) {
 
 function initSFX() {
 	
-	//lastSFXvolume = settings.sfx;
+	//lastSFXvolume = settings.sfxVolume;
 }
 
 function playSFX(name) {
 	//console.log(name)
-	if (!settings.sfx || settings.muted) {
+	if (!settings.sfxVolume || settings.muted) {
 		return;
 	}
 	if (!sfxCyclers[name]) {
@@ -49,9 +49,9 @@ function playSFX(name) {
 
 function applySFXVolume() {
 	for (f in sfxCyclers) {
-		sfxCyclers[f].setVolume(settings.sfx);
+		sfxCyclers[f].setVolume(settings.sfxVolume);
 	}
-	lastSFXvolume = quant;
+	lastSFXvolume = settings.sfxVolume;
 }
 
 class SFXCycler {

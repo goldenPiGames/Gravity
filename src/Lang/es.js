@@ -1,4 +1,4 @@
-LANG.en = {
+LANG.es = {
 	"Title" : "Grav/vity",
 	"MainMenu-Play" : "Jugar",
 	"MainMenu-Editor" : "Editar",

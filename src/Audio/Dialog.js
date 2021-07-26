@@ -11,8 +11,8 @@ function makeVoice(nom) {
 			this.currentTime = 0;
 			this.pause();
 		}, false);*/
-	fec.src = "src/Audio/Voice/"+settings.voice+"/"+nom+".mp3";
-	fec.volume = settings.sfx;
+	fec.src = "src/Audio/Voice/"+settings.voiceLang+"/"+nom+".mp3";
+	fec.volume = settings.sfxVolume;
 	document.body.appendChild(fec);
 	return fec;
 }
