@@ -6,7 +6,7 @@ const STAGE_DATA_TWOSIDE = {
 		"scale":4,
 		"parallax":0.1
 	},
-	"music":"Notion",
+	"music":"Walkin'",
 	"width":1860,
 	"height":720,
 	"objects":[
@@ -144,7 +144,8 @@ const STAGE_DATA_TWOSIDE = {
 		{
 			"object":"Player",
 			"midX":220,
-			"midY":330
+			"midY":330,
+			"musicVar" : "-"
 		},
 		{
 			"object":"Goalpost",

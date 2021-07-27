@@ -166,6 +166,7 @@ class PlayerEditor extends EditorObject {
 		this.midX = args.midX;
 		this.midY = args.midY;
 		this.spriteSheet = getSpriteSheet("Player");
+		this.musicVar = args.musicVar;
 	}
 	update() {
 		super.update();
@@ -184,6 +185,7 @@ class PlayerEditor extends EditorObject {
 			object : "Player",
 			midX : this.midX,
 			midY : this.midY,
+			musicVar : this.musicVar
 		};
 	}
 }

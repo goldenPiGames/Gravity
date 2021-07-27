@@ -23,7 +23,11 @@ class CircleBody extends Body {
 	physics(stage) {
 		this.checkGrounded(stage);
 		//console.log(this.midY);
-		this.attemptMove(stage, null, {stepSize:2, doGravity:this.doesGravity});
+		//this.attemptMove(stage, null, {stepSize:2, doGravity:this.doesGravity});
+		
+		for (var i = 0; i < 4; i++)//quarter steps like sm64, thanks pannenkoek
+			this.velocity = this.attemptMove(stage, this.velocity.clone().multiply(1/4), {stepSize:2, doesGravity:1/4}).multiply(4);
+		
 		//console.log(this.midY);
 		var grav = stage.getGravityAtPixel(this.getCenterX(), this.getCenterY(), this, this.object)
 		this.rotation = grav.theta-Math.PI;
@@ -47,15 +51,7 @@ class CircleBody extends Body {
 		//console.log("After:", this.getRelativeDX())
 	}
 	attemptMove(stage, invect, args = {}) {
-		var own;
-		var vect;
-		if (invect) {
-			own = false;
-			vect = invect;
-		} else {
-			own = true;
-			vect = this.velocity;
-		}
+		var vect = invect;
 		//if (vect.r == 0)
 			//return false;
 		//console.log("Before:", this.midX, this.midY, dx, dy);
@@ -87,14 +83,12 @@ class CircleBody extends Body {
 				stepLength /= 2;
 			}
 		}
-		if (own) {
-			this.velocity = vect;
-		}
 		//console.log(loops)
 		if (loops >= 69) {
 			//console.log("reached the failsafe, probably a problem")
 			this.unOverlap(stage, 1);
 		}
+		return vect;
 		//console.log("After:", this.midX, this.midY, this.dx, this.dy);
 		//console.log("Change:", this.midX-bx)
 	}
@@ -210,9 +204,9 @@ class CircleBody extends Body {
 		if (Math.abs(this.midY - Math.round(this.midY)) <= tolerance)
 			this.midY = Math.round(this.midY);
 	}
-	noteTwosideEscape(dir, to, grabbity) {
+	noteTwosideEscape(dir, to, grabbity, stacks = 0) {
 		//console.log("TwosideEscape", dir, to);
-		return;
+		//return;
 		var diff;
 		var vel;
 		var grav;
@@ -226,8 +220,11 @@ class CircleBody extends Body {
 		}
 		var missed = willMissJump(diff, vel, grav);
 		//console.log(missed);
-		if (missed)
-			this.velocity.add(grabbity.clone().multiply(-.2));
+		if (missed) {
+			this.velocity.add(grabbity.clone().multiply(-.02));
+			if (stacks < 10)
+				this.noteTwosideEscape(dir, to, grabbity, stacks + 1);
+		}
 		/*max = vel**2/2/(-grav);
 		var max;
 		var rmax = 0;
@@ -339,9 +336,9 @@ function willMissJump(height, velocity, gravity) {
 		velocity = -velocity;
 		gravity = -gravity;
 	}
-	while (true) {//TODO figure out an equation for this
-		velocity += gravity;
-		height -= velocity;
+	while (true) {//TODO maybe write an equation for this?
+		velocity += gravity/4;
+		height -= velocity/4;
 		//console.log(height, velocity, gravity)
 		if (height < 0)
 			return false;
