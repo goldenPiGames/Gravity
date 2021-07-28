@@ -8,8 +8,13 @@ class GamepadController extends Controller {
 	}
 	updateBefore() {
 		var gamepad = getGamepad(this.gpindex);
-		if (!gamepad)
+		if (!gamepad || !settings.gamepadEnabled) {
+			COMMAND_LIST.forEach(com => {
+				this[com] = false;
+				this[com+"Clicked"] = false;
+			});
 			return;
+		}
 		COMMAND_LIST.forEach(com => {
 			//console.log(com)
 			this[com+"Last"] = this[com];

@@ -15,6 +15,7 @@ var settings = {
 	musicDontAsk : false,
 	directTouch : false,
 	cameraRotateWithFocus : true,
+	gamepadEnabled : true,
 }
 
 function loadSettings() {

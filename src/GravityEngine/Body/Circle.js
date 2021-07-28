@@ -337,6 +337,7 @@ function willMissJump(height, velocity, gravity) {
 		gravity = -gravity;
 	}
 	while (true) {//TODO maybe write an equation for this?
+	
 		velocity += gravity/4;
 		height -= velocity/4;
 		//console.log(height, velocity, gravity)
