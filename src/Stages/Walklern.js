@@ -81,6 +81,13 @@ const STAGE_DATA_WALKLERN = {
 			]
 		},
 		{
+			"object":"UgosignControl",
+			"sprites":"UgosignControlWalk",
+			"midX":220,
+			"midY":200,
+			"scale":2
+		},
+		{
 			"object":"Goalpost",
 			"x":360,
 			"y":280,

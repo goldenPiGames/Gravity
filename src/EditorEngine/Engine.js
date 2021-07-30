@@ -52,6 +52,9 @@ class EditorEngine {
 	getPrettyJSON() {
 		return makePrettyJSON(this.stage.getJSON());
 	}
+	dumpPrettyJSON() {
+		codeHere.innerText = runnee.getPrettyJSON();
+	}
 	playStage() {
 		var json = this.quicksave();
 		switchScreen(new SingleStageEngine({

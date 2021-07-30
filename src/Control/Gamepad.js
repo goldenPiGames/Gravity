@@ -50,7 +50,7 @@ class GamepadController extends Controller {
 		return vect.x >= GAMEPAD_HORIZ_DEADZONE ? 1 : vect.x <= -GAMEPAD_HORIZ_DEADZONE ? -1 : 0;
 	}
 	getCameraVector() {
-		return new VectorRect(this.ax2, this.ax3);
+		return new VectorRect(this.ax2 || 0, this.ax3 || 0);
 	}
 }
 GamepadController.prototype.type = "Gamepad";

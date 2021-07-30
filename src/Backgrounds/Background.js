@@ -41,6 +41,22 @@ class BackgroundSolid extends Background {
 }
 registerBackground(BackgroundSolid, "Solid");
 
+class BackgroundGradientHorizon extends Background {
+	constructor(args, ...rest) {
+		super(args, ...rest);
+		this.colorTop = args.colorTop || "#000000";
+		this.colorBottom = args.colorBottom || "#000000";
+	}
+	update() {
+		
+	}
+	draw(cam) {
+		mainCtx.fillStyle = this.color;
+		mainCtx.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
+	}
+}
+registerBackground(BackgroundSolid, "GradientHorizon");
+
 class BackgroundSingleImage extends Background {
 	constructor(args, ...rest) {
 		super(args, ...rest);
