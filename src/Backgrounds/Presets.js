@@ -2,8 +2,12 @@ class BackgroundBlueSky extends BackgroundLayerer {
 	constructor(dats, ...rest) {
 		super([
 			{
-				"background":"Solid",
-				"color":"#87CEEB"
+				"background":"GradientHorizon",
+				"colorStops" : [
+					{"offset":0, "color":"#0d49a1"},
+					{"offset":0.5, "color":"#93d6cc"},
+					{"offset":1, "color":"#6cc1ba"}
+				]
 			},
 			{
 				"background":"TileImage",

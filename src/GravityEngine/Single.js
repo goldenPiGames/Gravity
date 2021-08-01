@@ -68,7 +68,7 @@ class SingleStageEngine extends StageEngine {
 		this.hud.startDialog(...stuff);
 	}
 	touchGoal(to) {
-		console.log("Won in "+this.stage.time);
+		//console.log("Won in "+this.stage.time);
 		this.goalReached = true;
 	}
 	exit() {

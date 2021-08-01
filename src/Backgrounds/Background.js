@@ -44,18 +44,21 @@ registerBackground(BackgroundSolid, "Solid");
 class BackgroundGradientHorizon extends Background {
 	constructor(args, ...rest) {
 		super(args, ...rest);
-		this.colorTop = args.colorTop || "#000000";
-		this.colorBottom = args.colorBottom || "#000000";
+		this.colorStops = args.colorStops;
+		this.width = args.width || 300
 	}
 	update() {
 		
 	}
 	draw(cam) {
-		mainCtx.fillStyle = this.color;
+		let vect = new VectorPolar(this.width, -cam.rotation);
+		let grad = mainCtx.createLinearGradient(cam.screenCenterX + vect.x, cam.screenCenterY + vect.y, cam.screenCenterX - vect.x, cam.screenCenterY - vect.y);
+		this.colorStops.forEach(st=>grad.addColorStop(st.offset, st.color));
+		mainCtx.fillStyle = grad;
 		mainCtx.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
 	}
 }
-registerBackground(BackgroundSolid, "GradientHorizon");
+registerBackground(BackgroundGradientHorizon, "GradientHorizon");
 
 class BackgroundSingleImage extends Background {
 	constructor(args, ...rest) {

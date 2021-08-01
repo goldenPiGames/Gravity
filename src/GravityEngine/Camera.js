@@ -7,6 +7,7 @@ var CAMERA_ROTATE_MIN = .010;
 var CAMERA_ROTATE_PORTION = .20;
 var CAMERA_ZOOM_STEP_MIN = .025;
 var CAMERA_ZOOM_STEP_PORTION = .35;
+var CAMERA_LOOK_FORWARD = 0;
 const CAMERA_CONTROL_SPEED = 12;
 
 class Camera {
@@ -146,8 +147,8 @@ class FollowingCamera extends Camera {
 	moveDest() {
 		if (this.focusObject) {
 			let lf = this.focusObject.getLookForward(this);
-			this.focusX = Math.round(this.focusObject.getCameraX() + lf.x * 40);
-			this.focusY = Math.round(this.focusObject.getCameraY() + lf.y * 40);
+			this.focusX = Math.round(this.focusObject.getCameraX() + lf.x * CAMERA_LOOK_FORWARD);
+			this.focusY = Math.round(this.focusObject.getCameraY() + lf.y * CAMERA_LOOK_FORWARD);
 			this.destX = this.focusX;
 			this.destY = this.focusY;
 			if (globalController.cameraToggleRotateClicked) {
