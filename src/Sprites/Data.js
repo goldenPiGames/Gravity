@@ -161,16 +161,6 @@ const RADTILESET_DATA = {
 }
 
 const SPRITE_DATA = {
-	"TilesetDemo" : TILESET_DATA,
-	"TilesetMonochromeBrick" : TILESET_DATA,
-	"SubtilesetDemo" : SUBTILESET_DATA,
-	"SubtilesetStoneBrick" : SUBTILESET_DATA,
-	"SubtilesetPsychBorder" : SUBTILESET_DATA,
-	"GSubtileDemo" : G_SUBTILESET_DATA,
-	"GSubtileGrass" : G_SUBTILESET_DATA,
-	"GSubtileChevronW" : G_SUBTILESET_DATA,
-	"RadTilesetDemo" : RADTILESET_DATA,
-	"RadTilesetStoneBrick" : RADTILESET_DATA,
 	"ButtonBevelGrey" : {
 		cornerUL : {x:0, y:0, width:10, height:10},
 		cornerUR : {x:20, y:0, width:10, height:10},
@@ -181,6 +171,27 @@ const SPRITE_DATA = {
 		edgeR : {x:20, y:10, width:10, height:10},
 		edgeD : {x:10, y:20, width:10, height:10},
 	},
+	"Cursor" : {
+		UpLeft : {x:0, y:0, width:20, height:20},
+		UpRight : {x:20, y:0, width:20, height:20},
+		DownLeft : {x:0, y:20, width:20, height:20},
+		DownRight : {x:20, y:20, width:20, height:20},
+	},
+	"HUD1" : {
+		cameraRotate : {x:0, y:0, width:40, height:40},
+		cameraFixed : {x:40, y:0, width:40, height:40},
+	},
+	
+	"TilesetDemo" : TILESET_DATA,
+	"TilesetMonochromeBrick" : TILESET_DATA,
+	"SubtilesetDemo" : SUBTILESET_DATA,
+	"SubtilesetStoneBrick" : SUBTILESET_DATA,
+	"SubtilesetPsychBorder" : SUBTILESET_DATA,
+	"GSubtileDemo" : G_SUBTILESET_DATA,
+	"GSubtileGrass" : G_SUBTILESET_DATA,
+	"GSubtileChevronW" : G_SUBTILESET_DATA,
+	"RadTilesetDemo" : RADTILESET_DATA,
+	"RadTilesetStoneBrick" : RADTILESET_DATA,
 	"GridGravArrows" : {
 		down : {x: 0, y: 0, width:20, height:20},
 		up   : {x:20, y: 0, width:20, height:20},

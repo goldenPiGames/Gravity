@@ -10,9 +10,10 @@ class Ugosign extends GameObject {
 		this.cycleLength = this.frameDelays.reduce((a,c)=>a+c);
 	}
 	update(stag) {
-		this.timer = (this.timer + 1) % this.cycleLength;
+		
 	}
 	draw() {
+		this.timer = (this.timer + 1) % this.cycleLength;
 		this.sprites.drawOnWorld(this.getSpriteName(), {x:this.midX, y:this.midY, xadj:.5, yadj:.5, scale:this.scale});
 	}
 	getSpriteName() {

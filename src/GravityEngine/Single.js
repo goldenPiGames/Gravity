@@ -26,6 +26,13 @@ class StageEngine {
 		this.camera.resize();
 	}
 	update() {
+		if (this.waiting) {
+			if (globalController.canStageStartNow()) {
+				this.playing = true;
+				this.waiting = false;
+			} else
+				this.playing = false;
+		}
 		if (this.playing) {
 			this.stage.update();
 		}
@@ -49,6 +56,8 @@ class SingleStageEngine extends StageEngine {
 		this.hud = args.hud || new BasicHUD(this);
 		this.winFunc = args.winFunc;
 		this.exitFunc = args.exitFunc;
+		this.playing = false;
+		this.waiting = true;
 	}
 	setStage(stage) {
 		super.setStage(stage);

@@ -103,6 +103,9 @@ class SpriteSheet {
 			ccwTheta = args.theta - arcWidth * (args.thetaadj || 0)
 		}
 	}
+	drawOnMain(spriteName, args) {
+		this.drawOnCtx(spriteName, args, mainCtx);
+	}
 	drawOnWorld(spriteName, args) {
 		this.drawOnCtx(spriteName, args, worldCtx);
 	}

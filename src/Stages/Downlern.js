@@ -5,6 +5,7 @@ const STAGE_DATA_DOWNLERN = {
 	"music":"Walkin'",
 	"width":1300,
 	"height":600,
+	"startZoom":2,
 	"objects":[
 		{
 			"object":"StaticGridTerrain",

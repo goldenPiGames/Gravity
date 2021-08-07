@@ -1,10 +1,7 @@
 
 const STAGE_DATA_TWOSIDE = {
 	"background":{
-		"background":"SingleImage",
-		"spriteSheet":"BackgroundStormySkies",
-		"scale":4,
-		"parallax":0.1
+		"background":"BlueSky"
 	},
 	"music":"Walkin'",
 	"width":1860,

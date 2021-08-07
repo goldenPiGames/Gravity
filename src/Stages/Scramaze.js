@@ -1,9 +1,6 @@
 const STAGE_DATA_SCRAMAZE = {
 	"background":{
-		"background":"SingleImage",
-		"spriteSheet":"BackgroundStormySkies",
-		"scale":4,
-		"parallax":0.1
+		"background":"BlueSky"
 	},
 	"music":"Notion",
 	"width":660,

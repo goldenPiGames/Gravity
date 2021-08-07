@@ -32,7 +32,7 @@ class Controller {
 			this[name+"Clicked"] = true;
 		this[name] = pressed;
 	}
-	getMoveVector() {
+	getMoveVector() {//this is redundant and unused i think?
 		var x = !!this.right - !!this.left;
 		var y = !!this.down - !!this.up;
 		//console.log(x, y);
@@ -70,6 +70,9 @@ var globalController = {
 	},
 	getHoriz(...stuff) {
 		return pControllers.map(c=>c.getHoriz(...stuff)).filter(r=>r)[0] || 0;
+	},
+	canStageStartNow() {
+		return this.leftClicked || this.rightClicked || this.jumpClicked;
 	}
 }
 

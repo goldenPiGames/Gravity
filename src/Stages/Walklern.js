@@ -5,6 +5,7 @@ const STAGE_DATA_WALKLERN = {
 	"music":"Walkin'",
 	"width":440,
 	"height":400,
+	"startZoom":2,
 	"objects":[
 		{
 			"object":"StaticGridTerrain",

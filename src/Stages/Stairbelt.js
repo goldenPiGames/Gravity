@@ -1,9 +1,6 @@
 const STAGE_DATA_STAIRBELT = {
 	"background":{
-		"background":"SingleImage",
-		"spriteSheet":"BackgroundStormySkies",
-		"scale":5,
-		"parallax":0.1
+		"background":"BlueSky"
 	},
 	"music":"Notion",
 	"width":1640,
@@ -42,18 +39,6 @@ const STAGE_DATA_STAIRBELT = {
 			],
 			"radGridRScale":20,
 			"radGridThetaOffset":0
-		},
-		{
-			"object":"Player",
-			"midX":400,
-			"midY":240
-		},
-		{
-			"object":"Goalpost",
-			"x":642,
-			"y":1803,
-			"r":80,
-			"rotation":0
 		},
 		{
 			"object":"Planet",
@@ -159,6 +144,18 @@ const STAGE_DATA_STAIRBELT = {
 			],
 			"radGridRScale":20,
 			"radGridThetaOffset":-0.5235987755982988
+		},
+		{
+			"object":"Player",
+			"midX":400,
+			"midY":240
+		},
+		{
+			"object":"Goalpost",
+			"x":642,
+			"y":1803,
+			"r":80,
+			"rotation":0
 		}
 	]
 }

@@ -45,7 +45,7 @@ class BackgroundGradientHorizon extends Background {
 	constructor(args, ...rest) {
 		super(args, ...rest);
 		this.colorStops = args.colorStops;
-		this.width = args.width || 300
+		this.width = args.width || 300;
 	}
 	update() {
 		

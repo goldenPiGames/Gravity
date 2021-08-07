@@ -7,6 +7,7 @@ class Stage {
 		//this.texture = getSpriteSheet(args.texture || "StoneBrick");
 		this.width = args.width;
 		this.height = args.height;
+		this.startZoom = args.startZoom;
 		this.objects = args.objects.map(o=>objectFromRegistry(o));
 		this.scripts = {};
 		if (args.scripts)

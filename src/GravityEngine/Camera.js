@@ -13,7 +13,7 @@ const CAMERA_CONTROL_SPEED = 12;
 class Camera {
 	constructor(stage) {
 		this.stage = stage;
-		this.destZoom = 1;
+		this.destZoom = stage.startZoom || 1;
 		this.zoom = this.destZoom;
 		this.rotation = 0;
 		this.destRotation = 0;

@@ -4,6 +4,8 @@ const MUSIC_GENRES = ["all", "chiptune"];
 
 
 const SONG_LIST_ABS = [
+	{name:"Wyvernspawn", intensity:1/4, loopStart:43.394, loopEnd:110.947,
+		by:"HOJL", yt:"csoAb9n6Jf8", ng:981306},
 	{name:"Notion", intensity:1/2, loopStart:9.604, loopEnd:172.288,
 		by:"Hyenaedon, HOJL", yt:"_EuA_TfvC94", ng:939780, sc:"hyenaedon/notion/s-64CsxHviHxQ"},
 	{name:"Climbing", intensity:3/4, vars:2, varNames:["Normal", "Retro Game"],
@@ -23,6 +25,7 @@ const SONG_LIST = SONG_LIST_ABS;
 
 var SONG_HASH = {};
 SONG_LIST.forEach(function(sing, dex) {
+	sing.fullname = (sing.name + " - " + sing.by);
 	if (!sing.iname)
 		sing.iname = ((sing.fname || sing.name) + "-" + sing.by).replace(/\s/g, "");
 	sing.srcs = ["src/Audio/Songs/" + sing.iname + ".mp3"];

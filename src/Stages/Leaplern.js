@@ -5,6 +5,7 @@ const STAGE_DATA_LEAPLERN = {
 	"music":"Walkin'",
 	"width":1120,
 	"height":440,
+	"startZoom":2,
 	"objects":[
 		{
 			"object":"StaticGridTerrain",

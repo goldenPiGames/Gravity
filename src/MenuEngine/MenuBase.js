@@ -75,39 +75,6 @@ class MenuScreen extends Screen {
 }
 MenuScreen.prototype.playsSFX = true;
 
-class MenuCursor extends MenuThing {
-	constructor(menu) {
-		super();
-		this.menu = menu;
-	}
-	update()  {
-		//console.log(mouse.changed)
-		if (globalController.isCommandPressedRepeating("menuUp")) {
-			this.menu.hover(this.menu.hovered.connectUp);
-		}
-		if (globalController.isCommandPressedRepeating("menuDown")) {
-			this.menu.hover(this.menu.hovered.connectDown);
-		}
-		if (globalController.isCommandPressedRepeating("menuLeft")) {
-			this.menu.hover(this.menu.hovered.connectLeft);
-		}
-		if (globalController.isCommandPressedRepeating("menuRight")) {
-			this.menu.hover(this.menu.hovered.connectRight);
-		}
-		this.hovered = this.menu.hovered;
-	}
-	draw() {
-		var lastHovered = this.hovered;
-		this.hovered = this.menu.hovered;
-		this.rect = this.hovered.getCursorRect();
-		if (this.hovered) {
-			mainCtx.lineWidth = 2;
-			mainCtx.strokeStyle = "#FFFFFF";
-			mainCtx.strokeRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
-		}
-	}
-}
-
 function getFont() {
 	return "monospace";
 }

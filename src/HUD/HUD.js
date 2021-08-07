@@ -11,6 +11,7 @@ class BasicHUD {
 	}
 	draw() {
 		this.dialogHandler.draw();
+		drawTextInRect("♫ " + song.fullname, mainCanvas.width-300, mainCanvas.height-30, 300, 30, {align:"right", stroke:"#000000", fill:"#FFFFFF"});
 	}
 	startDialog(...stuff) {
 		this.dialogHandler.startDialog(...stuff);
