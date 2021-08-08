@@ -44,6 +44,8 @@ LANG.en = {
 	"Stage-Stormesa" : "Stormesa",
 	"Stage--Desc" : "",*/
 	"Stage-MainTitle" : "Main Title",
+	"Stage-Wilderwall" : "Celast",
+	"Stage-Wilderwall-Desc" : "The final stretch! A huge mountaian climb.",
 	
 	"StageSelect-BestTime" : "Best Time: ",
 	"StageSelect-Back" : "Back",
