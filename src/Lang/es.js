@@ -17,6 +17,7 @@ LANG.es = {
 	"Stage-Doublern-Desc" : "Aprender sobre la gravedad de dos lados y como utilizar la.",
 	"Stage-Demomentum-Desc" : "Utiliza la cantidad de movimiento, ida y vuelta.",
 	"Stage-Twoside-Desc" : "Utiliza la cantidad de movimiento en esta planeta de dos lados.",
+	"Stage-Circlock-Desc" : "Una planeta redonda como un reloj.",
 	"Stage-Orbitlern-Desc" : "Descrubrir a utilizar la física orbital para saltar relativamente mas alto en las zonas de la gravedad redonda, tal como las planetas.",
 	"Stage-Stairbelt-Desc" : "Una serie de unas planetas redondas con las escaleras que exigen la física orbital.",
 	"Stage-Scramaze-Desc" : "Un pequeño laberinto con la gravedad estraña.",

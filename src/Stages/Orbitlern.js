@@ -13,7 +13,7 @@ const STAGE_DATA_ORBITLERN = {
 			"radius":210,
 			"gravRadius":449,
 			"gravPriority":4,
-			"tileset":"RadTilesetStoneBrick",
+			"tileset":"RadEdgesetGrass",
 			"radGrid":[
 				[0,0,0,0,0,0,0,0],
 				[1,1,1,1,0,0,0,0],
@@ -43,7 +43,7 @@ const STAGE_DATA_ORBITLERN = {
 			"radius":80,
 			"gravRadius":360,
 			"gravPriority":3,
-			"tileset":"RadTilesetStoneBrick",
+			"tileset":"RadEdgesetGrass",
 			"radGrid":[
 				[0,0,0,0,0,0],
 				[0,0,0,0,0,1],
@@ -73,7 +73,7 @@ const STAGE_DATA_ORBITLERN = {
 			"radius":24,
 			"gravRadius":340,
 			"gravPriority":3,
-			"tileset":"RadTilesetStoneBrick",
+			"tileset":"RadEdgesetGrass",
 			"radGrid":[
 				[0,0,0,0,0],
 				[0,0,0,0,0],
@@ -103,7 +103,7 @@ const STAGE_DATA_ORBITLERN = {
 			"radius":50,
 			"gravRadius":300,
 			"gravPriority":3,
-			"tileset":"RadTilesetStoneBrick",
+			"tileset":"RadEdgesetGrass",
 			"radGrid":[
 				[0,0],
 				[0,0],

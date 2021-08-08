@@ -76,33 +76,6 @@ class SpriteSheet {
 		ctx.drawImage(this.image, datum.x, datum.y, datum.width, datum.height, fulcrumX - (drawWidth * (args.xadj || .5)), fulcrumY - (drawHeight * (args.yadj || .5)), drawWidth, drawHeight);
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
 	}
-	drawOnCtxRadial(spriteName, args, ctx) {//TODO
-		if (Array.isArray(spriteName))
-			spriteName = this.findSpriteName(spriteName);
-		if (!spriteName)
-			return;
-		var datum = this.data[spriteName];
-		if (!datum) {
-			console.log("Datum "+spriteName+" does not exist for this sprite sheet");
-			return;
-		}
-		var outerR;
-		if (typeof args.outerR == "number") {
-			outerR = args.outerR;
-		} else {
-			
-		}
-		var thetaScale = 0;//TODO
-		var thetaWidth = 0;//TODO
-		var ccwTheta
-		if (typeof args.ccwTheta == "number") {
-			ccwTheta = args.ccwTheta;
-		} else if (typeof args.cwTheta == "number") {
-			ccwTheta = args.cwTheta - arcWidth;
-		} else {
-			ccwTheta = args.theta - arcWidth * (args.thetaadj || 0)
-		}
-	}
 	drawOnMain(spriteName, args) {
 		this.drawOnCtx(spriteName, args, mainCtx);
 	}
@@ -186,6 +159,49 @@ class SpriteSheet {
 			xadj : 1,
 			yadj : 1,
 		}, mainCtx);
+	}
+	/**
+	* cenx : center x
+	* ceny : center y
+	* thleft : theta (anticlockwise edge)
+	* thright : theta (clockwise edge)
+	* r : radius from center
+	* radj: adjustment for height. 0 means that "r" is the outer radius, 1 means that "r" is the inner radius
+	*/
+	drawRadialOnCtx(spriteName, args, ctx) {
+		if (Array.isArray(spriteName))
+			spriteName = this.findSpriteName(spriteName);
+		if (!spriteName)
+			return;
+		var datum = this.data[spriteName];
+		if (!datum) {
+			console.log("Datum "+spriteName+" does not exist for this sprite sheet");
+			return;
+		}
+		if (args.alpha) {
+			var alphaBef = ctx.globalAlpha;
+			ctx.globalAlpha = args.alpha;
+		}
+		let dr = args.r - (args.radj || 0) * datum.height;
+		let thstart = args.thleft;
+		let thinc = 1/dr;
+		let numl = (args.thright - args.thleft) / thinc - 1;
+		for (var i = 0; i <= numl; i++) {
+			ctx.translate(args.cenx, args.ceny);
+			ctx.rotate(thstart + i * thinc);
+			
+			ctx.drawImage(this.image, datum.x + (i % (datum.width - 1)), datum.y, 2, datum.height, 0, -dr, 2, datum.height);
+			
+			//ctx.fillStyle = "#FF0000";
+			//ctx.fillRect(0, -dr, 3, dr);
+			
+			ctx.setTransform(1, 0, 0, 1, 0, 0);
+		}
+		if (args.alpha)
+			ctx.globalAlpha = alphaBef;
+	}
+	drawRadialOnStaticWorld(spriteName, args) {
+		this.drawRadialOnCtx(spriteName, args, staticWorldCtx);
 	}
 }
 function makeSprites(sauce, sec, prel = true) {

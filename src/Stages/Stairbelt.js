@@ -13,7 +13,7 @@ const STAGE_DATA_STAIRBELT = {
 			"radius":50,
 			"gravRadius":600,
 			"gravPriority":2,
-			"tileset":"RadTilesetStoneBrick",
+			"tileset":"RadEdgesetGrass",
 			"radGrid":[
 				[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -47,7 +47,7 @@ const STAGE_DATA_STAIRBELT = {
 			"radius":40,
 			"gravRadius":569,
 			"gravPriority":2,
-			"tileset":"RadTilesetStoneBrick",
+			"tileset":"RadEdgesetGrass",
 			"radGrid":[
 				[1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -85,7 +85,7 @@ const STAGE_DATA_STAIRBELT = {
 			"radius":18,
 			"gravRadius":500,
 			"gravPriority":3,
-			"tileset":"RadTilesetStoneBrick",
+			"tileset":"RadEdgesetGrass",
 			"radGrid":[
 				[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -115,7 +115,7 @@ const STAGE_DATA_STAIRBELT = {
 			"radius":50,
 			"gravRadius":570,
 			"gravPriority":2,
-			"tileset":"RadTilesetStoneBrick",
+			"tileset":"RadEdgesetGrass",
 			"radGrid":[
 				[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],

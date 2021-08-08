@@ -76,7 +76,6 @@ class Planet extends GameObject {
 			worldCanvas.width = spritData.width;
 			worldCanvas.height = spritData.height;
 
-			// Give the pattern a background color and draw an arc
 			this.tileset.drawOnCtx(spritName, {x:0, y:0}, worldCtx);
 			this.fillPattern = staticWorldCtx.createPattern(worldCanvas, 'repeat');
 			this.core.drawStatic();
@@ -144,6 +143,8 @@ class PlanetRadGridTile {
 		this.gravity = this.data.gravity;
 		this.ccwTheta = this.parent.gridToRadians(this.gridTheta);
 		this.cwTheta = this.parent.gridToRadians(this.gridTheta+1);
+		if (this.cwTheta < this.ccwTheta)
+			this.cwTheta += 2 * Math.PI;
 		this.ccwThetaDraw = Math.PI*3/2 + this.ccwTheta;
 		this.cwThetaDraw = Math.PI*3/2 + this.cwTheta;
 		this.innerR = this.parent.gridToPixR(this.gridR);
@@ -165,6 +166,8 @@ class PlanetRadGridTile {
 		this.neighborBin = this.neighborsSolid.map(m=>m?"W":"_").join("");
 		if (this.neighborsSolid[0])
 			this.innerRFill = this.innerR - 1;
+		if (this.neighborsSolid[2])//this could potentially cause nearly imperceptible little nubs on ceiling corners
+			this.cwThetaDraw += 1 / this.outerR;
 	}
 	drawStatic(ctx) {
 		if (this.solid) {
@@ -175,22 +178,17 @@ class PlanetRadGridTile {
 			//staticWorldCtx.moveTo(this.parent.x, this.parent.y);
 			staticWorldCtx.closePath();
 			staticWorldCtx.fill();
+			if (!this.neighborsSolid[4]) {
+				this.parent.tileset.drawRadialOnStaticWorld(["OuterG", "Outer"], {cenx:this.parent.x, ceny:this.parent.y, thleft:this.ccwTheta, thright:this.cwTheta, r:this.outerR, radj:0});
+			}
 		}
 	}
 	isPixelSolid(x, y) {
-		if (this.roundCorner) {
-			return new VectorRect(this.centerX - x, this.centerY - y).r < this.parent.scale;
-		}
 		return this.solid;
 	}
 	getGravityAtPixel(x, y) {
-		switch (this.gravity) {
-			case "up": return new VectorRect(0, -.5).setPriority(1); break;
-			case "down": return new VectorRect(0, .5).setPriority(1); break;
-			case "left": return new VectorRect(-.5, 0).setPriority(1); break;
-			case "right": return new VectorRect(.5, 0).setPriority(1); break;
-			case "round": return new VectorRect(this.centerX - x, this.centerY - y).setR(.5).setPriority(1); break;
-			default: return undefined; break;
+		switch (this.gravity) {//TODO in and out and actually use this part
+			
 		}
 	}
 }
@@ -308,6 +306,8 @@ class PlanetEditor extends EditorObject {
 		this.tiles.forEach2d(t=>t.updatePosition());
 	}
 	removeColumn(x) {
+		if (this.tiles.length <= 1)
+			return
 		this.tiles.splice(x, 1);
 		this.radGridThetaScale = 2*Math.PI / this.tiles.length;
 		this.tiles.slice(x).forEach2d(t=>{
@@ -323,6 +323,8 @@ class PlanetEditor extends EditorObject {
 		}));
 	}
 	removeRow(y) {
+		if (this.tiles[0].length <= 1)
+			return
 		this.tiles.forEach((col,x)=>col.splice(y, 1));
 		this.tiles.forEach(c=>c.slice(y).forEach(t=>{
 			t.gridY--;

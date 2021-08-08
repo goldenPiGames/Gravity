@@ -160,6 +160,13 @@ const RADTILESET_DATA = {
 	"roundDR" : {x:80, y:20, width:20, height:20},
 }
 
+const RADEDGESET_DATA = {
+	"patternStatic" : {x:0, y:0, width:40, height:40},
+	"OuterG" : {x:45, y:0, width:30, height:10},
+	//"InnerG" : {x:45, y:0, width:30, height:30},
+}
+
+
 const SPRITE_DATA = {
 	"ButtonBevelGrey" : {
 		cornerUL : {x:0, y:0, width:10, height:10},
@@ -190,6 +197,8 @@ const SPRITE_DATA = {
 	"GSubtileDemo" : G_SUBTILESET_DATA,
 	"GSubtileGrass" : G_SUBTILESET_DATA,
 	"GSubtileChevronW" : G_SUBTILESET_DATA,
+	
+	"RadEdgesetGrass" : RADEDGESET_DATA,
 	"RadTilesetDemo" : RADTILESET_DATA,
 	"RadTilesetStoneBrick" : RADTILESET_DATA,
 	"GridGravArrows" : {

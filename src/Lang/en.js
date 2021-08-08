@@ -27,6 +27,8 @@ LANG.en = {
 	"Stage-Demomentum-Desc" : "Use momentum to your advantage, there and back again.",
 	"Stage-Twoside" : "Twoside",
 	"Stage-Twoside-Desc" : "Use momentum to your advantage in this double-sided platform strip.",
+	"Stage-Circlock" : "Circlock",
+	"Stage-Circlock-Desc" : "A round, clock-like planet.",
 	"Stage-Orbitlern" : "Orbitlern",
 	"Stage-Orbitlern-Desc" : "Figure out how to use orbital physics to jump relatively higher in areas of round gravity, such as planets.",
 	"Stage-Stairbelt" : "Stairbelt",

@@ -56,6 +56,7 @@ class JukeboxMenu extends MenuScreen {
 		switchScreen(MainMenu);
 	}
 	playSong(nom) {
+		setSetting("muted", false);
 		playMusic(nom);
 		this.refreshSong();
 	}
