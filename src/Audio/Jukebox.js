@@ -13,6 +13,7 @@ class JukeboxMenu extends MenuScreen {
 			func : ()=>this.togglePause()
 		});
 		this.refreshSong();
+		this.songScroll.setConnectRight(this.pauseButton);
 		this.rebuildMenuObjects();
 		this.hover(this.songScroll.scrollObjects[0]);
 	}
@@ -28,24 +29,26 @@ class JukeboxMenu extends MenuScreen {
 	resizeSideButtons() {
 		if (!this.songScroll.width)
 			return;
-		this.linkButtons.forEach((l, i)=>l.resize(this.songScroll.width+10, mainCanvas.height/3 + 40*i, 200, 35));
-		this.varButtons.forEach((l, i)=>l.resize(this.songScroll.width+10, mainCanvas.height*2/3 + 40*i, 200, 35));
+		this.varButtons.forEach((l, i)=>l.resize(this.songScroll.width+10, mainCanvas.height/3 + 40*i, 200, 35));
+		this.linkButtons.forEach((l, i)=>l.resize(this.songScroll.width+10, mainCanvas.height*2/3 + 40*i, 200, 35));
 	}
 	rebuildMenuObjects() {
 		this.menuObjects = [
 			this.backButton,
 			this.songScroll,
 			this.pauseButton,
-			...this.linkButtons,
-			...this.varButtons
+			...this.varButtons,
+			...this.linkButtons
 		];
-		this.connectVert(this.pauseButton, ...this.linkButtons, ...this.varButtons);
+		this.connectVert(this.pauseButton, ...this.varButtons, ...this.linkButtons);
+		[this.pauseButton, ...this.varButtons, ...this.linkButtons].forEach(s=>s.connectLeft = this.songScroll);
 	}
 	update() {
 		super.update();
 		if (song != this.lastSong) {
 			this.refreshSong();
 		}
+		this.pauseButton.text = music.paused ? lg("Jukebox-Play") : lg("Jukebox-Pause");
 	}
 	draw() {
 		clearCanvas();
@@ -113,8 +116,8 @@ class JukeboxScrollObject extends ScrollObject {
 		this.songName = this.songData.name;
 		this.sprites = getSpriteSheet("ButtonBevelGrey");
 	}
-	update(wummy) {
-		super.update(wummy);
+	update(...wummy) {
+		super.update(...wummy);
 		if (this.clicked) {
 			playMusic(this.songName);
 		}

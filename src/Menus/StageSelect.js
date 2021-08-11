@@ -24,7 +24,7 @@ function startStageAfter(sid) {
 	}
 }
 
-class StageSelectMenu extends Screen {
+class StageSelectMenu extends Screen {//I don't tremember why thtis doesn't extend MenuScreen. Probably the order I did things, come to think of it. I don't feel like changing it for now.
 	constructor() {
 		super({
 			
@@ -86,6 +86,7 @@ class StageSelectMenu extends Screen {
 		this.stageDesc = lg("Stage-"+sid+"-Desc");
 	}
 }
+StageSelectMenu.prototype.playsHoverSFX = true;
 
 class StageSelectScrollContainer extends ScrollContainer {
 	constructor() {
@@ -110,8 +111,8 @@ class StageSelectScrollObject extends ScrollObject {
 		this.stageID = id;
 		this.sprites = getSpriteSheet("ButtonBevelGrey");
 	}
-	update(wummy) {
-		super.update(wummy);
+	update(wummy, vemmo) {
+		super.update(wummy, vemmo);
 		if (this.clicked) {
 			wummy.clickStage(this.stageID);
 		}

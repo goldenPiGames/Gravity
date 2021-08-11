@@ -172,6 +172,31 @@ class TouchControllerButton {
 		mainCtx.arc(this.x, this.y, this.r-2, 0, 2*Math.PI);
 		mainCtx.closePath();
 		mainCtx.stroke();
+		this.drawSymbol();
+	}
+	drawSymbol() {
+		mainCtx.beginPath();
+		switch (this.command) {
+			case "select":
+				mainCtx.moveTo(this.x - this.r/3, this.y);
+				mainCtx.lineTo(this.x, this.y + this.r/3);
+				mainCtx.lineTo(this.x + this.r/3, this.y - this.r/3);
+				break;
+			case "cancel":
+				mainCtx.moveTo(this.x - this.r/3, this.y - this.r/3);
+				mainCtx.lineTo(this.x + this.r/3, this.y + this.r/3);
+				mainCtx.moveTo(this.x + this.r/3, this.y - this.r/3);
+				mainCtx.lineTo(this.x - this.r/3, this.y + this.r/3);
+				break;
+			case "menuAlt":
+				mainCtx.moveTo(this.x - this.r/3, this.y);
+				mainCtx.lineTo(this.x, this.y + this.r/3);
+				mainCtx.lineTo(this.x + this.r/3, this.y);
+				mainCtx.lineTo(this.x, this.y - this.r/3);
+				mainCtx.closePath();
+				break;
+		}
+		mainCtx.stroke();
 	}
 }
 
@@ -189,6 +214,7 @@ class TouchControllerButtonDiamond extends TouchControllerButton {
 		mainCtx.lineTo(this.x, this.y+this.r-3);
 		mainCtx.closePath();
 		mainCtx.stroke();
+		this.drawSymbol();
 	}
 }
 

@@ -1,11 +1,16 @@
 class SettingsMenu extends MenuScreen {
 	constructor() {
 		super();
+		setSetting("initialSettingsDone", true);
 		this.backButton = new MenuButton({
 			lText : "StageSelect-Back",
 			func : ()=>this.back(),
 			color : "#FF4040",
 			bindCancel : true,
+		});
+		this.langButton = new MenuButton({
+			lText : "Settings-Lang",
+			func : ()=>switchScreen(new LangSelectMenu()),
 		});
 		this.musicSlider = new SettingsObjectPercent({
 			lText : "Settings-Music",
@@ -27,6 +32,7 @@ class SettingsMenu extends MenuScreen {
 			setting : "directTouch"
 		});
 		this.settingObjects = [
+			this.langButton,
 			this.musicSlider,
 			this.sfxSlider,
 			this.voiceSlider,
@@ -36,7 +42,7 @@ class SettingsMenu extends MenuScreen {
 			this.backButton,
 			...this.settingObjects
 		];
-		this.backButton.connectDown = this.musicSlider;
+		this.backButton.connectDown = this.settingObjects[0];
 		this.connectVert(...this.settingObjects);
 		this.cursor = new MenuCursor(this);
 		this.hover(this.backButton);
@@ -102,7 +108,7 @@ class SettingsObjectPercent extends MenuButton {
 	resize(...mokey) {
 		super.resize(...mokey);
 		let segsStart = this.x + this.width/2;
-		let segsInterval = Math.floor(this.width/(this.numSegments+1)/2);
+		let segsInterval = Math.floor((this.width-3)/(this.numSegments+1)/2);
 		for (var i = 0; i <= this.numSegments; i++) {
 			this.segments[i].resize(segsStart + i * segsInterval, this.y+5, segsInterval, this.height-10);
 		}
@@ -150,6 +156,6 @@ class SettingsObjectPercentSegment extends MenuObject {
 	}
 	draw() {
 		mainCtx.fillStyle = this.parent.segmentIndex >= this.index ? "#FFFFFF" : "#000000";
-		mainCtx.fillRect(this.x, this.y, this.width-5, this.height);
+		mainCtx.fillRect(this.x, this.y, this.width-3, this.height);
 	}
 }

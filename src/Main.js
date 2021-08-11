@@ -64,8 +64,10 @@ function begin() {
 	
 	begin2();
 }
+
 function begin2() {
-	switchScreen(new MainMenu());
+	disableImageSmoothing(mainCtx)
+	nextStartup();
 	engine.run();
 }
 
@@ -75,11 +77,11 @@ function setImageSmoothing(ctx, to) {
 	ctx.webkitImageSmoothingEnabled = to;
 }
 
-function disableImageSmoothing(ctx) {
+function disableImageSmoothing(ctx = mainCtx) {
 	setImageSmoothing(ctx, false);
 }
 
-function enableImageSmoothing(ctx) {
+function enableImageSmoothing(ctx = mainCtx) {
 	setImageSmoothing(ctx, true);
 }
 

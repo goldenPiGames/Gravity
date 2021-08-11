@@ -1,4 +1,7 @@
 LANG.en = {
+	"Lang-Name" : "English",
+	"Lang-Credits" : ["Prexot (goldenPiGames)"],
+	
 	"Title" : "Grav/vity",
 	"MainMenu-Play" : "Play",
 	"MainMenu-Editor" : "Editor",
@@ -6,6 +9,7 @@ LANG.en = {
 	"MainMenu-Settings" : "Settings",
 	"MainMenu-Controls" : "Controls",
 	
+	"Settings-Lang" : "Change Language",
 	"Settings-Music" : "Music",
 	"Settings-SFX" : "SFX",
 	"Settings-Voice" : "Voice",
@@ -44,8 +48,8 @@ LANG.en = {
 	"Stage-Stormesa" : "Stormesa",
 	"Stage--Desc" : "",*/
 	"Stage-MainTitle" : "Main Title",
-	"Stage-Wilderwall" : "Celast",
-	"Stage-Wilderwall-Desc" : "The final stretch! A huge mountaian climb.",
+	"Stage-Celast" : "Celast",
+	"Stage-Celast-Desc" : "The final stretch! A huge mountaian climb.",
 	
 	"StageSelect-BestTime" : "Best Time: ",
 	"StageSelect-Back" : "Back",
@@ -124,5 +128,6 @@ LANG.en = {
 	"Grid-Bank-centerY" : "Center Y",
 	"Grid-Bank-centerSolid" : "Solid",
 	
+	"Jukebox-Play" : "Play",
 	"Jukebox-Pause" : "Pause",
 }

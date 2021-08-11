@@ -20,9 +20,14 @@ class Screen extends MenuThing {
 	}
 	hover(thing) {
 		if (thing) {
-			this.hovered = thing;
-			if (this.playsHoverSFX)
-				playSFX("Blip1");
+			if (thing.doesConnectForward)
+				thing = thing.getConnectForward(this.hovered);
+			if (this.hovered != thing) {
+				this.hovered = thing;
+				if (this.playsHoverSFX) {
+					//playSFX("Blip1");
+				}
+			}
 		}
 	}
 	isHovered(thing) {
@@ -35,7 +40,7 @@ class MenuScreen extends Screen {
 	constructor(args) {
 		super();
 		this.cursor = new MenuCursor(this);
-		requireSFX("Blip1", 4);
+		requireSFX("Blip1", 5);
 	}
 	resizeCenter() {
 		
@@ -71,9 +76,9 @@ class MenuScreen extends Screen {
 		this.menuObjects.forEach(o=>o.draw());
 		this.cursor.draw();
 		//mainCtx.fillText("A: Select", mainCanvas.width/2, mainCanvas.height-50);
-	}
 }
-MenuScreen.prototype.playsSFX = true;
+	}
+MenuScreen.prototype.playsHoverSFX = true;
 
 function getFont() {
 	return "monospace";

@@ -1,7 +1,13 @@
-class LangSelectScreen extends MenuScreen {
+class LangSelectMenu extends MenuScreen {
 	constructor() {
 		super();
-		this.buttons = 
+		this.backButton = new MenuButton({
+			lText : "StageSelect-Back",
+			func : ()=> switchScreen(new SettingsMenu()),
+			color : "#FF4040",
+			bindCancel : true,
+		});
+		this.langButtons = LANGUAGES.map(l=>new LangSelectButton(l));
 				/*{
 					lText : "MainMenu-Jukebox",
 					func : function(){doJukebox()}
@@ -10,44 +16,45 @@ class LangSelectScreen extends MenuScreen {
 					lText : "MainMenu-Controls",
 					func : function(){doControls()}
 				},*/
-		this.connectVert(this.playButton, this.editorButton, this.jukeboxButton, this.settingsButton);
+		this.connectHoriz(...this.langButtons);
 		
 		this.menuObjects = [
-			this.playButton,
-			this.editorButton,
-			this.jukeboxButton,
-			this.settingsButton,
+			...this.langButtons,
+			this.backButton
 		];
-		this.hover(this.playButton);
+		this.hover(this.langButtons[0]);
 		this.attract = new AttractModeStageEngine({
 			stage : new Stage(STAGE_DATA_MAIN_TITLE),
 		});
 		//this.sprites = getSpriteSheet("MainMenu");
 	}
 	resize() {
-		this.attract.resize();
-		([this.playButton, this.editorButton, this.jukeboxButton, this.settingsButton]).forEach((b, i)=>b.resize(mainCanvas.width/20, mainCanvas.height/2 + mainCanvas.height/10*i, mainCanvas.width*2/5, mainCanvas.height/15));
+		this.langButtons.forEach((b, i, r)=>b.resize(mainCanvas.width * ((i+1) / (r.length+1)) - 60, mainCanvas.height/2 - 40, 120, 80));
 	}
-	update() {
-		super.update();
-		if (runnee == this)
-			this.attract.update();
+	update(...bump) {
+		disableImageSmoothing(mainCtx);
+		super.update(...bump);
 	}
 	draw() {
 		clearCanvas();
-		this.attract.draw();
 		super.draw();
-		mainCtx.fillStyle = "#FFFFFF";
-		drawTextInRect("©2021 goldenPiGames", 0, mainCanvas.height-20, 300, 20, {align:"left", fill:"#FFFFFF", stroke:"#000000"});
-		//drawTextInRect(lg("Title"), 0, 0, mainCanvas.width, 50);
-		//drawParagraphInRect(lg("MainMenu-Unfinished"), 0, 50, mainCanvas.width, 50, 24);
-		//drawParagraphInRect(lg("MainMenu-Instructions"), 0, mainCanvas.height*2/3, mainCanvas.width, mainCanvas.height/3, 24);
-	}
-	switchin() {
-		this.attract.switchin();
 	}
 }
 
-class LangSelectButton extends Button {
-	
+class LangSelectButton extends MenuButton {
+	constructor(lan) {
+		super({
+			text : LANG[lan]["Lang-Name"],
+			func:()=>this.setLang(),
+		});
+		this.lang = lan;
+		this.sprites = getSpriteSheet("LangFlags");
+	}
+	setLang() {
+		setSetting("lang", this.lang);
+		switchScreen(new SettingsMenu());
+	}
+	draw() {
+		this.sprites.drawOnMain(this.lang, {x:this.x, y:this.y, scale:this.width/60});
+	}
 }

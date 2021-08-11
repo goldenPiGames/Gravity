@@ -7,6 +7,11 @@ class ScrollContainer extends MenuObject {
 		this.resizeRect(x, y, width, height);
 		this.scrollObjects.forEach(o=>y=o.resize(this.x, y, this.width, 50));//TODO another way of deciding height?
 		this.rescrollObjects();
+		this.ensureOnScreen(this.lastHovered);
+	}
+	setScroll(to) {
+		this.scroll = to;
+		this.rescrollObjects();
 	}
 	rescrollObjects() {
 		this.scrollObjects.forEach(o=>o.setScroll(this.scroll));
@@ -19,13 +24,35 @@ class ScrollContainer extends MenuObject {
 		this.scrollObjects.forEach(o=>o.draw(menu, this));
 	}
 	connect() {
+		if (this.lastHovered)
+			this.lastHovered = this.scrollObjects[0];
 		for (var i = 0; i < this.scrollObjects.length - 1; i++) {
 			this.scrollObjects[i].connectDown = this.scrollObjects[i+1];
 			this.scrollObjects[i+1].connectUp = this.scrollObjects[i];
 		}
 	}
+	setConnectRight(obj) {
+		this.connectRight = obj;
+		this.scrollObjects.forEach(so=>so.connectRight=obj);
+	}
+	getConnectForward() {
+		return this.lastHovered;
+	}
+	thingHovered(thing) {
+		this.lastHovered = thing;
+		this.ensureOnScreen(thing);
+	}
+	ensureOnScreen(thing) {
+		if (!thing)
+			return;
+		if (thing.baseY < this.scroll)
+			this.setScroll(thing.baseY);
+		else if (thing.baseY + thing.height > this.scroll + this.height)
+			this.setScroll(thing.baseY + thing.height - this.height);
+	}
 }
 ScrollContainer.prototype.hoverable = false;
+ScrollContainer.prototype.doesConnectForward = true;
 
 class ScrollObject extends MenuObject {
 	setScroll(s) {
@@ -38,6 +65,9 @@ class ScrollObject extends MenuObject {
 	}
 	update(menu, cont) {
 		super.update(menu);
+		if (this.hovered) {
+			cont.thingHovered(this);
+		}
 	}
 }
 ScrollObject.prototype.hoverable = true;

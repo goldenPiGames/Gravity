@@ -1,4 +1,7 @@
 LANG.es = {
+	"Lang-Name" : "Español",
+	"Lang-Credits" : ["Prexot (goldenPiGames)"],
+	
 	"Title" : "Grav/vity",
 	"MainMenu-Play" : "Jugar",
 	"MainMenu-Editor" : "Editar",
@@ -6,9 +9,13 @@ LANG.es = {
 	"MainMenu-Settings" : "Configurar",
 	//"MainMenu-Controls" : "Controls",
 	
-	"Settings-Music" : "Music",
+	"Settings-Lang" : "Cambiar Idioma",
+	"Settings-Music" : "Música",
 	"Settings-SFX" : "SFX",
-	"Settings-Voice" : "Voice",
+	"Settings-Voice" : "Voz",
+	"Settings-TouchMenu" : "Menú de Tocar",
+	"Settings-TouchMenu-true" : "Directo",
+	"Settings-TouchMenu-false" : "Pad",
 	
 	"Stage-Walklern-Desc" : "Aprender a caminar.",
 	"Stage-Leaplern-Desc" : "Aprender a saltar.",
@@ -50,7 +57,7 @@ LANG.es = {
 	"Object-Planet-gravRadius" : "G Radio",
 	"Object-Planet-gravPriority" : "G Prioridad",
 	"Object-Goalpost" : "Poste de la Meta",
-	"Object-Goalpost-r" : "Longitud",
+	"Oct-Goalpost-r" : "Longitud",
 	
 	"Pause-Resume" : "Continuar",
 	"Pause-Exit" : "Salir",
@@ -90,5 +97,6 @@ LANG.es = {
 	"Grid-Bank-centerY" : "Y Centro",
 	"Grid-Bank-centerSolid" : "Sólido",
 	
-	"Jukebox-Pause" : "Pause",
+	"Jukebox-Play" : "Reproducir",
+	"Jukebox-Pause" : "Pausar",
 }
