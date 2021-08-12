@@ -189,8 +189,10 @@ const SPRITE_DATA = {
 		DownRight : {x:20, y:20, width:20, height:20},
 	},
 	"HUD1" : {
-		cameraRotate : {x:0, y:0, width:40, height:40},
-		cameraFixed : {x:40, y:0, width:40, height:40},
+		timerPlaying : {x:0, y:0, width:40, height:40},
+		timerPaused : {x:40, y:0, width:40, height:40},
+		cameraRotate : {x:0, y:40, width:40, height:40},
+		cameraFixed : {x:40, y:40, width:40, height:40},
 	},
 	
 	"TilesetDemo" : TILESET_DATA,

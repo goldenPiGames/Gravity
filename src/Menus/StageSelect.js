@@ -62,7 +62,7 @@ class StageSelectMenu extends Screen {//I don't tremember why thtis doesn't exte
 		this.cursor.draw();
 		if (this.stageID) {
 			drawTextInRect(this.stageName, this.mainX, 0, this.mainWidth, 60);
-			drawTextInRect(lg("StageSelect-BestTime")+(this.stageBestTime || "NA"), this.mainX, 90, this.mainWidth, 50);
+			drawTextInRect(lg("StageSelect-BestTime")+(this.stageBestTime ? formatTime(this.stageBestTime) : "NA"), this.mainX, 90, this.mainWidth, 50);
 			drawParagraphInRect(this.stageDesc, this.mainX, 160, this.mainWidth, mainCanvas.height-240, 30);
 		}
 	}
