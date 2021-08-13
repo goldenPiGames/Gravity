@@ -71,6 +71,10 @@ function begin2() {
 	engine.run();
 }
 
+function setBackgroundColor(to) {
+	backgroundBox.style.backgroundColor = to;
+}
+
 function setImageSmoothing(ctx, to) {
 	ctx.imageSmoothingEnabled = to;
 	ctx.mozImageSmoothingEnabled = to;

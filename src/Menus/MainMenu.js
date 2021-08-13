@@ -21,6 +21,10 @@ class MainMenu extends MenuScreen {
 			lText : "MainMenu-Settings",
 			func : ()=>switchScreen(new SettingsMenu())
 		});
+		this.creditsButton = new MenuButton({
+			lText : "MainMenu-Credits",
+			func : ()=>switchScreen(new CreditsScreen())
+		});
 				/*{
 					lText : "MainMenu-Jukebox",
 					func : function(){doJukebox()}
@@ -29,13 +33,14 @@ class MainMenu extends MenuScreen {
 					lText : "MainMenu-Controls",
 					func : function(){doControls()}
 				},*/
-		this.connectVert(this.playButton, this.editorButton, this.jukeboxButton, this.settingsButton);
+		this.connectVert(this.playButton, this.editorButton, this.jukeboxButton, this.settingsButton, this.creditsButton);
 		
 		this.menuObjects = [
 			this.playButton,
 			this.editorButton,
 			this.jukeboxButton,
 			this.settingsButton,
+			this.creditsButton,
 		];
 		this.hover(this.playButton);
 		this.attract = new AttractModeStageEngine({
@@ -45,7 +50,7 @@ class MainMenu extends MenuScreen {
 	}
 	resize() {
 		this.attract.resize();
-		([this.playButton, this.editorButton, this.jukeboxButton, this.settingsButton]).forEach((b, i)=>b.resize(mainCanvas.width/20, mainCanvas.height/2 + mainCanvas.height/10*i, mainCanvas.width*2/5, mainCanvas.height/15));
+		([this.playButton, this.editorButton, this.jukeboxButton, this.settingsButton, this.creditsButton]).forEach((b, i)=>b.resize(mainCanvas.width/20, mainCanvas.height/2 + mainCanvas.height/12*i, mainCanvas.width*2/5, mainCanvas.height/15));
 	}
 	update() {
 		super.update();

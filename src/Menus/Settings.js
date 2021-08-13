@@ -3,7 +3,7 @@ class SettingsMenu extends MenuScreen {
 		super();
 		setSetting("initialSettingsDone", true);
 		this.backButton = new MenuButton({
-			lText : "StageSelect-Back",
+			lText : "Settings-Back",
 			func : ()=>this.back(),
 			color : "#FF4040",
 			bindCancel : true,
@@ -48,7 +48,7 @@ class SettingsMenu extends MenuScreen {
 		this.hover(this.backButton);
 	}
 	resize() {
-		this.backButton.resize(mainCanvas.width - 100, 0, 100, 40);
+		this.backButton.resize(mainCanvas.width - 160, 0, 160, 40);
 		this.settingObjects.forEach((s, i) => {
 			s.resize(mainCanvas.width*1/10, 50+60*i, mainCanvas.width*4/5, 50);
 		});

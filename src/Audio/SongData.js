@@ -40,7 +40,7 @@ SONG_LIST.forEach(function(sing, dex) {
 	sing.index = dex;
 	sing.sites = [];
 	if (sing.site)
-		sing.sites.push({name:sing.siten, href:sing.site});
+		sing.sites.push({name:sing.siten, href:sing.site, icon:"Website"});
 	if (sing.yt)
 		sing.sites.push({name:"YouTube", href:"https://www.youtube.com/watch?v="+sing.yt});
 	if (sing.sc)

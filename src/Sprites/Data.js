@@ -194,6 +194,16 @@ const SPRITE_DATA = {
 		cameraRotate : {x:0, y:40, width:40, height:40},
 		cameraFixed : {x:40, y:40, width:40, height:40},
 	},
+	"LinkIcons" : {
+		Discord : {x:0, y:0, width:30, height:30},
+		Newgrounds : {x:30, y:0, width:30, height:30},
+		Patreon : {x:60, y:0, width:30, height:30},
+		Website : {x:0, y:30, width:30, height:30},
+		YouTube : {x:30, y:30, width:30, height:30},
+		SoundCloud : {x:60, y:30, width:30, height:30},
+		Reddit : {x:0, y:60, width:30, height:30},
+		GitHub : {x:30, y:60, width:30, height:30},
+	},
 	
 	"TilesetDemo" : TILESET_DATA,
 	"TilesetMonochromeBrick" : TILESET_DATA,

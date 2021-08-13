@@ -192,7 +192,7 @@ class MenuButton extends MenuObject {
 	update(menu) {
 		super.update(menu);
 		if (this.clicked) {
-			this.func();
+			this.func() && this.enabled;
 		}
 	}
 	draw() {
@@ -203,6 +203,7 @@ class MenuButton extends MenuObject {
 		drawTextInRect(this.text, this.x+4, this.y+4, this.width-8, this.height-8, {fill:"#FFFFFF"});
 	}
 }
+MenuButton.prototype.enabled = true;
 MenuButton.prototype.hoverable = true;
 MenuButton.prototype.intersectShape = UI_SHAPE_RECT;
 

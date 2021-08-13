@@ -8,7 +8,9 @@ LANG.en = {
 	"MainMenu-Jukebox" : "Jukebox",
 	"MainMenu-Settings" : "Settings",
 	"MainMenu-Controls" : "Controls",
+	"MainMenu-Credits" : "Credits",
 	
+	"Settings-Back" : "Main Menu",
 	"Settings-Lang" : "Change Language",
 	"Settings-Music" : "Music",
 	"Settings-SFX" : "SFX",
@@ -16,6 +18,9 @@ LANG.en = {
 	"Settings-TouchMenu" : "Touch Menu",
 	"Settings-TouchMenu-true" : "Direct",
 	"Settings-TouchMenu-false" : "Pad",
+	
+	"Credits-Back" : "Back",
+	"Credits-Speech" : "Speech",
 	
 	"Stage-Walklern" : "Walklern",
 	"Stage-Walklern-Desc" : "Learn how to walk.",

@@ -24,6 +24,7 @@ function updateResize() {
 		//backgroundBox.style.height = height + "px";
 		mainCanvas.width = width;
 		mainCanvas.height = height;
+		setImageSmoothing(mainCtx, false);
 		if (runnee && runnee.resize)
 			runnee.resize();
 		this.justResized = 1;
