@@ -170,7 +170,8 @@ const RADEDGESET_DATA = {
 const SPRITE_DATA = {
 	"LangFlags" : {
 		en : {x:0, y:0, width:60, height:40},
-		es : {x:60, y:0, width:60, height:40}
+		es : {x:60, y:0, width:60, height:40},
+		ru : {x:120, y:0, width:60, height:40},
 	},
 	"ButtonBevelGrey" : {
 		cornerUL : {x:0, y:0, width:10, height:10},
