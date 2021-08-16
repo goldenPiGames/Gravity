@@ -1,5 +1,5 @@
-
 const STAGE_DATA_TWOSIDE = {
+	"timePar":465,
 	"background":{
 		"background":"BlueSky"
 	},

@@ -169,7 +169,9 @@ function getMusicPosition() {
 	return !song ? 0 : music.currentTime.toFixed(2);
 }
 
+//dead function xd
 function toggleMute() {
+	return;
 	settings.muted = !settings.muted;
 	saveSettings();
 	if (settings.muted)

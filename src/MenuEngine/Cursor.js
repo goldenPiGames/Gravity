@@ -5,10 +5,7 @@ class MenuCursor extends MenuThing {
 	constructor(menu) {
 		super();
 		this.menu = menu;
-		this.currLeft = 0;
-		this.currUp = 0;
-		this.currRight = mainCanvas.width;
-		this.currDown = mainCanvas.height;
+		this.resetPositionOut();
 		this.sprites = getSpriteSheet("Cursor");
 	}
 	update()  {
@@ -55,5 +52,11 @@ class MenuCursor extends MenuThing {
 			return dest;
 		else
 			return curr + diff * MENU_CURSOR_MOVE_PORTION;
+	}
+	resetPositionOut() {
+		this.currLeft = 0;
+		this.currUp = 0;
+		this.currRight = mainCanvas.width;
+		this.currDown = mainCanvas.height;
 	}
 }

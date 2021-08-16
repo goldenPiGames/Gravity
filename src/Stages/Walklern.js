@@ -1,4 +1,5 @@
 const STAGE_DATA_WALKLERN = {
+	"timePar":56,
 	"background":{
 		"background":"BlueSky",
 	},

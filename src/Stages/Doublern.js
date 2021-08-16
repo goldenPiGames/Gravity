@@ -1,4 +1,5 @@
 const STAGE_DATA_DOUBLERN = {
+	"timePar":780,
 	"background":{
 		"background":"BlueSky",
 	},

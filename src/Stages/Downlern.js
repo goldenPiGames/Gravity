@@ -1,4 +1,5 @@
 const STAGE_DATA_DOWNLERN = {
+	"timePar":375,
 	"background":{
 		"background":"BlueSky",
 	},

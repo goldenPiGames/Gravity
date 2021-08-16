@@ -1,4 +1,5 @@
 const STAGE_DATA_CIRCLOCK = {
+	"timePar":765,
 	"background":{
 		"background":"BlueSky"
 	},

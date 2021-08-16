@@ -12,14 +12,23 @@ class PauseMenu extends MenuScreen {
 			func : ()=>this.resume(),
 			bindCancel : true,
 		});
+		this.restartButton = new MenuButton({
+			lText : "Pause-Restart",
+			func : ()=>this.restart(),
+			bindAlt : true,
+		});
 		this.exitButton = new MenuButton({
 			lText : "Pause-Exit",
 			func : ()=>this.exit(),
 		});
-		this.connectVert(this.resumeButton, this.exitButton);
-		this.menuObjects = [
+		this.mainObjects = [
 			this.resumeButton,
+			this.restartButton,
 			this.exitButton,
+		];
+		connectVert(...this.mainObjects);
+		this.menuObjects = [
+			...this.mainObjects,
 		];
 		this.hover(this.resumeButton);
 		this.returnTo = returnTo;
@@ -31,14 +40,17 @@ class PauseMenu extends MenuScreen {
 			super.update();
 	}
 	resize() {
-		([this.resumeButton, this.exitButton]).forEach((b, i)=>b.resize(mainCanvas.width/10, mainCanvas.height/2 + mainCanvas.height/10*i, mainCanvas.width*4/5, mainCanvas.height/15));
+		this.mainObjects.forEach((b, i)=>b.resize(mainCanvas.width/10, mainCanvas.height/2 + mainCanvas.height/10*i, mainCanvas.width*4/5, mainCanvas.height/15));
 	}
 	draw() {
 		clearCanvas();
 		super.draw();
 	}
 	resume() {
-		runnee = this.returnTo;
+		switchScreen(this.returnTo);
+	}
+	restart() {
+		startStageNormally(this.returnTo.stageID);
 	}
 	exit() {
 		this.returnTo.exit();

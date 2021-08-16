@@ -33,15 +33,17 @@ class MainMenu extends MenuScreen {
 					lText : "MainMenu-Controls",
 					func : function(){doControls()}
 				},*/
-		this.connectVert(this.playButton, this.editorButton, this.jukeboxButton, this.settingsButton, this.creditsButton);
 		
-		this.menuObjects = [
+		this.mainObjects = [
 			this.playButton,
-			this.editorButton,
+			//this.editorButton,
 			this.jukeboxButton,
 			this.settingsButton,
 			this.creditsButton,
 		];
+		this.connectVert(...this.mainObjects);
+		
+		this.menuObjects = [...this.mainObjects];
 		this.hover(this.playButton);
 		this.attract = new AttractModeStageEngine({
 			stage : new Stage(STAGE_DATA_MAIN_TITLE),
@@ -50,7 +52,7 @@ class MainMenu extends MenuScreen {
 	}
 	resize() {
 		this.attract.resize();
-		([this.playButton, this.editorButton, this.jukeboxButton, this.settingsButton, this.creditsButton]).forEach((b, i)=>b.resize(mainCanvas.width/20, mainCanvas.height/2 + mainCanvas.height/12*i, mainCanvas.width*2/5, mainCanvas.height/15));
+		(this.mainObjects).forEach((b, i)=>b.resize(mainCanvas.width/20, mainCanvas.height/2 + mainCanvas.height/12*i, mainCanvas.width*2/5, mainCanvas.height/15));
 	}
 	update() {
 		super.update();

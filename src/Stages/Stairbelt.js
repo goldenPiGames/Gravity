@@ -1,4 +1,5 @@
 const STAGE_DATA_STAIRBELT = {
+	"timePar":690,
 	"background":{
 		"background":"BlueSky"
 	},

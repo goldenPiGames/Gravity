@@ -1,4 +1,5 @@
 const STAGE_DATA_LEAPLERN = {
+	"timePar":195,
 	"background":{
 		"background":"BlueSky",
 	},

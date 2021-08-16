@@ -54,14 +54,17 @@ LANG.en = {
 	"Stage--Desc" : "",*/
 	"Stage-MainTitle" : "Main Title",
 	"Stage-Celast" : "Celast",
-	"Stage-Celast-Desc" : "The final stretch! A huge mountaian climb.",
+	"Stage-Celast-Desc" : "The final stretch! A huge mountain climb.",
 	
-	"StageSelect-BestTime" : "Best Time: ",
+	"StageSelect-BestTime" : "Best Time:",
+	"StageSelect-ParTime" : "Par Time:",
 	"StageSelect-Back" : "Back",
 	
 	"StageEnd-Time" : "Time: ",
 	"StageEnd-PrevBestTime" : "Prev Best: ",
-	"StageEnd-NewBestTime" : "New Record!",
+	"StageEnd-ParTime" : "Par: ",
+	"StageEnd-NewBestTime" : "New Personal Best!",
+	"StageEnd-BeatParTime" : "Par Time Beaten!",
 	"StageEnd-StageSelect" : "Return",
 	"StageEnd-Restart" : "Restart",
 	"StageEnd-Next" : "Next",
@@ -96,6 +99,7 @@ LANG.en = {
 	"Object-Goalpost-r" : "Length",
 	
 	"Pause-Resume" : "Resume",
+	"Pause-Restart" : "Restart",
 	"Pause-Exit" : "Exit",
 	
 	"Editor-Exit" : "Exit",
@@ -135,4 +139,27 @@ LANG.en = {
 	
 	"Jukebox-Play" : "Play",
 	"Jukebox-Pause" : "Pause",
+	
+	"Credits-IDid" : "Nearly Everything",
+	"Credits-Music" : "Music",
+	
+	"Credits-Speech-00Intro" : "Hello, this is Prexot, founder and sole member of goldenPiGames.",
+	"Credits-Speech-01IDid" : "I did the design, programming, stages, and everything else except the music, which was done by actual musicians.",
+	"Credits-Speech-02Musicians" : "You should check said musicians out, by the way. Their various socials are here.",
+	"Credits-Speech-03MusicJuke" : "You also can go directly to each song on YouTube, Newgrounds, and/or Soundcloud from the Jukebox.",
+	"Credits-Speech-04MusicThanks" : "So thanks to these cool composer dudes.",
+	"Credits-Speech-05ThankYou" : "And of course, I'd like to thank you personally for playing my game.",
+	"Credits-Speech-06ISpent" : "I spent probably more time than is entirely reasonable creating my own engine entirely from scratch in vanilla JavaScript.",
+	"Credits-Speech-07Worth" : "But I hope it was worth it, if you tolerated the game long enough to get here.",
+	"Credits-Speech-08DoPar" : "If you want more of a challenge, you can try to get under the par time for each stage. Or not.",
+	"Credits-Speech-08DidPar" : "You even got under the par time for each stage. I am impressed.",
+	"Credits-Speech-09MoveOn" : "You're free to move onto the next game in your backlog or what have you.",
+	"Credits-Speech-10LastLegacy" : "Or if you're looking for more games to play, I would highly recommend Last Legacy and its sequel, Last Legacy: Null Space, which was a major inspiration.",
+	"Credits-Speech-11LastLegacyGush" : "It has the cool gravity stuff like this game, but it also has actually good spritework, level design, and gameplay.",
+	"Credits-Speech-12FlashPoint" : "It is a Flash game, though, so you'd have to download BlueMaxima's FlashPoint to play it.",
+	"Credits-Speech-13Recommend1" : "And while you're at it, you should also play Pause Ahead, Snailiad, Strike Force Heroes 1 & 2, Epic Boss Fighter 1 & 2, Cactus McCoy,",
+	"Credits-Speech-14Recommend2" : "Lucky Tower, the Robot Wants series, Cardboard Box Assembler, Sky Island, Combat Hero Adventures, Legend of Kalevala,",
+	"Credits-Speech-15Recommend3" : "RPG Shooter: Starwish, The Company Of Myself, the Battalion series, Epic Battle Fantasy 3 and onwards, and MARDEK RPG.",
+	"Credits-Speech-16Outro" : "Well, that's all I have to say here. See you next game, perhaps, if you follow me.",
+	"Credits-Speech-17Farewell" : "Fare thee well.",
 }

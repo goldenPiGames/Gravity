@@ -19,12 +19,12 @@ class SettingsMenu extends MenuScreen {
 		});
 		this.sfxSlider = new SettingsObjectPercent({
 			lText : "Settings-SFX",
-			setting : "sfx",
+			setting : "sfxVolume",
 			segments : 10,
 		});
 		this.voiceSlider = new SettingsObjectPercent({
 			lText : "Settings-Voice",
-			setting : "voice",
+			setting : "voiceVolume",
 			segments : 10,
 		});
 		this.touchMenuToggle = new SettingsObjectToggle({

@@ -51,8 +51,28 @@ class SpriteSheet {
 			ctx.scale(-1, 1);
 			ctx.translate(-args.x*2, 0);
 		}
-		var drawWidth = args.width || datum.width*args.scale || datum.width;
-		var drawHeight = args.height || datum.height*args.scale || datum.height;
+		var drawWidth;
+		var drawHeight;
+		if (args.intOnly && args.maxWidth && args.maxHeight) {
+			let scale = Math.floor(Math.min(args.maxWidth / datum.width, args.maxHeight / datum.height));
+			drawWidth = datum.width * scale;
+			drawHeight = datum.height * scale;
+		} else if (args.scale) {
+			drawWidth = datum.width*args.scale;
+			drawHeight = datum.height*args.scale;
+		} else if (args.width && args.height) {
+			drawWidth = args.width;
+			drawHeight = args.height;
+		} else if (args.width) {
+			drawWidth = args.width;
+			drawHeight = args.width * datum.height / datum.width;
+		} else if (args.height) {
+			drawHeight = args.height;
+			drawWidth = args.height * datum.width / datum.height;
+		} else {
+			drawWidth = datum.width;
+			drawHeight = datum.height;
+		}
 		ctx.drawImage(this.image, datum.x, datum.y, datum.width, datum.height, args.x - (drawWidth * args.xadj || 0), args.y - (drawHeight * args.yadj || 0), drawWidth, drawHeight);
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
 		if (args.alpha)

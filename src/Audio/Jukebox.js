@@ -14,6 +14,8 @@ class JukeboxMenu extends MenuScreen {
 		});
 		this.refreshSong();
 		this.songScroll.setConnectRight(this.pauseButton);
+		this.backButton.setConnectLeft(this.pauseButton);
+		this.pauseButton.setConnectRight(this.backButton);
 		this.rebuildMenuObjects();
 		this.hover(this.songScroll.scrollObjects[0]);
 	}
@@ -30,7 +32,8 @@ class JukeboxMenu extends MenuScreen {
 		if (!this.songScroll.width)
 			return;
 		this.varButtons.forEach((l, i)=>l.resize(this.songScroll.width+10, mainCanvas.height/3 + 40*i, 200, 35));
-		this.linkButtons.forEach((l, i)=>l.resize(this.songScroll.width+10, mainCanvas.height*2/3 + 40*i, 200, 35));
+		if (this.linkButtons)
+			this.linkButtons.resize(this.songScroll.width+10, mainCanvas.height*2/3, mainCanvas.width-this.songScroll.width-15, 69);
 	}
 	rebuildMenuObjects() {
 		this.menuObjects = [
@@ -38,10 +41,10 @@ class JukeboxMenu extends MenuScreen {
 			this.songScroll,
 			this.pauseButton,
 			...this.varButtons,
-			...this.linkButtons
-		];
-		this.connectVert(this.pauseButton, ...this.varButtons, ...this.linkButtons);
-		[this.pauseButton, ...this.varButtons, ...this.linkButtons].forEach(s=>s.connectLeft = this.songScroll);
+			this.linkButtons
+		].filter(a=>a);
+		this.connectVert(this.pauseButton, ...this.varButtons, this.linkButtons);
+		[this.pauseButton, ...this.varButtons, this.linkButtons].filter(a=>a).forEach(s=>s.setConnectLeft(this.songScroll));
 	}
 	update() {
 		super.update();
@@ -66,10 +69,7 @@ class JukeboxMenu extends MenuScreen {
 	refreshSong() {
 		this.lastSong = song;
 		if (song) {
-			this.linkButtons = song.sites.map(s=>new MenuButton({
-				text : s.name,
-				func : ()=>openWindow(s.href)
-			}));
+			this.linkButtons = new LinkIconRow(song.sites);
 			this.varButtons = song.vars ? song.varNames.map((v,i)=>new MenuButton({
 				text : v,
 				func : ()=>setMusicVar(i)
@@ -77,7 +77,7 @@ class JukeboxMenu extends MenuScreen {
 			this.rebuildMenuObjects();
 			this.resizeSideButtons();
 		} else {
-			this.linkButtons = [];
+			this.linkButtons = false;
 			this.varButtons = [];
 		}
 	}
@@ -127,7 +127,8 @@ class JukeboxScrollObject extends ScrollObject {
 		mainCtx.fillRect(this.x, this.y, this.width, this.height);
 		this.sprites.drawBorderOnMain(this.x, this.y, this.width, this.height);
 		mainCtx.fillStyle = "#FFFFFF";
-		drawTextInRect(this.songData.name, this.x+4, this.y+4, this.width-8, this.height-8, {fill:"#FFFFFF", align:"left"});
-		drawTextInRect(this.songData.by, this.x+4, this.y+4, this.width-8, this.height-8, {fill:"#FFFFFF", align:"right"});
+		let coler = song == this.songData ? "#00FF00" : "#FFFFFF";
+		drawTextInRect(this.songData.name, this.x+4, this.y+4, this.width-8, this.height-8, {fill:coler, align:"left"});
+		drawTextInRect(this.songData.by, this.x+4, this.y+4, this.width-8, this.height-8, {fill:coler, align:"right"});
 	}
 }

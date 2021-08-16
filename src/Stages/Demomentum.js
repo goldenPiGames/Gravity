@@ -1,5 +1,5 @@
-
 const STAGE_DATA_DEMOMENTUM = {
+	"timePar":750,
 	"background":{
 		"background":"BlueSky"
 	},

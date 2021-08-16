@@ -1,6 +1,7 @@
 class LangSelectMenu extends MenuScreen {
 	constructor() {
 		super();
+		playMusic(MAIN_MENU_MUSIC);
 		this.backButton = new MenuButton({
 			lText : "StageSelect-Back",
 			func : ()=> switchScreen(new SettingsMenu()),

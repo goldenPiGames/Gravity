@@ -1,4 +1,5 @@
 const STAGE_DATA_ORBITLERN = {
+	"timePar":345,
 	"background":{
 		"background":"BlueSky"
 	},
@@ -133,7 +134,7 @@ const STAGE_DATA_ORBITLERN = {
 		{
 			"object":"Player",
 			"midX":370,
-			"midY":150
+			"midY":270
 		},
 		{
 			"object":"Goalpost",

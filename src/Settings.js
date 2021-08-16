@@ -1,7 +1,7 @@
 var settings = {
 	lang : "en",
 	voiceLang : "en",
-	voiceVolume : 1,
+	voiceVolume : .8,
 	musicVolume : .8,
 	sfxVolume : .8,
 	sfxTick : false,

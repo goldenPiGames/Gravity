@@ -1,4 +1,5 @@
 const STAGE_DATA_SCRAMAZE = {
+	"timePar":465,
 	"background":{
 		"background":"BlueSky"
 	},

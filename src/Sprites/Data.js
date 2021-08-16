@@ -198,11 +198,23 @@ const SPRITE_DATA = {
 		Discord : {x:0, y:0, width:30, height:30},
 		Newgrounds : {x:30, y:0, width:30, height:30},
 		Patreon : {x:60, y:0, width:30, height:30},
+		Twitter : {x:90, y:0, width:30, height:30},
 		Website : {x:0, y:30, width:30, height:30},
 		YouTube : {x:30, y:30, width:30, height:30},
 		SoundCloud : {x:60, y:30, width:30, height:30},
+		Bandcamp : {x:90, y:30, width:30, height:30},
 		Reddit : {x:0, y:60, width:30, height:30},
 		GitHub : {x:30, y:60, width:30, height:30},
+	},
+	"ControllerStartup" : {
+		Keyboard : {x:0, y:0, width:145, height:52},
+		Gamepad : {x:0, y:70, width:146, height:75},
+		Touch : {x:0, y:150, width:135, height:66},
+		Mouse : {x:0, y:220, width:50, height:69},
+	},
+	"StageSelectMedal" : {
+		Done : {x:0, y:0, width:50, height:50},
+		Par : {x:0, y:50, width:50, height:50},
 	},
 	
 	"TilesetDemo" : TILESET_DATA,

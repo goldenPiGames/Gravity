@@ -14,13 +14,12 @@ class MenuThing {
 }
 
 class Screen extends MenuThing {
-
 	objectMousedOver(thing) {
 		this.hover(thing);
 	}
 	hover(thing) {
 		if (thing) {
-			if (thing.doesConnectForward)
+			while (thing.doesConnectForward)//may cause infinite loops if you're stupid
 				thing = thing.getConnectForward(this.hovered);
 			if (this.hovered != thing) {
 				this.hovered = thing;
@@ -46,16 +45,10 @@ class MenuScreen extends Screen {
 		
 	}
 	connectHoriz(...butt) {
-		for (var i = 0; i < butt.length - 1; i++) {
-			butt[i].connectRight = butt[i+1];
-			butt[i+1].connectLeft = butt[i];
-		}
+		connectHoriz(...butt);
 	}
 	connectVert(...butt) {
-		for (var i = 0; i < butt.length - 1; i++) {
-			butt[i].connectDown = butt[i+1];
-			butt[i+1].connectUp = butt[i];
-		}
+		connectVert(...butt);
 	}
 	mapToButton(butt) {
 		if (Array.isArray(butt)) {
@@ -79,6 +72,22 @@ class MenuScreen extends Screen {
 }
 	}
 MenuScreen.prototype.playsHoverSFX = true;
+
+function connectHoriz(...butt) {
+	butt = butt.filter(a=>a);
+	for (var i = 0; i < butt.length - 1; i++) {
+		butt[i].setConnectRight(butt[i+1]);
+		butt[i+1].setConnectLeft(butt[i]);
+	}
+}
+
+function connectVert(...butt) {
+	butt = butt.filter(a=>a);
+	for (var i = 0; i < butt.length - 1; i++) {
+		butt[i].setConnectDown(butt[i+1]);
+		butt[i+1].setConnectUp(butt[i]);
+	}
+}
 
 function getFont() {
 	return "monospace";
@@ -176,6 +185,18 @@ class MenuObject extends MenuThing {
 	}
 	getCursorRect() {
 		return this;
+	}
+	setConnectUp(t) {
+		this.connectUp = t;
+	}
+	setConnectDown(t) {
+		this.connectDown = t;
+	}
+	setConnectLeft(t) {
+		this.connectLeft = t;
+	}
+	setConnectRight(t) {
+		this.connectRight = t;
 	}
 }
 MenuObject.prototype.needDoubleTap = false;

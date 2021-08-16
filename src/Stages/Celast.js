@@ -1,4 +1,5 @@
 const STAGE_DATA_CELAST = {
+	"timePar":1635,
 	"background":{
 		"background":"BlueSky"
 	},

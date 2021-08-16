@@ -27,14 +27,11 @@ class ScrollContainer extends MenuObject {
 	connect() {
 		if (this.lastHovered)
 			this.lastHovered = this.scrollObjects[0];
-		for (var i = 0; i < this.scrollObjects.length - 1; i++) {
-			this.scrollObjects[i].connectDown = this.scrollObjects[i+1];
-			this.scrollObjects[i+1].connectUp = this.scrollObjects[i];
-		}
+		connectVert(...this.scrollObjects);
 	}
 	setConnectRight(obj) {
-		this.connectRight = obj;
-		this.scrollObjects.forEach(so=>so.connectRight=obj);
+		super.setConnectRight(obj);
+		this.scrollObjects.forEach(so=>so.setConnectRight(obj));
 	}
 	getConnectForward() {
 		return this.lastHovered;

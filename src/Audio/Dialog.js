@@ -3,18 +3,24 @@ function initVoice() {
 }
 
 function makeVoice(nom) {
-	var fec = document.createElement("audio");
-	fec.preload = "auto";
-	fec.controls = "none";
-	fec.style.display = "none";
-	/*fec.addEventListener("ended", function() {
+	var voz = document.createElement("audio");
+	voz.preload = "auto";
+	voz.controls = "none";
+	voz.style.display = "none";
+	/*voz.addEventListener("ended", function() {
 			this.currentTime = 0;
 			this.pause();
 		}, false);*/
-	fec.src = "src/Audio/Voice/"+settings.voiceLang+"/"+nom+".mp3";
-	fec.volume = settings.sfxVolume;
-	document.body.appendChild(fec);
-	return fec;
+	var sosl = document.createElement("source");
+	sosl.src = "src/Audio/Voice/"+settings.lang+"/"+nom+".mp3";
+	voz.appendChild(sosl);
+	var sosen = document.createElement("source");
+	sosen.src = "src/Audio/Voice/en/"+nom+".mp3";
+	voz.appendChild(sosen);
+	
+	voz.volume = settings.voiceVolume;
+	document.body.appendChild(voz);
+	return voz;
 }
 
 class DialogHandler {
@@ -35,11 +41,16 @@ class DialogHandler {
 	draw() {
 		if (this.currentLine) {
 			//console.log(lg(this.currentLine.lText));
-			drawParagraphInRect(lg(this.currentLine.lText), mainCanvas.width*.2, mainCanvas.height*.6, mainCanvas.width*.6, mainCanvas.height*3, mainCanvas.height*.03);
+			let wideness = Math.min(mainCanvas.width, 800);
+			drawParagraphInRect(lg(this.currentLine.lText), mainCanvas.width/2-wideness/2, mainCanvas.height*.85, wideness, mainCanvas.height*.15, mainCanvas.height*.03);
 		}
 	}
 	startDialog(lines) {
 		this.lines.push(...lines.map(l=>new DialogLine(l)));
+	}
+	startDialogIfEmpty(lines) {
+		if (!this.currentLine)
+			this.startDialog(lines);
 	}
 }
 
