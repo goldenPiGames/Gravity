@@ -17,6 +17,8 @@ var settings = {
 	cameraRotateWithFocus : true,
 	gamepadEnabled : true,
 	initialSettingsDone : false,
+	initialLangDone : false,
+	ignoreBrowserWarning : false,
 }
 
 function loadSettings() {
@@ -29,7 +31,7 @@ function loadSettings() {
 	}
 	//loadFavSongs();
 	//loadPaletteFromSettings();
-	//setMusicVolume(settings.musicVolume);
+	applyMusicVolume();
 	applyFont(settings.font);
 }
 

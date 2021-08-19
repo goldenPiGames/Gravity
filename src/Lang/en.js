@@ -65,6 +65,7 @@ LANG.en = {
 	"StageEnd-ParTime" : "Par: ",
 	"StageEnd-NewBestTime" : "New Personal Best!",
 	"StageEnd-BeatParTime" : "Par Time Beaten!",
+	"StageEnd-BeatGame" : "Game Beaten!",
 	"StageEnd-StageSelect" : "Return",
 	"StageEnd-Restart" : "Restart",
 	"StageEnd-Next" : "Next",
@@ -162,4 +163,6 @@ LANG.en = {
 	"Credits-Speech-15Recommend3" : "RPG Shooter: Starwish, The Company Of Myself, the Battalion series, Epic Battle Fantasy 3 and onwards, and MARDEK RPG.",
 	"Credits-Speech-16Outro" : "Well, that's all I have to say here. See you next game, perhaps, if you follow me.",
 	"Credits-Speech-17Farewell" : "Fare thee well.",
+	
+	"FirefoxWarning-Para1" : "Some functions used in this game are inefficient in the SpiderMonkey engine built into Firefox. <br> <br> You can still play the game in Firefox, but you may experience performance and audio issues, even on good computers. <br> <br> It's recommended to instead play on a Chromium-based browser such as Chrome or Edge.",
 }

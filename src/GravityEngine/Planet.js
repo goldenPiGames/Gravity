@@ -9,12 +9,11 @@ class Planet extends GameObject {
 		this.gravity = args.gravity || 0.5;
 		this.gravPriority = args.gravPriority || 3;
 		this.gravPriorityFade = args.gravPriorityFade || 0.00390625;
-		this.core = new PlanetCore(this);
 		if (args.tileset)
 			this.tileset = getSpriteSheet(args.tileset);
 		this.radGrid = args.radGrid;
 		this.radGridBank = args.radGridBank;
-		if (this.radGrid) {
+		//if (this.radGrid) {
 			this.radGridRStart = /*args.radGridRStart || */this.radius;
 			this.radiusInner = this.radGridRStart;
 			this.radiusInner2 = this.radiusInner**2;
@@ -24,8 +23,10 @@ class Planet extends GameObject {
 			this.radGridThetaScale = 2*Math.PI / this.radGrid.length;
 			this.radGridThetaOffset = args.radGridThetaOffset || 0;
 			this.tiles = this.radGrid.map((col, x) => col.map((pis, y) => new PlanetRadGridTile(this, x, y, this.radGridBank[pis])));
+		this.core = new PlanetCore(this);
 			this.tiles.forEach2d(t=>t.findNeighbors());
-		}
+		//}
+		this.core.findNeighbors();
 	}
 	tileOfPixel(x, y) {
 		if ((x-this.x)**2 + (y-this.y)**2 > this.radiusOuter2)
@@ -118,6 +119,7 @@ class PlanetCore {
 	constructor(parent) {
 		this.parent = parent;
 		this.solid = true;
+		this.tiles = this.parent.radGrid.map((col, x) => new PlanetRadGridTile(this.parent, x, -1, {solid:true}));
 	}
 	isPixelSolid(x, y) {
 		return true;
@@ -125,11 +127,15 @@ class PlanetCore {
 	getGravityAtPixel() {
 		return undefined;
 	}
+	findNeighbors() {
+		this.tiles.forEach(t=>t.findNeighbors());
+	}
 	drawStatic() {
 		staticWorldCtx.fillStyle = this.parent.fillPattern;
 		staticWorldCtx.beginPath();
-		staticWorldCtx.arc(this.parent.x, this.parent.y, this.parent.radiusInner, 0, 2*Math.PI);
+		staticWorldCtx.arc(this.parent.x, this.parent.y, this.parent.radiusInner - 5, 0, 2*Math.PI);
 		staticWorldCtx.fill();
+		this.tiles.forEach(t=>t.drawStatic());
 	}
 }
 
@@ -168,6 +174,8 @@ class PlanetRadGridTile {
 			this.innerRFill = this.innerR - 1;
 		if (this.neighborsSolid[2])//this could potentially cause nearly imperceptible little nubs on ceiling corners
 			this.cwThetaDraw += 1 / this.outerR;
+		if (this.innerRFill < 0)
+			this.innerRFill = 0;
 	}
 	drawStatic(ctx) {
 		if (this.solid) {

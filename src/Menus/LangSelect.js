@@ -1,10 +1,10 @@
 class LangSelectMenu extends MenuScreen {
 	constructor() {
 		super();
-		playMusic(MAIN_MENU_MUSIC);
+		setSetting("initialLangDone", true);
 		this.backButton = new MenuButton({
 			lText : "StageSelect-Back",
-			func : ()=> switchScreen(new SettingsMenu()),
+			func : ()=> nextStartup(),
 			color : "#FF4040",
 			bindCancel : true,
 		});
@@ -53,7 +53,7 @@ class LangSelectButton extends MenuButton {
 	}
 	setLang() {
 		setSetting("lang", this.lang);
-		switchScreen(new SettingsMenu());
+		nextStartup();
 	}
 	draw() {
 		this.sprites.drawOnMain(this.lang, {x:this.x, y:this.y, scale:this.width/60});

@@ -10,10 +10,7 @@ const MY_SITES = [
 class CreditsScreen extends MenuScreen {
 	constructor(args = {}) {
 		super();
-		this.finished = localStorage.getItem(BEST_TIME_SAVE_PREFIX + SELECTABLE_STAGES[SELECTABLE_STAGES.length-1]);;
-		if (args.speech) {
-			this.startSpeech;
-		}
+		this.finished = localStorage.getItem(BEST_TIME_SAVE_PREFIX + SELECTABLE_STAGES[SELECTABLE_STAGES.length-1]);
 		this.backButton = new MenuButton({
 			lText : "Credits-Back",
 			func : ()=>switchScreen(new MainMenu()),
@@ -36,9 +33,15 @@ class CreditsScreen extends MenuScreen {
 			...this.creditsMusic,
 			this.speechButton,
 		]
-		this.connectVert(this.backButton, this.creditMe, ...this.creditsMusic, this.speechButton);
+		if (this.finished)
+			this.connectVert(this.backButton, this.creditMe, ...this.creditsMusic, this.speechButton);
+		else
+			this.connectVert(this.backButton, this.creditMe, ...this.creditsMusic);
 		this.dialogHandler = new DialogHandler();
 		this.hover(this.backButton);
+		if (args.speech) {
+			this.startSpeech();
+		}
 	}
 	resize() {
 		this.backButton.resize(mainCanvas.width - 100, 0, 100, 40);

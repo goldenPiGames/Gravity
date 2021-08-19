@@ -42,7 +42,7 @@ class EmptyHUD {
 }
 
 function formatTime(tim) {
-	if (typeof tim != "number" && !parseInt(tim))
+	if (typeof tim != "number" && !parseInt(tim) || tim != tim)
 		return tim;
 	return Math.floor(tim/FPS).toString().padStart(2, "0") + ";" + (tim%FPS).toString().padStart(2, "0");
 }

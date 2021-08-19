@@ -171,12 +171,11 @@ function getMusicPosition() {
 
 //dead function xd
 function toggleMute() {
-	return;
-	settings.muted = !settings.muted;
+	/*settings.muted = !settings.muted;
 	saveSettings();
 	if (settings.muted)
 		music.pause();
-	return settings.muted;
+	return settings.muted;*/
 }
 
 function setMusicPosition(tim) {

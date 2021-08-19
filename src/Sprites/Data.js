@@ -292,6 +292,21 @@ const SPRITE_DATA = {
 		frame3Touch : {x:160, y:240, width:80, height:80},
 		_frameDelays : [25, 10, 15, 10],
 	},
+	"UgosignControlCameraToggleRotate" : {
+		frame0Keyboard : {x:0, y:0, width:50, height:70},
+		frame1Keyboard : {x:0, y:210, width:50, height:70},
+		frame2Keyboard : {x:0, y:140, width:50, height:70},
+		frame3Keyboard : {x:0, y:70, width:50, height:70},
+		frame0Gamepad : {x:50, y:0, width:50, height:70},
+		frame1Gamepad : {x:50, y:70, width:50, height:70},
+		frame2Gamepad : {x:50, y:140, width:50, height:70},
+		frame3Gamepad : {x:50, y:210, width:50, height:70},
+		/*frame0Touch : {x:160, y:0, width:80, height:80},
+		frame1Touch : {x:160, y:80, width:80, height:80},
+		frame2Touch : {x:160, y:160, width:80, height:80},
+		frame3Touch : {x:160, y:240, width:80, height:80},*///TODO add camera rotate on touch
+		_frameDelays : [30, 10, 30, 10],
+	},
 	"Meteor" : {
 		falling0 : {x:0, y:0, width:20, height:20},
 	},

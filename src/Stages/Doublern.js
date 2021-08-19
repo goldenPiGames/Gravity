@@ -1,5 +1,5 @@
 const STAGE_DATA_DOUBLERN = {
-	"timePar":780,
+	"timePar":750,
 	"background":{
 		"background":"BlueSky",
 	},
@@ -166,6 +166,21 @@ const STAGE_DATA_DOUBLERN = {
 					"solid":true
 				}
 			]
+		},
+		{
+			"object":"UgosignControl",
+			"sprites":"UgosignControlCameraToggleRotate",
+			"midX":520,
+			"midY":300,
+			"scale":2,
+		},
+		{
+			"object":"UgosignControl",
+			"sprites":"UgosignControlCameraToggleRotate",
+			"midX":520,
+			"midY":740,
+			"scale":2,
+			"rotation":"upside-down",
 		},
 		{
 			"object":"Player",

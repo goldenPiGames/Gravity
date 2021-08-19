@@ -99,7 +99,7 @@ const STAGE_DATA_WALKLERN = {
 		{
 			"object":"Player",
 			"midX":84,
-			"midY":274
+			"midY":270
 		}
 	]
 }
