@@ -92,12 +92,6 @@ const CONTROLS_INFO = {
 		mutualExclusion : ["left", "right", "up", "attack", "shoot", "special", "pause", "restart"],
 		touchColor : "#808080",
 	},
-	gear : {
-		defaultKeyboardFull : ["ShiftLeft", "ShiftRight"],
-		defaultGamepad : [13],
-		mutualExclusion : ["left", "right", "up", "attack", "pause", "restart"],
-		touchColor : "#808080",
-	},
 	jump : {
 		defaultKeyboardFull : ["KeyZ", "Space", "NumpadAdd", "Numpad0"],
 		defaultGamepad : [0],
@@ -138,12 +132,12 @@ const CONTROLS_INFO = {
 	},
 	cameraZoomIn : {
 		defaultKeyboardFull : ["Equal"],
-		defaultGamepad : [],
+		defaultGamepad : [7],
 		touchColor : "A0A0A0",
 	},
 	cameraZoomOut : {
 		defaultKeyboardFull : ["Minus"],
-		defaultGamepad : [],
+		defaultGamepad : [6],
 		touchColor : "606060",
 	},
 	cameraToggleRotate : {

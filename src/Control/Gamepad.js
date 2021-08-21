@@ -18,7 +18,7 @@ class GamepadController extends Controller {
 		COMMAND_LIST.forEach(com => {
 			//console.log(com)
 			this[com+"Last"] = this[com];
-			this[com] = (CONTROLS_INFO[com].defaultGamepad.findIndex(b=>gamepad.buttons[b].pressed)>=0) ? this[com]+1 : 0;
+			this[com] = (CONTROLS_INFO[com].defaultGamepad.findIndex(b=>gamepad.buttons[b].pressed>=.4)>=0) ? this[com]+1 : 0;
 			//this[com] = (this.binds[com] >= 0 && gamepad.buttons[this.binds[com]].pressed) || (this.stickbinds[com] && this.stickbinds[com](gamepad));
 			this[com+"Clicked"] = this[com] && !this[com+"Last"];
 		});
