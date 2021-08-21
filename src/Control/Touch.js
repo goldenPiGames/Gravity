@@ -1,5 +1,6 @@
 const CONTROL_SHOW_GAME = "gamer time sunglasses emoji";
 const CONTROL_SHOW_MENU = "hyello waiter";
+const CONTROL_TOUCH_OPACITY = 0.5;
 
 
 var touch = {
@@ -51,9 +52,10 @@ class TouchController extends Controller {
 		this.cancelButton = new TouchControllerButtonDiamond("cancel");
 		this.menuAltButton = new TouchControllerButtonDiamond("menuAlt");
 		this.cameraStick = new TouchControllerStickCamera();
+		this.cameraToggleRotateButton = new TouchControllerButton("cameraToggleRotate");
 		this.cameraZoomInButton = new TouchControllerButton("cameraZoomIn");
 		this.cameraZoomOutButton = new TouchControllerButton("cameraZoomOut");
-		this.muteButton = new TouchControllerButton("mute");
+		//this.muteButton = new TouchControllerButton("mute");
 		/*this.cameraLeftButton = new TouchControllerButton("cameraLeft");
 		this.cameraRightButton = new TouchControllerButton("cameraRight");
 		this.cameraUpButton = new TouchControllerButton("cameraUp");
@@ -73,10 +75,11 @@ class TouchController extends Controller {
 			this.selectButton,
 			this.cancelButton,
 			this.menuAltButton,
-			this.muteButton,
+			//this.muteButton,
 		];
 		this.buttonsCamera = [
 			this.cameraStick,
+			this.cameraToggleRotateButton,
 			this.cameraZoomInButton,
 			this.cameraZoomOutButton,
 			/*this.cameraLeftButton,
@@ -102,14 +105,15 @@ class TouchController extends Controller {
 		this.selectButton.resize(bright - scald*2, bbot - scald, scald);
 		this.cancelButton.resize(bright - scald, bbot - scald*2, scald);
 		this.menuAltButton.resize(bright - scald*3, bbot - scald*2, scald);
-		this.cameraStick.resize(bright - scald*5/2, bbot - scald*5, scald*5/4);
+		//this.cameraStick.resize(bright - scald*6/2, bbot - scald*5, scald*4/4);//TODO put this back in when there are camera controls
+		this.cameraToggleRotateButton.resize(bright - scald, bbot - scald*(9/2+1/8), scald*9/16);
 		this.cameraZoomInButton.resize(bright - scald/2, bbot - scald*11/2, scald/2);
-		this.cameraZoomOutButton.resize(bright - scald/2, bbot - scald*9/2, scald/2);
+		this.cameraZoomOutButton.resize(bright - scald*3/2, bbot - scald*11/2, scald/2);
 		/*this.cameraLeftButton.resize(bright - scald*3, bbot-scald*5, scald*2/3);
 		this.cameraRightButton.resize(bright - scald, bbot-scald*5, scald*2/3);
 		this.cameraUpButton.resize(bright - scald*2, bbot-scald*6, scald*2/3);
 		this.cameraDownButton.resize(bright - scald*2, bbot-scald*4, scald*2/3);*/
-		this.muteButton.resize(bright - scald/2, scald/2, scald/2);
+		//this.muteButton.resize(bright - scald/2, scald/2, scald/2);
 	}
 	updateBefore() {
 		if (justResized)
@@ -126,6 +130,7 @@ class TouchController extends Controller {
 		
 	}
 	draw() {
+		mainCtx.globalAlpha = CONTROL_TOUCH_OPACITY;
 		if (runnee.controlShow == CONTROL_SHOW_GAME) {
 			this.buttonsGame.forEach(b=>b.draw());
 		} else if (runnee.controlShow == CONTROL_SHOW_MENU && !settings.directTouch) {
@@ -134,9 +139,13 @@ class TouchController extends Controller {
 		if (runnee.controlShowCamera) {
 			this.buttonsCamera.forEach(b=>b.draw());
 		}
+		mainCtx.globalAlpha = 1;
 	}
 	getBindText(command) {
 		return "[" + KEY_NAMES[this.binds[command]] + "]";
+	}
+	getHoriz(offset) {
+		return this.moveStick.getHoriz(this, offset);
 	}
 }
 TouchController.prototype.type = "Touch";
@@ -195,6 +204,26 @@ class TouchControllerButton {
 				mainCtx.lineTo(this.x, this.y - this.r/3);
 				mainCtx.closePath();
 				break;
+			case "pause":
+				mainCtx.moveTo(this.x - this.r/3, this.y - this.r/2);
+				mainCtx.lineTo(this.x - this.r/3, this.y + this.r/2);
+				mainCtx.moveTo(this.x + this.r/3, this.y - this.r/2);
+				mainCtx.lineTo(this.x + this.r/3, this.y + this.r/2);
+				break;
+			case "cameraZoomIn":
+				mainCtx.moveTo(this.x - this.r/2, this.y);
+				mainCtx.lineTo(this.x + this.r/2, this.y);
+				mainCtx.moveTo(this.x, this.y - this.r/2);
+				mainCtx.lineTo(this.x, this.y + this.r/2);
+				break;
+			case "cameraZoomOut":
+				mainCtx.moveTo(this.x - this.r/2, this.y);
+				mainCtx.lineTo(this.x + this.r/2, this.y);
+				break;
+			case "cameraToggleRotate":
+				mainCtx.arc(this.x, this.y, this.r/2, Math.PI*1/3, -Math.PI*1/3, true);
+				mainCtx.arc(this.x, this.y, this.r/2, Math.PI*2/3, -Math.PI*2/3);
+				break;
 		}
 		mainCtx.stroke();
 	}
@@ -233,6 +262,11 @@ class TouchControllerStick {
 	}
 	draw() {
 		this.parts.forEach(p=>p.draw(this));
+	}
+	getHoriz(par, offset) {
+		this.rotation = offset;
+		this.parts.forEach(p=>p.update(par, this));
+		return 0 + !!par.right - !!par.left;
 	}
 }
 
@@ -282,6 +316,7 @@ class TouchControllerStickPart extends TouchControllerButton {
 		return super.intersects(x, y) && new VectorRect(x-this.x, y-this.y).rotate(-this.rotation).y < -this.r * this.inner;
 	}
 	update(par, stick) {
+		this.rotation = stick.rotation + this.rotatO;
 		super.update(par);
 	}
 	draw(stick) {
@@ -289,7 +324,7 @@ class TouchControllerStickPart extends TouchControllerButton {
 		mainCtx.strokeStyle = this.color;
 		mainCtx.lineWidth = 4;
 		mainCtx.beginPath();
-		mainCtx.arc(this.x, this.y, this.r-2, this.dCCW - this.rotation, this.dCW - this.rotation);
+		mainCtx.arc(this.x, this.y, this.r-2, this.dCCW + this.rotation, this.dCW + this.rotation);
 		mainCtx.closePath();
 		mainCtx.stroke();
 		//super.draw();//TODO change it

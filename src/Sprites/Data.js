@@ -256,6 +256,12 @@ const SPRITE_DATA = {
 		walking7 : {x:0, y:0, width:20, height:20},
 		jumping0 : {x:20, y:0, width:20, height:20},
 	},
+	"GoalpostFlag" : {
+		postTop : {x:0, y:0, width:4, height:10},
+		postMid : {x:0, y:10, width:4, height:20},
+		postBase : {x:0, y:12, width:4, height:20},
+		flag0 : {x:4, y:0, width:20, height:17},
+	},
 	"UgosignControlWalk" : {
 		frame0Keyboard : {x:0, y:0, width:80, height:60},
 		frame1Keyboard : {x:0, y:60, width:80, height:60},
@@ -301,10 +307,10 @@ const SPRITE_DATA = {
 		frame1Gamepad : {x:50, y:70, width:50, height:70},
 		frame2Gamepad : {x:50, y:140, width:50, height:70},
 		frame3Gamepad : {x:50, y:210, width:50, height:70},
-		/*frame0Touch : {x:160, y:0, width:80, height:80},
-		frame1Touch : {x:160, y:80, width:80, height:80},
-		frame2Touch : {x:160, y:160, width:80, height:80},
-		frame3Touch : {x:160, y:240, width:80, height:80},*///TODO add camera rotate on touch
+		frame0Touch : {x:100, y:0, width:50, height:70},
+		frame1Touch : {x:100, y:210, width:50, height:70},
+		frame2Touch : {x:100, y:140, width:50, height:70},
+		frame3Touch : {x:100, y:70, width:50, height:70},
 		_frameDelays : [30, 10, 30, 10],
 	},
 	"Meteor" : {

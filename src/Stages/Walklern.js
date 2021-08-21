@@ -93,7 +93,7 @@ const STAGE_DATA_WALKLERN = {
 			"object":"Goalpost",
 			"x":360,
 			"y":280,
-			"r":120,
+			"r":100,
 			"rotation":0
 		},
 		{

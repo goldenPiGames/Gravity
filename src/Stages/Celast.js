@@ -192,7 +192,8 @@ const STAGE_DATA_CELAST = {
 			"x":1110,
 			"y":120,
 			"r":120,
-			"rotation":0
+			"rotation":0,
+			"skin":"Flag"
 		},
 		{
 			"object":"Player",

@@ -14,7 +14,7 @@ class BasicHUD {
 		this.dialogHandler.draw();
 		this.sprites1.drawOnMain(this.engine.playing ? "timerPlaying" : "timerPaused", {x:0, y:0, xadj:0, yadj:0, scale:2});
 		drawTextInRect(formatTime(this.engine.stage.time), 85, 10, 300, 60, {align:"left", stroke:"#000000", fill:"#FFFFFF"});
-		if (song && settings/music)
+		if (song && settings.music)
 			drawTextInRect("♫ " + song.fullname, mainCanvas.width-300, mainCanvas.height-30, 300, 30, {align:"right", stroke:"#000000", fill:"#FFFFFF"});
 		this.sprites1.drawOnMain(this.engine.camera.rotateWithFocus ? "cameraRotate" : "cameraFixed", {x:mainCanvas.width, y:0, xadj:1, yadj:0, scale:2});
 	}

@@ -6,7 +6,25 @@ function isStageBeaten(id) {
 			return true;
 		id = SELECTABLE_STAGES[id];
 	}
-	return localStorage.getItem(BEST_TIME_SAVE_PREFIX+id);
+	let tim = parseInt(localStorage.getItem(BEST_TIME_SAVE_PREFIX+id));
+	if (!tim)
+		return false;
+	let par = STAGE_REGISTRY[id].timePar;
+	if (tim <= par)
+		return 2;
+	else
+		return 1;
+}
+
+function getCompletionDegree() {
+	let grest = 2;
+	for (var i = 0; i < SELECTABLE_STAGES.length; i++) {
+		let got = isStageBeaten(i);
+		if (!got)
+			return false;
+		grest = Math.min(grest, got);
+	}
+	return grest;
 }
 
 function finishStageNormally(eng) {
@@ -37,7 +55,7 @@ class StageEndScreenBase extends MenuScreen {
 		drawTextInRect(lg("StageEnd-ParTime"), 0, this.timesBaseline+100, mainCanvas.width/2, 50, {align:"right", fill:"#FFFFFF", stroke:"#000000"});
 		drawTextInRect(formatTime(this.parTime) || "-", mainCanvas.width/2, this.timesBaseline+100, mainCanvas.width/2, 50, {align:"left", fill:"#FFFFFF", stroke:"#000000"});
 		if (this.newBestTime) {
-			if (this.time <= this.parTime && !(this.prevBestTime <= this.parTime))
+			if (this.justBeatPar)
 				drawTextInRect(lg("StageEnd-BeatParTime"), 0, this.timesBaseline+160, mainCanvas.width, 50, {fill:"#FF0000", stroke:"#000000"});
 			else
 				drawTextInRect(lg("StageEnd-NewBestTime"), 0, this.timesBaseline+160, mainCanvas.width, 50, {fill:"#00FF00", stroke:"#000000"});
@@ -48,11 +66,12 @@ class StageEndScreenBase extends MenuScreen {
 		const storageKey = BEST_TIME_SAVE_PREFIX+this.stageID;
 		this.prevBestTime = parseInt(localStorage.getItem(storageKey));
 		this.parTime = STAGE_REGISTRY[this.stageID].timePar;
-		this.justBeatPar
+		this.justBeatPar = this.time <= this.parTime && !(this.prevBestTime <= this.parTime);
 		if (!(this.time >= this.prevBestTime)) {
 			localStorage.setItem(storageKey, this.time);
 			this.newBestTime = true;
 		}
+		postStageTime(this.stageID, this.time);
 	}
 }
 

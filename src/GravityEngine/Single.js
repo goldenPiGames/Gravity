@@ -85,6 +85,7 @@ class SingleStageEngine extends StageEngine {
 	}
 }
 SingleStageEngine.prototype.controlShow = CONTROL_SHOW_GAME;
+SingleStageEngine.prototype.controlShowCamera = true;
 
 class AttractModeStageEngine extends StageEngine {
 	constructor(args) {

@@ -1,7 +1,6 @@
 var doneControllerStartup = false;
 
 function nextStartup() {
-	console.log(navigator.userAgent.indexOf("Firefox"))
 	playMusic(MAIN_MENU_MUSIC);
 	if (!doneControllerStartup)
 		switchScreen(new ControllerStartupScreen());

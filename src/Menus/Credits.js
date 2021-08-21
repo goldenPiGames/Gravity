@@ -10,7 +10,7 @@ const MY_SITES = [
 class CreditsScreen extends MenuScreen {
 	constructor(args = {}) {
 		super();
-		this.finished = localStorage.getItem(BEST_TIME_SAVE_PREFIX + SELECTABLE_STAGES[SELECTABLE_STAGES.length-1]);
+		this.finished = getCompletionDegree();
 		this.backButton = new MenuButton({
 			lText : "Credits-Back",
 			func : ()=>switchScreen(new MainMenu()),
@@ -72,7 +72,7 @@ class CreditsScreen extends MenuScreen {
 			{speakerID:"me", lText:"Credits-Speech-05ThankYou", duration:150},
 			{speakerID:"me", lText:"Credits-Speech-06ISpent", duration:150},
 			{speakerID:"me", lText:"Credits-Speech-07Worth", duration:150},
-			this.finishedPar ? {speakerID:"me", lText:"Credits-Speech-08DoPar", duration:150} : {speakerID:"me", lText:"Credits-Speech-08DidPar", duration:150},
+			this.finished >= 2 ? {speakerID:"me", lText:"Credits-Speech-08DoPar", duration:150} : {speakerID:"me", lText:"Credits-Speech-08DidPar", duration:150},
 			{speakerID:"me", lText:"Credits-Speech-09MoveOn", duration:150},
 			{speakerID:"me", lText:"Credits-Speech-10LastLegacy", duration:150},
 			{speakerID:"me", lText:"Credits-Speech-11LastLegacyGush", duration:150},
