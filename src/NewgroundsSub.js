@@ -4,7 +4,6 @@
 var ngScoreboards, ngMedals;
 
 
-
 /* handle loaded medals */
 function onMedalsLoaded(result) {
 	if (result.success)
@@ -31,7 +30,7 @@ function onMedalUnlocked(meds) {
 //from Carson on the server
 function postScore(board_name, score_value) {
 	/* If there is no user attached to our ngio object, it means the user isn't logged in and we can't post anything */
-	if (!ngio.user)
+	if (!ngio || !ngio.user)
 		return;
 	var score;
 	for (var i = 0; i < ngScoreboards.length; i++) {
@@ -50,7 +49,7 @@ function postScore(board_name, score_value) {
 function unlockMedal(medal_name) {
 
 	/* If there is no user attached to our ngio object, it means the user isn't logged in and we can't unlock anything */
-	if (!ngio.user)
+	if (!ngio || !ngio.user)
 		return;
 
 	var medal;
