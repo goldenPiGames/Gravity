@@ -1,6 +1,8 @@
 //https://bitbucket.org/newgrounds/newgrounds.io-for-javascript-html5/src/master/
 
 //var ngio = new Newgrounds.io.core(app_id, aes_encryption_key);
+var hasNGIO = !!window.ngio;
+
 var ngScoreboards, ngMedals;
 
 
@@ -16,9 +18,11 @@ function onScoreboardsLoaded(result) {
 		ngScoreboards = result.scoreboards;
 }
 
-ngio.queueComponent("Medal.getList", {}, onMedalsLoaded);
-ngio.queueComponent("ScoreBoard.getBoards", {}, onScoreboardsLoaded);
-ngio.executeQueue();
+if (hasNGIO) {
+	ngio.queueComponent("Medal.getList", {}, onMedalsLoaded);
+	ngio.queueComponent("ScoreBoard.getBoards", {}, onScoreboardsLoaded);
+	ngio.executeQueue();
+}
 
 function onScorePosted(scor, val) {
 	console.log("Score updated: " + score);
@@ -30,7 +34,7 @@ function onMedalUnlocked(meds) {
 //from Carson on the server
 function postScore(board_name, score_value) {
 	/* If there is no user attached to our ngio object, it means the user isn't logged in and we can't post anything */
-	if (!ngio || !ngio.user)
+	if (!hasNGIO || !ngio.user)
 		return;
 	var score;
 	for (var i = 0; i < ngScoreboards.length; i++) {
@@ -49,7 +53,7 @@ function postScore(board_name, score_value) {
 function unlockMedal(medal_name) {
 
 	/* If there is no user attached to our ngio object, it means the user isn't logged in and we can't unlock anything */
-	if (!ngio || !ngio.user)
+	if (!hasNGIO || !ngio.user)
 		return;
 
 	var medal;
