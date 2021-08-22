@@ -56,12 +56,12 @@ class GamepadController extends Controller {
 GamepadController.prototype.type = "Gamepad";
 GamepadController.prototype.stickbinds = {};
 GamepadController.prototype.stickbindNames = {};
-COMMAND_LIST.forEach(com => {
+/*COMMAND_LIST.forEach(com => {
 	if (CONTROLS_INFO[com].defaultStickFunc) {
 		GamepadController.prototype.stickbinds[com] = CONTROLS_INFO[com].defaultStickFunc;
 		GamepadController.prototype.stickbindNames[com] = CONTROLS_INFO[com].defaultStickText;
 	}
-});
+});*/
 
 function getGamepad(gpindex) {
 	return navigator.getGamepads()[gpindex];

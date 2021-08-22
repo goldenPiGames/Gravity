@@ -21,8 +21,11 @@ ngio.queueComponent("Medal.getList", {}, onMedalsLoaded);
 ngio.queueComponent("ScoreBoard.getBoards", {}, onScoreboardsLoaded);
 ngio.executeQueue();
 
+function onScorePosted(scor, val) {
+	console.log("Score updated: " + score);
+}
 function onMedalUnlocked(meds) {
-	console.log(meds);
+	console.log("Medal unlocked: " + meds);
 }
 
 //from Carson on the server
@@ -35,8 +38,9 @@ function postScore(board_name, score_value) {
 		scoreboard = ngScoreboards[i];
 		if (scoreboard.name == board_name) {
 			ngio.callComponent('ScoreBoard.postScore', {id:scoreboard.id, value:score_value}, function(result) {
-				if (result.success)
-					console.log("Score updated on " + board_name);
+				if (result.success) {
+					oneScorePosted(board_name, score_value);
+				}
 			});
 		}
 	}
