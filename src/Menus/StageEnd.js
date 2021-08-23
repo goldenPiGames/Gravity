@@ -28,7 +28,7 @@ function getCompletionDegree() {
 }
 
 function finishStageNormally(eng) {
-	var skrrrrrrra = new (isTimeToDoEnding() ? StageEndScreenEnding : StageEndScreenNormal)(eng);
+	var skrrrrrrra = new (isTimeToDoEnding(eng.stageID) ? StageEndScreenEnding : StageEndScreenNormal)(eng);
 	skrrrrrrra.saveBestTime();
 	switchScreen(skrrrrrrra);
 }

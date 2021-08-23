@@ -8,8 +8,8 @@ function nextStartup() {
 		switchScreen(new LangSelectMenu());
 	else if (navigator.userAgent.indexOf("Firefox") >= 0 && !settings.ignoreBrowserWarning)
 		switchScreen(new FirefoxWarningStartup())
-	else if (!settings.initialSettingsDone)
-		switchScreen(new SettingsMenu());
+	//else if (!settings.initialSettingsDone)//not doing this i guess
+		//switchScreen(new SettingsMenu());
 	else {
 		switchScreen(new MainMenu());
 	}

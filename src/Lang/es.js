@@ -46,6 +46,8 @@ LANG.es = {
 	"StageEnd-Time" : "Tiempo: ",
 	"StageEnd-PrevBestTime" : "Record Ant.: ",
 	"StageEnd-NewBestTime" : "¡Nuevo Record!",
+	"StageEnd-BeatParTime" : "¡Ganado Par!",
+	"StageEnd-BeatGame" : "¡Ganado Juego!",
 	"StageEnd-StageSelect" : "Regresar",
 	"StageEnd-Restart" : "Reanudar",
 	"StageEnd-Next" : "Próximo",
